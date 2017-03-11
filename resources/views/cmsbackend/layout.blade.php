@@ -65,7 +65,7 @@
                         @if(!$current_user_attempt_error->isEmpty())
                         <li class="user-lastfail hidden-sm hidden-xs">
                             <p>
-                                {{ __('Ostatnia błędna próba zalogowania') }}: <strong>{{ $current_user_attempt_error->first()->created_at }}</strong>
+                                {{ __('Ostatnia nieudana próba zalogowania') }}: <strong>{{ $current_user_attempt_error->first()->created_at }}</strong>
                             </p>
                         </li>
                         @endif
