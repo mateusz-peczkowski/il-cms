@@ -7,7 +7,7 @@ class CreatePageModulesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('page_modules', function(Blueprint $table) {
+		Schema::create('con_page_modules', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned();
 			$table->integer('module_id')->unsigned();
@@ -17,6 +17,6 @@ class CreatePageModulesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('page_modules');
+		Schema::drop('con_page_modules');
 	}
 }

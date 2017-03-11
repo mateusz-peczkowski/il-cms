@@ -7,7 +7,7 @@ class CreateRecordSectionTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('record_section', function(Blueprint $table) {
+		Schema::create('con_record_section', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('record_id')->unsigned();
 			$table->integer('section_id')->unsigned();
@@ -17,6 +17,6 @@ class CreateRecordSectionTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('record_section');
+		Schema::drop('con_record_section');
 	}
 }

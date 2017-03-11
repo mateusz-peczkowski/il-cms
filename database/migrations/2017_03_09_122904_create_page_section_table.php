@@ -7,7 +7,7 @@ class CreatePageSectionTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('page_section', function(Blueprint $table) {
+		Schema::create('con_page_section', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned();
 			$table->integer('section_id')->unsigned();
@@ -19,6 +19,6 @@ class CreatePageSectionTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('page_section');
+		Schema::drop('con_page_section');
 	}
 }

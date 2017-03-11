@@ -7,7 +7,7 @@ class CreateRecordMediaTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('record_media', function(Blueprint $table) {
+		Schema::create('con_record_media', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('record_id')->unsigned();
 			$table->integer('media_id')->unsigned();
@@ -17,6 +17,6 @@ class CreateRecordMediaTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('record_media');
+		Schema::drop('con_record_media');
 	}
 }

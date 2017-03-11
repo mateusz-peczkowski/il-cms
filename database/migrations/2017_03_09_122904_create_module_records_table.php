@@ -7,7 +7,7 @@ class CreateModuleRecordsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('module_records', function(Blueprint $table) {
+		Schema::create('con_module_records', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('module_id')->unsigned();
 			$table->string('title', 255);
@@ -20,6 +20,6 @@ class CreateModuleRecordsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('module_records');
+		Schema::drop('con_module_records');
 	}
 }

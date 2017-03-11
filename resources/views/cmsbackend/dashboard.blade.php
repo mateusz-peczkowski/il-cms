@@ -1,1 +1,4 @@
-{{ config('app.namesystem') }}
+@extends('cmsbackend.layout')
+
+@section('content')
+@endsection

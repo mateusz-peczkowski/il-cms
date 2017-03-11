@@ -7,7 +7,7 @@ class CreatePageMediaTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('page_media', function(Blueprint $table) {
+		Schema::create('con_page_media', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned();
 			$table->integer('media_id')->unsigned();
@@ -18,6 +18,6 @@ class CreatePageMediaTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('page_media');
+		Schema::drop('con_page_media');
 	}
 }

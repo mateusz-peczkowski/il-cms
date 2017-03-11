@@ -7,7 +7,7 @@ class CreateRecordOptionTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('record_option', function(Blueprint $table) {
+		Schema::create('con_record_option', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('record_id')->unsigned();
 			$table->integer('option_id')->unsigned();
@@ -17,6 +17,6 @@ class CreateRecordOptionTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('record_option');
+		Schema::drop('con_record_option');
 	}
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\StoreModule;
+use App\Repositories\Contracts\LoginAttemptsRepositoryInterface as LoginAttemptsRepositoryInterface;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -32,15 +35,35 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LoginAttemptsRepositoryInterface $loginAttempts)
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->loginAttempts = $loginAttempts;
+    }
+
+    /**
+     * Store a login attempts in storage.
+     *
+     * @param  \App\Http\Requests\StoreLoginAttempts  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function attemptLogin($request)
+    {
+        if ($this->guard()->attempt($this->credentials($request), $request->has('remember'))) {
+            $status = 'success';
+        } else {
+            $status = 'error';
+        }
+        $this->loginAttempts->create([
+            'user_email' => $request->email,
+            'status' => $status,
+            'login_ip' => $request->ip(),
+        ]);
+        return $status == 'success' ? true : false;
     }
 
     protected function credentials($request)
     {
-
         return array_merge($request->only($this->username(), 'password'), ['status' => 1]);
-
     }
 }

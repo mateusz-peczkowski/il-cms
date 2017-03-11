@@ -7,7 +7,7 @@ class CreateFormSubmitTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('form_submit', function(Blueprint $table) {
+		Schema::create('con_form_submit', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('submit_id')->unsigned();
@@ -17,6 +17,6 @@ class CreateFormSubmitTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('form_submit');
+		Schema::drop('con_form_submit');
 	}
 }

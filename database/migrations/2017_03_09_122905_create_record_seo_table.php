@@ -7,7 +7,7 @@ class CreateRecordSeoTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('record_seo', function(Blueprint $table) {
+		Schema::create('con_record_seo', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('record_id')->unsigned();
 			$table->integer('seo_id')->unsigned();
@@ -17,6 +17,6 @@ class CreateRecordSeoTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('record_seo');
+		Schema::drop('con_record_seo');
 	}
 }

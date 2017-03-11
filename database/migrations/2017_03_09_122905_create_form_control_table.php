@@ -7,7 +7,7 @@ class CreateFormControlTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('form_control', function(Blueprint $table) {
+		Schema::create('con_form_control', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('control_id')->unsigned();
@@ -19,6 +19,6 @@ class CreateFormControlTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('form_control');
+		Schema::drop('con_form_control');
 	}
 }

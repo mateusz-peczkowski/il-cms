@@ -12,8 +12,9 @@ class CreateUsersTable extends Migration {
 			$table->string('name', 255);
 			$table->string('email', 255);
 			$table->string('password');
-			$table->enum('status', array('1', '2', '3'));
+            $table->string('image')->nullable();
 			$table->integer('role')->unsigned();
+			$table->enum('status', array('1', '2', '3'));
 			$table->rememberToken('rememberToken');
 			$table->timestamps();
 		});

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\cmsbackend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class DashboardController extends BackendController
 {
     public function __construct()
     {
+        parent::__construct();
+        $this->pageTitle = __('Pulpit nawigacyjny');
     }
 
     /**
@@ -18,6 +20,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('cmsbackend/dashboard');
+        return view('cmsbackend/dashboard')->with([
+            'breadcrumbs' => $this->breadcrumbs,
+            'pageTitle' => $this->pageTitle
+        ]);
     }
 }

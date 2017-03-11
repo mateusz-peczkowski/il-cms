@@ -7,7 +7,7 @@ class CreatePageOptionTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('page_option', function(Blueprint $table) {
+		Schema::create('con_page_option', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned();
 			$table->integer('option_id')->unsigned();
@@ -19,6 +19,6 @@ class CreatePageOptionTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('page_option');
+		Schema::drop('con_page_option');
 	}
 }

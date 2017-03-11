@@ -7,7 +7,7 @@ class CreatePageSeoTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('page_seo', function(Blueprint $table) {
+		Schema::create('con_page_seo', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned();
 			$table->integer('seo_id')->unsigned();
@@ -17,6 +17,6 @@ class CreatePageSeoTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('page_seo');
+		Schema::drop('con_page_seo');
 	}
 }
