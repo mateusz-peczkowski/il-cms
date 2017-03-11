@@ -22,5 +22,4 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Admin panel Routes
 Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => 'cmsbackend'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
-    Route::get('/profile', 'UserController@show')->name('profile');
 });

@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\StoreModule;
 use App\Repositories\Contracts\LoginAttemptsRepositoryInterface as LoginAttemptsRepositoryInterface;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\cmsbackend\BackendController as BackendController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
+class LoginController extends BackendController
 {
     /*
     |--------------------------------------------------------------------------

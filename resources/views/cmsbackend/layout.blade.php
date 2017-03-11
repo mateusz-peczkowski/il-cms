@@ -84,12 +84,7 @@
                                     </p>
                                 </li>
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="{{ route('profile') }}" class="btn btn-default btn-flat">{{ __('Profil') }}</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat" data-ajax-send="{{ route('logout') }}" data-ajax-redirect="{{ route('login') }}" data-ajax-token="{{ csrf_token() }}">{{ __('Wyloguj się') }}</a>
-                                    </div>
+                                    <a href="#" class="btn btn-danger btn-block" data-ajax-send="{{ route('logout') }}" data-ajax-redirect="{{ route('login') }}" data-ajax-token="{{ csrf_token() }}">{{ __('Wyloguj się') }}</a>
                                 </li>
                             </ul>
                         </li>
