@@ -1,0 +1,4 @@
+{
+  "validation.required" : "Pole wymagane",
+  "auth.failed" : "Autoryzacja konta niepoprawna"
+}

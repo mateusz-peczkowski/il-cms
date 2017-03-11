@@ -1,1 +1,1 @@
-dashboard
+{{ config('app.namesystem') }}

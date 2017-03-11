@@ -12,37 +12,33 @@
     <link rel="stylesheet" href="/backend/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/backend/css/skin-blue-light.min.css">
 
+    <link rel="stylesheet" href="/backend/plugins/iCheck/square/blue.css">
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        .error-page {
-            margin-top: 150px;
-        }
-        .error-page .headline {
-            margin-top: -5px;
-        }
-        .error-page .btn {
-            margin-top: 15px;
-        }
-    </style>
 </head>
-<body class="hold-transition skin-blue-light sidebar-mini">
-<div class="wrapper">
-    <section class="content">
-        <div class="error-page">
-            <h2 class="headline text-red"> {{ $exception }}</h2>
-
-            <div class="error-content">
-                <h3>{{ __('Wystąpił błąd') }}</h3>
-
-                <p>{{ __('Aby powrócić do panelu kliknij link poniżej') }}</p>
-
-                <a href="{{ route('dashboard') }}" class="btn btn-info" title="{{ __('Powrót do panelu') }}">{{ __('Powrót do panelu') }}</a>
-            </div>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            {!! config('app.namesystem') !!}
         </div>
-    </section>
-</div>
+        <div class="login-box-body">
+            @yield('content')
+        </div>
+    </div>
+<script src="/backend/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/backend/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="/backend/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
 </body>
 </html>
