@@ -148,7 +148,9 @@
                 @endif
             </section>
             @endif
-            @yield('content')
+            <section class="content">
+                @yield('content')
+            </section>
         </div>
 
         <footer class="main-footer">

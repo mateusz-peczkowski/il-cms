@@ -183,6 +183,7 @@ return [
         App\Providers\ComposerServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        Weboap\Visitor\VisitorServiceProvider::class,
 
     ],
 

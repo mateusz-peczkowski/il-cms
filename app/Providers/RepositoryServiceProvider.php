@@ -24,6 +24,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerLoginAttemptsRepository();
+        $this->registerUserRepository();
     }
 
     /*
@@ -33,6 +34,16 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\LoginAttemptsRepositoryInterface', function($app) {
             return new \App\Repositories\LoginAttempts\EloquentLoginAttemptsRepository($app);
+        });
+    }
+
+    /*
+     * Register User repository
+     */
+    protected function registerUserRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\UserRepositoryInterface', function($app) {
+            return new \App\Repositories\User\EloquentUserRepository($app);
         });
     }
 
