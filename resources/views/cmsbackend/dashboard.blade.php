@@ -38,8 +38,8 @@
         <div class="col-lg-3 col-sm-6">
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>{{ $visitors/Visitor::count()*100 }}<sup style="font-size: 20px">%</sup></h3>
-                    <p>{{ __('Procent wizyt z tego miesiąca do pozostałych') }}</p>
+                    <h3>{{ $visitors/$visitorsYear*100 }}<sup style="font-size: 20px">%</sup></h3>
+                    <p>{{ __('Procent wizyt aktualnego miesiąca w skali roku') }}</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -57,9 +57,9 @@
                     <br />
                     <p class="text-muted text-center">{{ __('Aby dodadać avatar skorzystaj z przycisku poniżej. Domyślnie do konta zaciągany jest avatar z serwisu Gravatar, jeżeli ten został uzupełniony na dokładnie taki sam adres e-mail jakim logujesz się do systemu JAMPcms2') }}</p>
                     <hr>
-                    <p class="text-center">
-                        <a href="#" class="btn btn-success">{{ __('Dodaj nowy avatar') }}</a>
-                        <a href="#" class="btn btn-info">{{ __('Zmień swoje dane') }}</a>
+                    <p class="text-center clearfix">
+                        <a href="#" class="btn btn-success pull-left">{{ __('Dodaj/zmień avatar') }}</a>
+                        <span data-toggle="modal" data-target="#userEditModal" class="btn btn-info pull-right">{{ __('Zmień swoje dane') }}</span>
                     </p>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <h3 class="box-title">{{ __('Informacje o Profilu') }}</h3>
                 </div>
                 <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina rejestracji') }}</strong>
+                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie') }}</strong>
                     <p class="text-muted">{{ $current_user->created_at }}</p>
                     <hr>
                     <strong><i class="fa fa-balance-scale margin-r-5"></i> {{ __('Poziom dostępu') }}</strong>
@@ -89,6 +89,38 @@
                     @endif
                 </div>
             </div>
+        </div>
+    </div>
+@endsection
+
+@section('modals')
+    <div class="modal fade" id="userEditModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel">
+        <div class="modal-dialog" role="document">
+            <form role="form" method="POST" action="{{ route('user.editcurrent') }}" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">{{ __('Jakie dane zmieniamy?') }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label>{{ __('Imię i nazwisko') }}</label>
+                        <input type="text" class="form-control" value="{{ $current_user->name }}" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('Adres e-mail') }} {{ __('(służy do logowania)') }}</label>
+                        <input type="text" class="form-control" value="{{ $current_user->email }}" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('Hasło') }} {{ __('(wypełnić wyłącznie w przypadku zmiany)') }}</label>
+                        <input type="password" class="form-control" value="" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger pull-left">{{ __('Wyczyść zmiany') }}</button>
+                    <button type="submit" class="btn btn-success pull-right">{{ __('Zapisz zmiany') }}</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

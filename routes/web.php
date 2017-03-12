@@ -22,4 +22,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Admin panel Routes
 Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => 'cmsbackend'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
+
+    Route::resource('users', 'UsersController', ['except' => ['show'], 'names' => ['index' => 'users']]);
+    Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
 });

@@ -112,7 +112,7 @@
                     </li>
                     <li{{ str_contains(Route::currentRouteName(), 'files') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'forms') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
                     <li class="treeview{{ str_contains(Route::currentRouteName(), 'settings') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
@@ -173,6 +173,7 @@
                 </div>
             </div>
         </div>
+        @yield('modals')
     </div>
 
     <script src="/backend/plugins/jQuery/jquery-2.2.3.min.js"></script>

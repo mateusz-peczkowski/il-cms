@@ -4,11 +4,15 @@ namespace App\Http\Controllers\cmsbackend;
 
 //use Auth;
 
-class UserController extends BackendController
+class UsersController extends BackendController
 {
     public function __construct()
     {
         parent::__construct();
     }
 
+    public function editcurrent()
+    {
+        
+    }
 }

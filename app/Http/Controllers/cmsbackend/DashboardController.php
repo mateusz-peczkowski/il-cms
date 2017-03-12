@@ -13,6 +13,7 @@ class DashboardController extends BackendController
         parent::__construct();
         $this->pageTitle = __('Pulpit nawigacyjny');
         $this->range = Visitor::range(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth());
+        $this->rangeYear = Visitor::range(Carbon::now()->year.'-01-01 00:00:00', Carbon::now()->year.'-12-31 23:59:59');
         $this->userscount = $userscount->allUsersCount();
     }
 
@@ -27,6 +28,7 @@ class DashboardController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => $this->pageTitle,
             'visitors' => $this->range,
+            'visitorsYear' => $this->rangeYear,
             'userscount' => $this->userscount
         ]);
     }
