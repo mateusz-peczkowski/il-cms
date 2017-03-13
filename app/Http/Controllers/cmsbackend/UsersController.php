@@ -6,7 +6,7 @@ use App\Http\Requests\UpdateCurrentUser;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile as file;
+use Thomaswelton\LaravelGravatar\Facades\Gravatar;
 use Auth;
 
 class UsersController extends BackendController
@@ -47,8 +47,16 @@ class UsersController extends BackendController
      */
     public function addavatar(Request $request)
     {
-        dd($request->photo->store('images'));
-        dd($request->file('photo'));
+        $obj = [];
+        if($request->photo_gravatar AND Gravatar::exists(Auth::user()->email)) {
+            $obj['image'] = Gravatar::src(Auth::user()->email, ['width' => 250, 'height' => 250]);
+        } else {
+            $newname = time().'-'.Auth::user()->id.'.'.$request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('data/user'), $newname);
+            $obj['image'] = '/data/user/'.$newname;
+        }
+        $this->user->update($obj, Auth::user()->id);
+        return redirect()->route('dashboard')->with('status', __('Twoje zdjęcie zostało dodane'));
 //        $obj = [];
 //        $obj['name'] = $request->user_name;
 //        $obj['email'] = $request->user_email;

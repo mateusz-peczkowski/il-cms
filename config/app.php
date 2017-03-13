@@ -184,6 +184,7 @@ return [
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Weboap\Visitor\VisitorServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -236,6 +237,8 @@ return [
 
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

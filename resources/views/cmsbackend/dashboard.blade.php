@@ -131,7 +131,7 @@
     </div>
     <div class="modal fade" id="userAvatarModal" tabindex="-1" role="dialog" aria-labelledby="userAvatarModalLabel">
         <div class="modal-dialog" role="document">
-            <form role="form" method="POST" action="{{ route('user.addavatar') }}" class="modal-content">
+            {{Form::open(['route' => 'user.addavatar', 'files' => true, 'method' => 'POST', 'class' => 'modal-content'])}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="exampleModalLabel">{{ __('Skąd chcesz dodać zdjęcie profilowe?') }}</h4>
@@ -149,10 +149,10 @@
                         </label>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success pull-right">{{ __('Dodaj zdjęcie') }}</button>
-                </div>
-            </form>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success pull-right">{{ __('Dodaj/zmień zdjęcie') }}</button>
+            </div>
+            {{Form::close()}}
         </div>
     </div>
 @endsection
