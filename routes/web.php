@@ -25,4 +25,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::resource('users', 'UsersController', ['except' => ['show'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
+
+    Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
 });

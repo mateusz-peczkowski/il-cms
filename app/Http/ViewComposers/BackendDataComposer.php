@@ -28,10 +28,12 @@ class BackendDataComposer
     {
         // Dependencies automatically resolved by service container...
         $this->user = Auth::user();
-        $this->current_user_attempt_success = Auth::user()->last_attmept_success;
-        $this->current_user_attempt_error = Auth::user()->last_attmept_error;
-        $this->userrole_id = $this->user->role;
-        $this->userrole = $this->user->user_role;
+        if($this->user) {
+            $this->current_user_attempt_success = $this->user->last_attmept_success;
+            $this->current_user_attempt_error = $this->user->last_attmept_error;
+            $this->userrole_id = $this->user->role;
+            $this->userrole = $this->user->user_role;
+        }
     }
 
     /**
@@ -42,6 +44,10 @@ class BackendDataComposer
      */
     public function compose(View $view)
     {
+        if(!$this->user) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
         $view->with([
             'current_user' => $this->user,
             'current_user_role' => $this->userrole,

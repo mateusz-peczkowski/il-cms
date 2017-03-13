@@ -35,3 +35,22 @@ $('[data-ajax-send]').click(function(e) {
         }
     });
 });
+
+var removeAutoHide = function() {
+    setTimeout(function() {
+        $('[data-autohide="true"]').slideUp(function() {
+            $(this).remove();
+        });
+    }, 3000);
+}
+
+
+$(function () {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    });
+    removeAutoHide();
+    console.log('%cCreated by: %cJAMPstudio.pl%c -> %chttp://jampstudio.pl','color: #444','background: #2196F3; color: #fff; padding: 4px;','color: #444','color: #009fe3');
+});

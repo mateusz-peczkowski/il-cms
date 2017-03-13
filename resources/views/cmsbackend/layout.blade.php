@@ -183,15 +183,6 @@
     <script src="/backend/plugins/iCheck/icheck.min.js"></script>
     <script src="/backend/js/app.min.js"></script>
     <script src="/backend/js/custom.js"></script>
-    <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-            console.log('%cCreated by: %cJAMPstudio.pl%c -> %chttp://jampstudio.pl','color: #444','background: #2196F3; color: #fff; padding: 4px;','color: #444','color: #009fe3');
-        });
-    </script>
+
 </body>
 </html>
