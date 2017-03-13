@@ -25,6 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->registerLoginAttemptsRepository();
         $this->registerUserRepository();
+        $this->registerRoleRepository();
     }
 
     /*
@@ -44,6 +45,16 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\UserRepositoryInterface', function($app) {
             return new \App\Repositories\User\EloquentUserRepository($app);
+        });
+    }
+
+    /*
+     * Register Role repository
+     */
+    protected function registerRoleRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\RoleRepositoryInterface', function($app) {
+            return new \App\Repositories\Role\EloquentRoleRepository($app);
         });
     }
 

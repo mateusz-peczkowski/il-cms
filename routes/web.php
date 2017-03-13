@@ -25,6 +25,13 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::resource('users', 'UsersController', ['except' => ['show'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
-
+    Route::get('users/{id}/deactivate', 'UsersController@deactivate')->name('users.deactivate');
+    Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate');
+    Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
+
+    Route::get('trash', 'TrashController@index')->name('trash');
+    Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke');
+    Route::get('trash/{module}/{id}/destroy', 'TrashController@destroy')->name('trash.destroy');
+
 });

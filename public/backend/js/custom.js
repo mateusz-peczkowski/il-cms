@@ -1,19 +1,3 @@
-var serializeObject = function(obj) {
-    var o = {};
-    var a = obj.serializeArray();
-    $.each(a, function() {
-        if (o[this.name]) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};
-
 $('[data-ajax-send]').click(function(e) {
     e.preventDefault();
     var $that = $(this);
@@ -50,6 +34,22 @@ $(function () {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
+    });
+    $('.js-data-table').each(function() {
+        $(this).DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+    $('.select2').each(function() {
+        $(this).select2();
+    });
+    $('#confirm-delete, #confirm-deactivate, #confirm-revoke, #confirm-destroy').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
     removeAutoHide();
     console.log('%cCreated by: %cJAMPstudio.pl%c -> %chttp://jampstudio.pl','color: #444','background: #2196F3; color: #fff; padding: 4px;','color: #444','color: #009fe3');

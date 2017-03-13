@@ -10,7 +10,7 @@ class CreateLanguagesTable extends Migration {
 		Schema::create('languages', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 64);
-			$table->string('slug', 10);
+			$table->string('slug', 10)->unique();
 			$table->tinyInteger('is_default')->unsigned();
 			$table->enum('status', array('1', '2', '3'));
 			$table->integer('order')->unsigned();

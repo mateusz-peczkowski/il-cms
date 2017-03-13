@@ -14,12 +14,12 @@ class UserRolesTableSeeder extends Seeder {
                 'updated_at' => Carbon::now()
             ],
             ['id' => 2,
-                'title' => 'admin',
+                'title' => 'developer',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             ['id' => 3,
-                'title' => 'developer',
+                'title' => 'admin',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

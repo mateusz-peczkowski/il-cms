@@ -23,4 +23,32 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         return $this->model->count();
     }
 
+    function paginatedUsers($paggLimit = 15)
+    {
+        return $this->model
+            ->where('status', '<', 3)
+            ->orderBy('role', 'desc')
+            ->orderBy('name', 'asc')
+            ->paginate($paggLimit);
+    }
+
+    function paginatedUsersTrash($paggLimit = 15)
+    {
+        return $this->model
+            ->where('status', '=', 3)
+            ->paginate($paggLimit);
+    }
+
+    function checkUserEmailExist($email = false)
+    {
+        $email = $this->model
+            ->where('email', '=', $email)
+            ->first();
+        if($email) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

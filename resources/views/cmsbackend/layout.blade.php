@@ -85,7 +85,7 @@
                         </ul>
                     </li>
                     <li><hr></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'trash') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'trash') ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -140,6 +140,9 @@
     <script src="/backend/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="/backend/plugins/fastclick/fastclick.min.js"></script>
     <script src="/backend/plugins/iCheck/icheck.min.js"></script>
+    <script src="/backend/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="/backend/plugins/select2/select2.full.min.js"></script>
     <script src="/backend/js/app.min.js"></script>
     <script src="/backend/js/custom.js"></script>
 

@@ -25,11 +25,14 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+<link rel="stylesheet" href="/backend/plugins/iCheck/blue.css">
+<link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="/backend/plugins/select2/select2.min.css">
+
 <link rel="stylesheet" href="/backend/css/bootstrap.min.css">
 <link rel="stylesheet" href="/backend/css/AdminLTE.min.css">
 <link rel="stylesheet" href="/backend/css/skin-blue-light.min.css">
-
-<link rel="stylesheet" href="/backend/plugins/iCheck/blue.css">
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

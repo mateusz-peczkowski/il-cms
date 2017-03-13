@@ -38,7 +38,7 @@
         <div class="col-lg-3 col-sm-6">
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>{{ $visitors/$visitorsYear*100 }}<sup style="font-size: 20px">%</sup></h3>
+                    <h3>{{ $visitors ? $visitors/$visitorsYear*100 : '100' }}<sup style="font-size: 20px">%</sup></h3>
                     <p>{{ __('Procent wizyt aktualnego miesiąca w skali roku') }}</p>
                 </div>
                 <div class="icon">
@@ -119,7 +119,7 @@
                     </div>
                     <div class="form-group">
                         <label>{{ __('Hasło') }} {{ __('(wypełnić wyłącznie w przypadku zmiany)') }}</label>
-                        <input type="password" id="password" name="user_password" class="form-control" value="{{ old('password') }}" autofocus>
+                        <input type="password" id="password" name="user_password" class="form-control" value="{{ old('user_password') }}" autofocus>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -142,12 +142,14 @@
                         <label>{{ __('Z dysku') }}</label>
                         <input type="file" id="photo" name="photo" />
                     </div>
+                    @if(Gravatar::exists($current_user->email))
                     <p>{{ __('Lub') }}</p>
                     <div class="form-group">
                         <label>
                             <input type="checkbox" id="photo_gravatar" name="photo_gravatar"> {{ __('Pobierz z Gravatara') }}
                         </label>
                     </div>
+                    @endif
                 </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success pull-right">{{ __('Dodaj/zmień zdjęcie') }}</button>
