@@ -57,18 +57,5 @@ class UsersController extends BackendController
         }
         $this->user->update($obj, Auth::user()->id);
         return redirect()->route('dashboard')->with('status', __('Twoje zdjęcie zostało dodane'));
-//        $obj = [];
-//        $obj['name'] = $request->user_name;
-//        $obj['email'] = $request->user_email;
-//        $user_email = Auth::user()->email;
-//        if($request->user_password) {
-//            $obj['password'] = Hash::make($request->user_password);
-//        }
-//        $this->user->update($obj, Auth::user()->id);
-//        if($user_email == $obj['email'] && !$request->user_password) {
-//            return redirect()->route('dashboard')->with('status', __('Twoje dane zostały zaktualizowane'));
-//        }
-//        Auth::logout();
-//        return redirect()->route('login');
     }
 }
