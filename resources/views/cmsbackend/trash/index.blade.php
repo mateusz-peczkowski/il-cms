@@ -49,7 +49,7 @@
                                         <td>{{ $user->user_role->title }}</td>
                                         @if($current_user_role_id >= 3 && $current_user_role_id >= $user->role)
                                             <td class="text-right">
-                                                <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-green" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-check"></i></a>
+                                                <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
                                                 <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endif
