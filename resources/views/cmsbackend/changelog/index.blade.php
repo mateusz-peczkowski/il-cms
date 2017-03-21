@@ -12,7 +12,7 @@
                     <li>
                         <i class="fa fa-users bg-blue"></i>
                         <div class="timeline-item">
-                            <h3 class="timeline-header">{{ __('Użytkownicy') }}</h3>
+                            <h3 class="timeline-header"><a href="{{ route('users') }}">{{ __('Użytkownicy') }}</a></h3>
                             <div class="timeline-body">
                                 <p>{{ __('Dodano obsługę użytkowników. Dodawanie, Usuwanie, nadawanie uprawnień') }}</p>
                             </div>
@@ -26,7 +26,7 @@
                     <li>
                         <i class="fa fa-trash bg-red"></i>
                         <div class="timeline-item">
-                            <h3 class="timeline-header">{{ __('Usunięte elementy') }}</h3>
+                            <h3 class="timeline-header"><a href="{{ route('trash') }}">{{ __('Usunięte elementy') }}</a></h3>
                             <div class="timeline-body">
                                 <p>{{ __('Dodano obsługę kosza oraz przywracania z niego elementów lub usuwania na stałe') }}</p>
                             </div>
@@ -40,7 +40,7 @@
                     <li>
                         <i class="fa fa-dashboard bg-blue"></i>
                         <div class="timeline-item">
-                            <h3 class="timeline-header">{{ __('Pulpit nawigacyjny') }}</h3>
+                            <h3 class="timeline-header"><a href="{{ route('dashboard') }}">{{ __('Pulpit nawigacyjny') }}</a></h3>
                         </div>
                     </li>
                     <li>
