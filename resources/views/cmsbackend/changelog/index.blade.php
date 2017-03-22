@@ -16,8 +16,8 @@
                             <div class="timeline-body">
                                 <ul>
                                     <li>{{ __('Lista użytkowników') }}</li>
-                                    <li>{{ __('Możliwość edycji, dezaktywowania oraz usuwania użytkowników o mniejszych uprawnieniach') }}</li>
-                                    <li>{{ __('Dodawanie użytkowników o uprawnieniach maksymalnie dane użytkownika') }}</li>
+                                    <li>{{ __('Możliwość edycji, dezaktywowania oraz usuwania użytkowników przez rangę minimum: administrator o mniejszych bądź równych uprawnieniach') }}</li>
+                                    <li>{{ __('Dodawanie użytkowników przez rangę minimum: administrator o uprawnieniach mniejszych bądź równych zalogowanego użytkownika') }}</li>
                                 </ul>
                             </div>
                         </div>
