@@ -10,7 +10,7 @@
                         </span>
                     </li>
                     <li>
-                        <i class="fa fa-users bg-blue"></i>
+                        <i class="fa fa-users bg-navy"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('users') }}">{{ __('Użytkownicy') }}</a></h3>
                             <div class="timeline-body">
@@ -61,6 +61,12 @@
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-folder-open bg-purple"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('documentation') }}">{{ __('Dokumentacja') }}</a></h3>
                         </div>
                     </li>
                     <li>

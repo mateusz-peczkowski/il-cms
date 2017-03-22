@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\cmsbackend;
 
-class ChangelogController extends BackendController
+class DocumentationController extends BackendController
 {
     public function __construct()
     {
@@ -16,10 +16,10 @@ class ChangelogController extends BackendController
      */
     public function index()
     {
-        $this->breadcrumbs->addCrumb(__('Dziennik zmian'), '/cmsbackend/changelog');
-        return view('cmsbackend.changelog.index')->with([
+        $this->breadcrumbs->addCrumb(__('Dokumentacja'), '/cmsbackend/documentation');
+        return view('cmsbackend.documentation.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Dziennik zmian')
+            'pageTitle' => __('Dokumentacja')
         ]);
     }
 

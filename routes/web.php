@@ -35,5 +35,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('trash/{module}/{id}/destroy', 'TrashController@destroy')->name('trash.destroy');
 
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
+    Route::get('documentation', 'DocumentationController@index')->name('documentation');
 
 });

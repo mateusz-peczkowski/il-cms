@@ -88,6 +88,7 @@
                     <li{{ str_contains(Route::currentRouteName(), 'trash') ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
                     <li><hr></li>
                     <li{{ str_contains(Route::currentRouteName(), 'changelog') ? ' class=active' : '' }}><a href="{{ route('changelog') }}"><i class="fa fa-book"></i> <span>{{ __('Dziennik zmian') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'documentation') ? ' class=active' : '' }}><a href="{{ route('documentation') }}"><i class="fa fa-folder-open"></i> <span>{{ __('Dokumentacja') }}</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->
