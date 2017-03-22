@@ -6,7 +6,7 @@
                 <ul class="timeline">
                     <li class="time-label">
                         <span class="bg-blue">
-                            16.03.2017
+                            <strong>v2.0.0</strong> <small>(27.04.2017)</small>
                         </span>
                     </li>
                     <li>
@@ -14,33 +14,53 @@
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('users') }}">{{ __('Użytkownicy') }}</a></h3>
                             <div class="timeline-body">
-                                <p>{{ __('Dodano obsługę użytkowników. Dodawanie, Usuwanie, nadawanie uprawnień') }}</p>
+                                <ul>
+                                    <li>{{ __('Lista użytkowników') }}</li>
+                                    <li>{{ __('Możliwość edycji, dezaktywowania oraz usuwania użytkowników o mniejszych uprawnieniach') }}</li>
+                                    <li>{{ __('Dodawanie użytkowników o uprawnieniach maksymalnie dane użytkownika') }}</li>
+                                </ul>
                             </div>
                         </div>
-                    </li>
-                    <li class="time-label">
-                        <span class="bg-blue">
-                            13.03.2017
-                        </span>
                     </li>
                     <li>
                         <i class="fa fa-trash bg-red"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('trash') }}">{{ __('Usunięte elementy') }}</a></h3>
                             <div class="timeline-body">
-                                <p>{{ __('Dodano obsługę kosza oraz przywracania z niego elementów lub usuwania na stałe') }}</p>
+                                <ul>
+                                    <li>{{ __('Możliwość usuwania elementów na stałe') }}</li>
+                                    <li>{{ __('Możliwość przywracania elementów ze statusem nieaktywne') }}</li>
+                                </ul>
                             </div>
                         </div>
-                    </li>
-                    <li class="time-label">
-                        <span class="bg-blue">
-                            07.03.2017
-                        </span>
                     </li>
                     <li>
                         <i class="fa fa-dashboard bg-blue"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('dashboard') }}">{{ __('Pulpit nawigacyjny') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Ilość zarejestrowanych użytkowników') }}</li>
+                                    <li>{{ __('Ilość unikalnych wizyt od początku strony') }}</li>
+                                    <li>{{ __('Ilość unikalnych wizyt w tym miesiącu') }}</li>
+                                    <li>{{ __('Procent wizyt aktualnego miesiąca w skali roku') }}</li>
+                                    <li>{{ __('Informacje o profilu') }}:
+                                        <ul>
+                                            <li>{{ __('Data i godzina rejestracji') }}</li>
+                                            <li>{{ __('Poziom dostępu') }}</li>
+                                            <li>{{ __('Ostatnie udane i nieudane zalogowanie') }}</li>
+                                        </ul>
+                                    </li>
+                                    <li>{{ __('Edycja własnego profilu') }}
+                                        <ul>
+                                            <li>{{ __('Możliwość zmiany avatara (wgranie nowego lub zaciągnięcie z gravatara)') }}</li>
+                                            <li>{{ __('Zmiana wyświetlanej nazwy (imię i nazwisko)') }}</li>
+                                            <li>{{ __('Zmiana adresu email do logowania') }}</li>
+                                            <li>{{ __('Zmiana hasła') }}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </li>
                     <li>
