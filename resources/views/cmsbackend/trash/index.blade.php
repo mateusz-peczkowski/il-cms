@@ -33,28 +33,17 @@
                             </thead>
                             <tbody>
                             @foreach($users as $user)
-                                @if(Auth::id() == $user->id)
-                                    <tr>
-                                        <td><strong>{{ $user->name }}</strong></td>
-                                        <td><strong>{{ $user->email }}</strong></td>
-                                        <td><strong>{{ $user->user_role->title }}</strong></td>
-                                        @if($current_user_role_id >= 3)
-                                            <td>&nbsp;</td>
-                                        @endif
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->user_role->title }}</td>
-                                        @if($current_user_role_id >= 3 && $current_user_role_id >= $user->role)
-                                            <td class="text-right">
-                                                <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
-                                            </td>
-                                        @endif
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->user_role->title }}</td>
+                                    @if($current_user_role_id >= 3 && $current_user_role_id >= $user->role)
+                                        <td class="text-right">
+                                            <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
+                                            <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    @endif
+                                </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
