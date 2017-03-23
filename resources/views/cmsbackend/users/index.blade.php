@@ -6,14 +6,14 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    @if($current_user_role_id >= $required_role->id)
+                    @can('add', 'App\User')
                     <a href="{{ route('users.create') }}" class="btn btn-success">{{ __('Dodaj użytkownika') }}</a>
                     <br /><br />
                     @else
                         <div class="alert alert-warning alert-dismissible">
-                            {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać użytkowników (wymagane przynajmniej: <strong>:role_name</strong>). Możesz jedynie przeglądać użytkowników', ['role_name' => $required_role->title]) !!}
+                            {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać użytkowników (wymagane przynajmniej: <strong>administrator</strong>). Możesz jedynie przeglądać użytkowników') !!}
                         </div>
-                    @endif
+                    @endcan
                     @if(Session::has('status'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -26,9 +26,7 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
-                                @if($current_user_role_id >= $required_role->id)
-                                    <th style="width: 70px;">&nbsp;</th>
-                                @endif
+                                <th style="width: 70px;">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,28 +36,28 @@
                                     <td><strong>{{ $user->name }}</strong></td>
                                     <td><strong>{{ $user->email }}</strong></td>
                                     <td><strong>{{ $user->user_role->title }}</strong></td>
-                                    @if($current_user_role_id >= $required_role->id)
+                                    @can('edit', 'App\User')
                                         <td>&nbsp;</td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @else
                                 <tr>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->name }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->email }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->user_role->title }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
-                                    @if($current_user_role_id >= $required_role->id && $current_user_role_id >= $user->role)
-                                        <td class="text-right">
-                                            <a href="{{ route('users.edit', $user->id) }}" class="text-light-blue"><i class="fa fa-edit"></i></a>
-                                            @if($user->status == 1)
-                                                <a href="#" data-href="{{ route('users.deactivate', $user->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate"><i class="fa fa-close"></i></a>
-                                            @else
-                                                <a href="{{ route('users.activate', $user->id) }}" class="text-green"><i class="fa fa-check"></i></a>
-                                            @endif
-                                            <a href="#" data-href="{{ route('users.delete', $user->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    @elseif($current_user_role_id >= $required_role->id)
-                                        <td>&nbsp;</td>
-                                    @endif
+                                    @can('edit', 'App\User')
+                                    <td class="text-right">
+                                                @if($user->role <= Auth::user()->role)
+                                                <a href="{{ route('users.edit', $user->id) }}" class="text-light-blue"><i class="fa fa-edit"></i></a>
+                                                @if($user->status == 1)
+                                                    <a href="#" data-href="{{ route('users.deactivate', $user->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate"><i class="fa fa-close"></i></a>
+                                                @else
+                                                    <a href="{{ route('users.activate', $user->id) }}" class="text-green"><i class="fa fa-check"></i></a>
+                                                @endif
+                                                <a href="#" data-href="{{ route('users.delete', $user->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a>
+                                                @endif
+                                    </td>
+                                    @endcan
                                 </tr>
                             @endif
                         @endforeach
@@ -69,9 +67,9 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
-                                @if($current_user_role_id >= $required_role->id)
+                                @can('edit', 'App\User')
                                     <th>&nbsp;</th>
-                                @endif
+                                @endcan
                             </tr>
                         </tfoot>
                     </table>

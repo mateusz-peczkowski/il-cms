@@ -38,7 +38,7 @@
                                     <label>{{ __('Poziom uprawnień') }}</label>
                                     <select class="form-control select2" name="user_role" id="role" style="width: 100%;">
                                         @foreach($roles as $num => $role)
-                                            @if($role->id <= $current_user_role->id)
+                                            @if($role->id <= Auth::user()->role)
                                                 <option{{ $num == 0 ? ' selected' : '' }} value="{{ $role->id }}">{{ $role->title }}</option>
                                             @endif
                                         @endforeach

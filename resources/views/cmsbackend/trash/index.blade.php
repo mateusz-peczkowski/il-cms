@@ -26,9 +26,9 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
-                                @if($current_user_role_id >= 3)
+                                @can('revokeDestroy', 'App\User')
                                     <th style="width: 50px;">&nbsp;</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -37,12 +37,12 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->user_role->title }}</td>
-                                    @if($current_user_role_id >= 3 && $current_user_role_id >= $user->role)
+                                    @can('revokeDestroy', 'App\User')
                                         <td class="text-right">
                                             <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
                                             <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>
@@ -51,9 +51,9 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
-                                @if($current_user_role_id >= 3)
+                                @can('revokeDestroy', 'App\User')
                                     <th>&nbsp;</th>
-                                @endif
+                                @endcan
                             </tr>
                             </tfoot>
                         </table>

@@ -57,9 +57,9 @@
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <img class="profile-user-img img-responsive img-circle" src="{{ $current_user->image ? : '/backend/img/blank.jpg' }}" alt="{{ __('Zdjęcie profilu') }}">
-                    <h3 class="profile-username text-center">{{ $current_user->name }}</h3>
-                    <h5 class="profile-useremail text-center">{{ $current_user->email }}</h5>
+                    <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image ? : '/backend/img/blank.jpg' }}" alt="{{ __('Zdjęcie profilu') }}">
+                    <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                    <h5 class="profile-useremail text-center">{{ Auth::user()->email }}</h5>
                     <br />
                     <p class="text-muted text-center">{{ __('Aby dodadać avatar skorzystaj z przycisku poniżej. Domyślnie do konta zaciągany jest avatar z serwisu Gravatar, jeżeli ten został uzupełniony na dokładnie taki sam adres e-mail jakim logujesz się do systemu JAMPcms2') }}</p>
                     <hr>
@@ -77,21 +77,21 @@
                 </div>
                 <div class="box-body">
                     <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie (Czas UTC)') }}</strong>
-                    <p class="text-muted">{{ $current_user->created_at }}</p>
+                    <p class="text-muted">{{ Auth::user()->created_at }}</p>
                     <hr>
                     <strong><i class="fa fa-balance-scale margin-r-5"></i> {{ __('Poziom dostępu') }}</strong>
-                    <p class="text-muted">{{ $current_user_role->title }}</p>
-                    @if(!$current_user_attempt_success->isEmpty())
-                        @if(isset($current_user_attempt_success[1]))
+                    <p class="text-muted">{{ Auth::user()->user_role->title }}</p>
+                    @if(!Auth::user()->last_attmept_success->isEmpty())
+                        @if(isset(Auth::user()->last_attmept_success[1]))
                             <hr>
                             <strong><i class="fa fa-user-plus margin-r-5"></i> {{ __('Ostatnia udana próba zalogowania') }}</strong>
-                            <p class="text-muted">{{ isset($current_user_attempt_success[1]) ? $current_user_attempt_success[1]->created_at : false }}</p>
+                            <p class="text-muted">{{ isset(Auth::user()->last_attmept_success[1]) ? Auth::user()->last_attmept_success[1]->created_at : false }}</p>
                         @endif
                     @endif
-                    @if(!$current_user_attempt_error->isEmpty())
+                    @if(!Auth::user()->last_attmept_error->isEmpty())
                         <hr>
                         <strong><i class="fa fa-user-times margin-r-5"></i> {{ __('Ostatnia nieudana próba zalogowania') }}</strong>
-                        <p class="text-muted">{{ $current_user_attempt_error->first()->created_at }}</p>
+                        <p class="text-muted">{{ Auth::user()->last_attmept_error->first()->created_at }}</p>
                     @endif
                 </div>
             </div>
@@ -111,11 +111,11 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>{{ __('Imię i nazwisko') }}</label>
-                        <input type="text" id="name" name="user_name" class="form-control" value="{{ $current_user->name }}" required />
+                        <input type="text" id="name" name="user_name" class="form-control" value="{{ Auth::user()->name }}" required />
                     </div>
                     <div class="form-group">
                         <label>{{ __('Adres e-mail') }} {{ __('(służy do logowania)') }}</label>
-                        <input type="text" id="email" name="user_email" class="form-control" value="{{ $current_user->email }}" required />
+                        <input type="text" id="email" name="user_email" class="form-control" value="{{ Auth::user()->email }}" required />
                     </div>
                     <div class="form-group">
                         <label>{{ __('Hasło') }} {{ __('(wypełnić wyłącznie w przypadku zmiany)') }}</label>
@@ -142,7 +142,7 @@
                         <label>{{ __('Z dysku') }}</label>
                         <input type="file" id="photo" name="photo" />
                     </div>
-                    @if(Gravatar::exists($current_user->email))
+                    @if(Gravatar::exists(Auth::user()->email))
                     <p>{{ __('Lub') }}</p>
                     <div class="form-group">
                         <label>

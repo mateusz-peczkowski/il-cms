@@ -100,14 +100,14 @@ class UsersController extends BackendController
      */
     public function edit($id)
     {
-        if(Auth::user()->role < $this->required_role->id) {
+        $user = $this->user->find($id);
+        if(Auth::user()->role < $this->required_role->id || Auth::user()->role < $user->role) {
             $statusmsg = __('Nie posiadasz uprawnień do edycji użytkowników');
             return redirect()->route('users')->with([
                 'status' => $statusmsg,
                 'status_type' => 'danger'
             ]);
         }
-        $user = $this->user->find($id);
         $this->breadcrumbs->addCrumb(__('Użytkownicy'), '/cmsbackend/users');
         $this->breadcrumbs->addCrumb(__('Edytuj użytkownika'), '/cmsbackend/users/'.$id.'/edit');
         return view('cmsbackend.users.edit')->with([

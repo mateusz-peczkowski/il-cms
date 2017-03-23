@@ -18,28 +18,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                @if($current_user)
+                @if(Auth::user())
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        @if(!$current_user_attempt_error->isEmpty())
+                        @if(!Auth::user()->last_attmept_error->isEmpty())
                         <li class="user-lastfail hidden-sm hidden-xs">
                             <p>
-                                {{ __('Ostatnia nieudana próba zalogowania') }}: <strong>{{ $current_user_attempt_error->first()->created_at }}</strong>
+                                {{ __('Ostatnia nieudana próba zalogowania') }}: <strong>{{ Auth::user()->last_attmept_error->first()->created_at }}</strong>
                             </p>
                         </li>
                         @endif
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ $current_user->image ? : '/backend/img/blank.jpg' }}" class="user-image" alt="User Image">
-                                <span class="hidden-xs">{{ $current_user->name }}</span>
+                                <img src="{{ Auth::user()->image ? : '/backend/img/blank.jpg' }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="{{ $current_user->image ? : '/backend/img/blank.jpg' }}" class="img-circle" alt="User Image">
+                                    <img src="{{ Auth::user()->image ? : '/backend/img/blank.jpg' }}" class="img-circle" alt="User Image">
                                     <p>
-                                        {{ $current_user->name }}
-                                        <small>Użytkownik od: <strong>{{ $current_user->created_at->toDateString() }}</strong></small>
-                                        <small>{{ __('Poziom dostępu') }}: <strong>{{ $current_user_role->title }}</strong></small>
+                                        {{ Auth::user()->name }}
+                                        @if(Auth::user()->created_at)
+                                        <small>{{ __('Użytkownik od') }}: <strong>{{ Auth::user()->created_at->toDateString() }}</strong></small>
+                                        @endif
+                                        <small>{{ __('Poziom dostępu') }}: <strong>{{ Auth::user()->user_role->title }}</strong></small>
                                     </p>
                                 </li>
                                 <li class="user-footer">
@@ -87,8 +89,11 @@
                     <li><hr></li>
                     <li{{ str_contains(Route::currentRouteName(), 'trash') ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
                     <li><hr></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'changelog') ? ' class=active' : '' }}><a href="{{ route('changelog') }}"><i class="fa fa-book"></i> <span>{{ __('Dziennik zmian') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'documentation') ? ' class=active' : '' }}><a href="{{ route('documentation') }}"><i class="fa fa-folder-open"></i> <span>{{ __('Dokumentacja') }}</span></a></li>
+                    @can('seechangelog', 'App\User')
+                        <li><hr></li>
+                        <li{{ str_contains(Route::currentRouteName(), 'changelog') ? ' class=active' : '' }}><a href="{{ route('changelog') }}"><i class="fa fa-book"></i> <span>{{ __('Dziennik zmian') }}</span></a></li>
+                    @endcan
                 </ul>
             </section>
             <!-- /.sidebar -->
