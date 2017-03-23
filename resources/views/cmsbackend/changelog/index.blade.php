@@ -16,8 +16,8 @@
                             <div class="timeline-body">
                                 <ul>
                                     <li>{{ __('Lista użytkowników') }}</li>
-                                    <li>{{ __('Możliwość edycji, dezaktywowania oraz usuwania użytkowników przez rangę minimum: administrator o mniejszych bądź równych uprawnieniach') }}</li>
-                                    <li>{{ __('Dodawanie użytkowników przez rangę minimum: administrator o uprawnieniach mniejszych bądź równych zalogowanego użytkownika') }}</li>
+                                    <li>{{ __('Możliwość edytowania, dezaktywowania oraz usuwania użytkowników przez rangę minimum: administrator') }}</li>
+                                    <li>{{ __('Dodawanie użytkowników przez rangę minimum: administrator z uprawnieniami mniejszymi bądź równymi zalogowanemu użytkownikowi') }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
                             <h3 class="timeline-header"><a href="{{ route('trash') }}">{{ __('Usunięte elementy') }}</a></h3>
                             <div class="timeline-body">
                                 <ul>
-                                    <li>{{ __('Możliwość usuwania elementów na stałe') }}</li>
                                     <li>{{ __('Możliwość przywracania elementów ze statusem nieaktywne') }}</li>
+                                    <li>{{ __('Możliwość usuwania elementów na stałe') }}</li>
                                 </ul>
                             </div>
                         </div>
