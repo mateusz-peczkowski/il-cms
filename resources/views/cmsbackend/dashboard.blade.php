@@ -52,7 +52,7 @@
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     @if(Session::has('status'))
-                        <div class="alert alert-success alert-dismissible" data-autohide="true">
+                        <div class="alert alert-{{ Session::get('status_type') ? : 'success' }} alert-dismissible" data-autohide="true">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
@@ -140,7 +140,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>{{ __('Z dysku') }}</label>
-                        <input type="file" id="photo" name="photo" />
+                        <input type="file" id="photo" name="photo" accept="image/*" />
                     </div>
                     @if(Gravatar::exists(Auth::user()->email))
                     <p>{{ __('Lub') }}</p>

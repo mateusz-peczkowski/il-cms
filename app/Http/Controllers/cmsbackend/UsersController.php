@@ -220,9 +220,9 @@ class UsersController extends BackendController
     public function addavatar(Request $request)
     {
         $obj = [];
-        if(!$request->photo && $request->photo_gravatar) {
+        if(!$request->photo && !$request->photo_gravatar) {
             return redirect()->route('dashboard')->with([
-                'status' => __('Twoje zdjęcie zostało dodane'),
+                'status' => __('Nie wybrałeś zdjęcia'),
                 'status_type' => 'error'
             ]);
         }
