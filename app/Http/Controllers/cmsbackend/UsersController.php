@@ -23,7 +23,7 @@ class UsersController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Show the application users.
      *
      * @return \Illuminate\Http\Response
      */
@@ -40,7 +40,7 @@ class UsersController extends BackendController
     }
 
     /**
-     * Show the form for creating new resource.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -63,8 +63,9 @@ class UsersController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Store a newly created resource in storage.
      *
+     * @param  \App\Http\Requests\StoreUser  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUser $request)
@@ -94,8 +95,9 @@ class UsersController extends BackendController
 
 
     /**
-     * Show the form for creating new resource.
+     * Show the form for editing the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -119,8 +121,10 @@ class UsersController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Update the specified resource in storage.
      *
+     * @param  \App\Http\Requests\UpdateUser  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUser $request, $id = null)
@@ -149,6 +153,8 @@ class UsersController extends BackendController
     }
 
     /**
+     * Activate the specified resource at storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -159,6 +165,8 @@ class UsersController extends BackendController
     }
 
     /**
+     * Deactivate the specified resource at storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -169,6 +177,8 @@ class UsersController extends BackendController
     }
 
     /**
+     * Delete the specified resource at storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -178,7 +188,7 @@ class UsersController extends BackendController
         return $this->change_status($id, 3, $statusmsg, 'success');
     }
 
-    public function change_status($id, $status, $statusmsg, $statusmsgtype)
+    private function change_status($id, $status, $statusmsg, $statusmsgtype)
     {
         $this->user->update([
             'status' => $status
@@ -190,7 +200,7 @@ class UsersController extends BackendController
     }
 
     /**
-     * Update current resource in storage.
+     * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCurrentUser  $request
      * @return \Illuminate\Http\Response
@@ -213,8 +223,9 @@ class UsersController extends BackendController
     }
 
     /**
-     * Update current resource avatar in storage.
+     * Add Avatar to the specified resource in storage.
      *
+     * @param  $request
      * @return \Illuminate\Http\Response
      */
     public function addavatar(Request $request)

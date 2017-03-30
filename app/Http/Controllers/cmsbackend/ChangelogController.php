@@ -11,7 +11,7 @@ class ChangelogController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Show the application changelog.
      *
      * @return \Illuminate\Http\Response
      */

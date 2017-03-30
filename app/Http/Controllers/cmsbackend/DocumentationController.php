@@ -10,7 +10,7 @@ class DocumentationController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Show the application documentation.
      *
      * @return \Illuminate\Http\Response
      */

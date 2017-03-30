@@ -13,7 +13,7 @@ class TrashController extends BackendController
     }
 
     /**
-     * Show the application users list.
+     * Show the application trash.
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,6 +29,7 @@ class TrashController extends BackendController
     }
 
     /**
+     * @param  string  $module
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -47,6 +48,7 @@ class TrashController extends BackendController
     }
 
     /**
+     * @param  string  $module
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
