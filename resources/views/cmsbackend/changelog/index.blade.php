@@ -10,6 +10,18 @@
                         </span>
                     </li>
                     <li>
+                        <i class="fa fa-refresh bg-blue"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('redirects') }}">{{ __('Przekierowania') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista przekierowań') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania przekierowań przez rangę administrator i wyżej') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <i class="fa fa-users bg-navy"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('users') }}">{{ __('Użytkownicy') }}</a></h3>

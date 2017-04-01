@@ -6,13 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Libraries\\CMS' => $baseDir . '/app/Libraries/CMS.php',
     'App\\Repositories\\Contracts\\LoginAttemptsRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/LoginAttemptsRepositoryInterface.php',
+    'App\\Repositories\\Contracts\\RedirectRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/RedirectRepositoryInterface.php',
     'App\\Repositories\\Contracts\\RepositoryInterface' => $baseDir . '/app/Repositories/Contracts/RepositoryInterface.php',
     'App\\Repositories\\Contracts\\RoleRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/RoleRepositoryInterface.php',
     'App\\Repositories\\Contracts\\UserRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/UserRepositoryInterface.php',
     'App\\Repositories\\Eloquent\\AbstractRepository' => $baseDir . '/app/Repositories/Eloquent/AbstractRepository.php',
     'App\\Repositories\\Exceptions\\RepositoryException' => $baseDir . '/app/Repositories/Exceptions/RepositoryException.php',
     'App\\Repositories\\LoginAttempts\\EloquentLoginAttemptsRepository' => $baseDir . '/app/Repositories/LoginAttempts/EloquentLoginAttemptsRepository.php',
+    'App\\Repositories\\Redirect\\EloquentRedirectRepository' => $baseDir . '/app/Repositories/Redirect/EloquentRedirectRepository.php',
     'App\\Repositories\\Role\\EloquentRoleRepository' => $baseDir . '/app/Repositories/Role/EloquentRoleRepository.php',
     'App\\Repositories\\User\\EloquentUserRepository' => $baseDir . '/app/Repositories/User/EloquentUserRepository.php',
     'CreateControlTable' => $baseDir . '/database/migrations/2017_03_09_122905_create_control_table.php',

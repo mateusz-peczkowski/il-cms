@@ -29,8 +29,9 @@ class UsersController extends BackendController
      */
     public function index()
     {
-        $users = $this->user->paginatedUsers();
         $this->breadcrumbs->addCrumb(__('Użytkownicy'), '/cmsbackend/users');
+
+        $users = $this->user->paginatedUsers();
         return view('cmsbackend.users.index')->with([
             'users' => $users,
             'breadcrumbs' => $this->breadcrumbs,
@@ -83,14 +84,13 @@ class UsersController extends BackendController
                 'status' => __('Użytkownik został stworzony. Jego konto jest już aktywne i może się zalogować'),
                 'status_type' => 'success'
             ]);
-        } else {
-            return redirect()->route('users.create')->with([
-                'status' => __('Użytkownik o podanym adresie e-mail istnieje'),
-                'status_type' => 'danger'
-            ])->withInput(
-                $request->except('password')
-            );
         }
+        return redirect()->route('users.create')->with([
+            'status' => __('Użytkownik o podanym adresie e-mail istnieje'),
+            'status_type' => 'danger'
+        ])->withInput(
+            $request->except('password')
+        );
     }
 
 
@@ -142,14 +142,13 @@ class UsersController extends BackendController
                 'status' => __('Dane użytkownika zostały zaktualizowane'),
                 'status_type' => 'success'
             ]);
-        } else {
-            return redirect()->route('users.edit', $id)->with([
-                'status' => __('Użytkownik o podanym adresie e-mail istnieje'),
-                'status_type' => 'danger'
-            ])->withInput(
-                $request->except('password')
-            );
         }
+        return redirect()->route('users.edit', $id)->with([
+            'status' => __('Użytkownik o podanym adresie e-mail istnieje'),
+            'status_type' => 'danger'
+        ])->withInput(
+            $request->except('password')
+        );
     }
 
     /**

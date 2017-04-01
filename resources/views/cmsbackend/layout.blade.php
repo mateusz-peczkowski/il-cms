@@ -74,16 +74,16 @@
                     <li{{ str_contains(Route::currentRouteName(), 'files') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'forms') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ str_contains(Route::currentRouteName(), 'settings') ? ' active' : '' }}">
+                    <li class="treeview{{ (str_contains(Route::currentRouteName(), 'settings') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/main}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Główne ustawienia') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/languages}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Języki') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/translations}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Tłumaczenia') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/redirects}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Przekierowania') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'settings/main') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Główne ustawienia') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'settings/languages') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Języki') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'settings/translations') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Tłumaczenia') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>
                     <li><hr></li>

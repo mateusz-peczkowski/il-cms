@@ -13,6 +13,10 @@
                 @endif
                 @if(isset($users) && !$users->isEmpty())
                 <div class="box">
+                    <div class="box-header with-border">
+                        <i class="fa fa-users"></i>
+                        <h3 class="box-title">{{ __('Użytkownicy') }}</h3>
+                    </div>
                     <div class="box-body">
                         @if(Session::has('status-user'))
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
@@ -23,6 +27,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
@@ -32,8 +37,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($users as $num => $user)
                                 <tr>
+                                    <td style="text-align: center;">{{ $num+1 }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->user_role->title }}</td>
@@ -48,6 +54,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
@@ -62,6 +69,70 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @if(isset($redirects) && $redirects->isEmpty())
+                    @if(Session::has('status-redirect'))
+                        <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-redirect') }}!</h4>
+                        </div>
+                    @endif
+                @endif
+                @if(isset($redirects) && !$redirects->isEmpty())
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-refresh"></i>
+                            <h3 class="box-title">{{ __('Przekierowania') }}</h3>
+                        </div>
+                        <div class="box-body">
+                            @if(Session::has('status-redirect'))
+                                <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-redirect') }}!</h4>
+                                </div>
+                            @endif
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Z adresu') }}</th>
+                                    <th>{{ __('Na adres') }}</th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($redirects as $num => $redirect)
+                                    <tr>
+                                        <td style="text-align: center;">{{ $num+1 }}</td>
+                                        <td>{{ $redirect->from }}</td>
+                                        <td>{{ $redirect->to }}</td>
+                                        @can('revokeDestroy', 'App\User')
+                                            <td class="text-right">
+                                                <a href="#" data-href="{{ route('trash.revoke', ['redirect', $redirect->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['redirect', $redirect->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Z adresu') }}</th>
+                                    <th>{{ __('Na adres') }}</th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <div class="pull-right">
+                                {{ $redirects->links() }}
+                            </div>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

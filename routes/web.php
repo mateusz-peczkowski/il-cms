@@ -13,6 +13,7 @@
 
 // Home page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/test', 'HomeController@index')->name('home');
 
 // Authentication Routes...
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -29,6 +30,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate');
     Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
+
+    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show'], 'names' => ['index' => 'redirects']]);
+    Route::get('settings/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
+    Route::get('settings/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
+    Route::get('settings/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');
+
 
     Route::get('trash', 'TrashController@index')->name('trash');
     Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke');

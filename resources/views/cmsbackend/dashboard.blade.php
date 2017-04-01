@@ -76,7 +76,7 @@
                     <h3 class="box-title">{{ __('Informacje o Profilu') }}</h3>
                 </div>
                 <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie (Czas UTC)') }}</strong>
+                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie') }} <small class="text-muted">({{ __('Czas UTC') }})</small></strong>
                     <p class="text-muted">{{ Auth::user()->created_at }}</p>
                     <hr>
                     <strong><i class="fa fa-balance-scale margin-r-5"></i> {{ __('Poziom dostępu') }}</strong>
@@ -114,11 +114,11 @@
                         <input type="text" id="name" name="user_name" class="form-control" value="{{ Auth::user()->name }}" required />
                     </div>
                     <div class="form-group">
-                        <label>{{ __('Adres e-mail') }} {{ __('(służy do logowania)') }}</label>
+                        <label>{{ __('Adres e-mail') }} <small class="text-muted">({{ __('służy do logowania') }}</small></label>
                         <input type="text" id="email" name="user_email" class="form-control" value="{{ Auth::user()->email }}" required />
                     </div>
                     <div class="form-group">
-                        <label>{{ __('Hasło') }} {{ __('(wypełnić wyłącznie w przypadku zmiany)') }}</label>
+                        <label>{{ __('Hasło') }} <small class="text-muted">({{ __('wypełnić wyłącznie w przypadku zmiany') }})</small></label>
                         <input type="password" id="password" name="user_password" class="form-control" value="{{ old('user_password') }}" autofocus>
                     </div>
                 </div>

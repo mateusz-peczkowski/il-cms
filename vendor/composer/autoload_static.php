@@ -343,13 +343,16 @@ class ComposerStaticInita1a34ede266b267cd762c34d17a7881c
     );
 
     public static $classMap = array (
+        'App\\Libraries\\CMS' => __DIR__ . '/../..' . '/app/Libraries/CMS.php',
         'App\\Repositories\\Contracts\\LoginAttemptsRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/LoginAttemptsRepositoryInterface.php',
+        'App\\Repositories\\Contracts\\RedirectRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/RedirectRepositoryInterface.php',
         'App\\Repositories\\Contracts\\RepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/RepositoryInterface.php',
         'App\\Repositories\\Contracts\\RoleRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/RoleRepositoryInterface.php',
         'App\\Repositories\\Contracts\\UserRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/UserRepositoryInterface.php',
         'App\\Repositories\\Eloquent\\AbstractRepository' => __DIR__ . '/../..' . '/app/Repositories/Eloquent/AbstractRepository.php',
         'App\\Repositories\\Exceptions\\RepositoryException' => __DIR__ . '/../..' . '/app/Repositories/Exceptions/RepositoryException.php',
         'App\\Repositories\\LoginAttempts\\EloquentLoginAttemptsRepository' => __DIR__ . '/../..' . '/app/Repositories/LoginAttempts/EloquentLoginAttemptsRepository.php',
+        'App\\Repositories\\Redirect\\EloquentRedirectRepository' => __DIR__ . '/../..' . '/app/Repositories/Redirect/EloquentRedirectRepository.php',
         'App\\Repositories\\Role\\EloquentRoleRepository' => __DIR__ . '/../..' . '/app/Repositories/Role/EloquentRoleRepository.php',
         'App\\Repositories\\User\\EloquentUserRepository' => __DIR__ . '/../..' . '/app/Repositories/User/EloquentUserRepository.php',
         'CreateControlTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122905_create_control_table.php',

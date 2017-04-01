@@ -23,25 +23,28 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
-                                <th style="width: 70px;">&nbsp;</th>
+                                @can('edit', 'App\User')
+                                    <th style="width: 70px;">&nbsp;</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
-                            @if(Auth::id() == $user->id)
-                                <tr>
+                        @foreach($users as $num => $user)
+                            <tr>
+                                @if(Auth::id() == $user->id)
+                                    <td style="text-align: center;"><strong>{{ $num+1 }}</strong></td>
                                     <td><strong>{{ $user->name }}</strong></td>
                                     <td><strong>{{ $user->email }}</strong></td>
                                     <td><strong>{{ $user->user_role->title }}</strong></td>
                                     @can('edit', 'App\User')
                                         <td>&nbsp;</td>
                                     @endcan
-                                </tr>
-                            @else
-                                <tr>
+                                @else
+                                    <td style="text-align: center;">{!! $user->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->name }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->email }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $user->status == 2 ? '<s>' : '' !!}{{ $user->user_role->title }}{!! $user->status == 2 ? '</s>' : '' !!}</td>
@@ -58,12 +61,13 @@
                                                 @endif
                                     </td>
                                     @endcan
-                                </tr>
-                            @endif
+                                @endif
+                            </tr>
                         @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
