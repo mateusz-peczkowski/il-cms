@@ -28,6 +28,18 @@
                             </p>
                         </li>
                         @endif
+                        @if(Session::get('cms_locale') AND CMS::isMoreLocales())
+                        <li class="dropdown language language-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="text-uppercase">{{ CMS::getLocale() }} <i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach(CMS::getMoreLocales() as $lang)
+                                    <li><a href="{{ route('changelocale', $lang->slug) }}" class="text-uppercase">{{ $lang->slug }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endif
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{ Auth::user()->image ? : '/backend/img/blank.jpg' }}" class="user-image" alt="User Image">
@@ -81,7 +93,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li{{ str_contains(Route::currentRouteName(), 'settings/main') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Główne ustawienia') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/languages') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Języki') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'languages') ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'translations') ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>

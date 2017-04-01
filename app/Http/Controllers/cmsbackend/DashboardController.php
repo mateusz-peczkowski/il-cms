@@ -5,6 +5,8 @@ namespace App\Http\Controllers\cmsbackend;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Carbon\Carbon;
 use Visitor;
+use App;
+use Session;
 
 class DashboardController extends BackendController
 {
@@ -31,5 +33,17 @@ class DashboardController extends BackendController
             'visitorsYear' => $this->rangeYear,
             'userscount' => $this->userscount
         ]);
+    }
+
+    /**
+     * Change current locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changelocale($slug)
+    {
+        App::setLocale($slug);
+        Session::put('cms_locale', $slug);
+        return redirect()->back();
     }
 }

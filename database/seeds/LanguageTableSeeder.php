@@ -11,7 +11,7 @@ class LanguageTableSeeder extends Seeder {
             ['id' => 1,
                 'title' => 'Polski',
                 'slug' => 'pl',
-                'is_default' => 1,
+                'is_default' => '1',
                 'status' => 1,
                 'order' => 1,
                 'created_at' => Carbon::now(),

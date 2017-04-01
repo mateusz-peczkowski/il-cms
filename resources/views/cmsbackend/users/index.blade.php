@@ -13,7 +13,7 @@
                         @endif
                     @else
                         <div class="alert alert-warning alert-dismissible">
-                            {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać użytkowników (wymagane przynajmniej: <strong>administrator</strong>). Możesz jedynie przeglądać użytkowników') !!}
+                            {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać użytkowników (wymagane przynajmniej: <strong>administrator</strong>). Możesz jedynie przeglądać listę użytkowników') !!}
                         </div>
                     @endcan
                     @if(Session::has('status'))
@@ -66,7 +66,7 @@
                                         <td>&nbsp;</td>
                                     @endif
                                     @can('edit', 'App\User')
-                                    <td class="text-right">
+                                    <td class="text-center">
                                                 @if($user->role <= Auth::user()->role)
                                                 <a href="{{ route('users.edit', $user->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
                                                 @if($user->status == 1)

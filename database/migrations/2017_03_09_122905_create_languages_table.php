@@ -11,7 +11,7 @@ class CreateLanguagesTable extends Migration {
 			$table->increments('id');
 			$table->string('title', 64);
 			$table->string('slug', 10)->unique();
-			$table->tinyInteger('is_default')->unsigned();
+            $table->enum('is_default', array('0', '1'));
 			$table->enum('status', array('1', '2', '3'));
 			$table->integer('order')->unsigned();
             $table->integer('who_updated')->unsigned()->nullable();

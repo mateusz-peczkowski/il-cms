@@ -16,6 +16,7 @@ class BackendController extends BaseController
 
     public function __construct()
     {
+        $this->middleware('language');
         $this->breadcrumbs = new breadcrumb;
         $this->breadcrumbs->setCssClasses('breadcrumb');
         $this->breadcrumbs->setDivider('');

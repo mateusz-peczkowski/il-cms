@@ -13,7 +13,7 @@
                             @endif
                         @else
                             <div class="alert alert-warning alert-dismissible">
-                                {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać tłumaczenia (wymagane przynajmniej: <strong>developer</strong>). Możesz jedynie przeglądać tłumaczenia') !!}
+                                {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać tłumaczenia (wymagane przynajmniej: <strong>developer</strong>). Możesz jedynie przeglądać listę tłumaczeń') !!}
                             </div>
                         @endcan
                         @if(Session::has('status'))
@@ -50,7 +50,7 @@
                                         <td>&nbsp;</td>
                                     @endif
                                     @can('edit_dev', 'App\User')
-                                        <td class="text-right">
+                                        <td class="text-center">
                                             <a href="{{ route('translations.edit', $translation->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
                                             @if($translation->status == 1)
                                                 <a href="#" data-href="{{ route('translations.deactivate', $translation->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>

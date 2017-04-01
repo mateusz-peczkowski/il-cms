@@ -92,7 +92,7 @@ class TranslationsController extends BackendController
      */
     public function update(UpdateTranslation $request, $id = null)
     {
-        if($this->translations->find($id)->from == $request->translation_key || !$this->translations->checkTranslationExist($request->translation_key)) {
+        if($this->translations->find($id)->key == $request->translation_key || !$this->translations->checkTranslationExist($request->translation_key)) {
             $this->translations->update([
                 'key' => $request->translation_key,
                 'value' => $request->translation_value,

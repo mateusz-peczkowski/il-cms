@@ -23,6 +23,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Admin panel Routes
 Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => 'cmsbackend'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::get('/{locale}', 'DashboardController@changelocale')->name('changelocale');
 
     Route::resource('users', 'UsersController', ['except' => ['show', 'create'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
@@ -40,6 +41,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate');
     Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate');
     Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete');
+
+    Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create'], 'names' => ['index' => 'languages']]);
+    Route::get('settings/languages/{id}/deactivate', 'LanguagesController@deactivate')->name('languages.deactivate');
+    Route::get('settings/languages/{id}/activate', 'LanguagesController@activate')->name('languages.activate');
+    Route::get('settings/languages/{id}/delete', 'LanguagesController@delete')->name('languages.delete');
 
 
     Route::get('trash', 'TrashController@index')->name('trash');

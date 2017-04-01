@@ -27,7 +27,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
@@ -56,7 +56,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
@@ -97,7 +97,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Z adresu') }}</th>
                                     <th>{{ __('Na adres') }}</th>
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
@@ -124,7 +124,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Z adresu') }}</th>
                                     <th>{{ __('Na adres') }}</th>
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
@@ -140,6 +140,73 @@
                         </div>
                     </div>
                 @endif
+                @if(isset($languages) && $languages->isEmpty())
+                    @if(Session::has('status-language'))
+                        <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-language') }}!</h4>
+                        </div>
+                    @endif
+                @endif
+                @if(isset($languages) && !$languages->isEmpty())
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-language"></i>
+                            <h3 class="box-title">{{ __('Języki') }}</h3>
+                        </div>
+                        <div class="box-body">
+                            @if(Session::has('status-language'))
+                                <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-language') }}!</h4>
+                                </div>
+                            @endif
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Tytuł') }}</th>
+                                    <th>{{ __('Slug') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($languages as $num => $language)
+                                    <tr>
+                                        <td class="text-center">{{ $num+1 }}</td>
+                                        <td>{{ $language->title }}</td>
+                                        <td>{{ $language->slug }}</td>
+                                        <td><img src="{{ $language->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $language->updater->name }} <small class="text-muted">({{ $language->updated_at }})</small></td>
+                                        @can('revokeDestroy', 'App\User')
+                                            <td class="text-right">
+                                                <a href="#" data-href="{{ route('trash.revoke', ['language', $language->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['language', $language->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Tytuł') }}</th>
+                                    <th>{{ __('Slug') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <div class="pull-right">
+                                {{ $languages->links() }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @if(isset($translations) && $translations->isEmpty())
                     @if(Session::has('status-translation'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
@@ -151,7 +218,7 @@
                 @if(isset($translations) && !$translations->isEmpty())
                     <div class="box">
                         <div class="box-header with-border">
-                            <i class="fa fa-language"></i>
+                            <i class="fa fa-key"></i>
                             <h3 class="box-title">{{ __('Tłumaczenia') }}</h3>
                         </div>
                         <div class="box-body">
@@ -164,7 +231,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Klucz') }}</th>
                                     <th>{{ __('Wartość') }}</th>
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
@@ -191,7 +258,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Klucz') }}</th>
                                     <th>{{ __('Wartość') }}</th>
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
