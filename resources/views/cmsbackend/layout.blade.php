@@ -82,7 +82,7 @@
                         <ul class="treeview-menu">
                             <li{{ str_contains(Route::currentRouteName(), 'settings/main') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Główne ustawienia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'settings/languages') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Języki') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'settings/translations') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('Tłumaczenia') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'translations') ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>

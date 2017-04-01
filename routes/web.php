@@ -31,10 +31,15 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
 
-    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create', 'edit'], 'names' => ['index' => 'redirects']]);
-    Route::get('settings/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
-    Route::get('settings/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
-    Route::get('settings/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');
+    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create'], 'names' => ['index' => 'redirects']]);
+    Route::get('settings/redirects/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
+    Route::get('settings/redirects/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
+    Route::get('settings/redirects/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');
+
+    Route::resource('settings/translations', 'TranslationsController', ['except' => ['show', 'create'], 'names' => ['index' => 'translations']]);
+    Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate');
+    Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate');
+    Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete');
 
 
     Route::get('trash', 'TrashController@index')->name('trash');

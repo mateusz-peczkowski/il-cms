@@ -140,6 +140,73 @@
                         </div>
                     </div>
                 @endif
+                @if(isset($translations) && $translations->isEmpty())
+                    @if(Session::has('status-translation'))
+                        <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-translation') }}!</h4>
+                        </div>
+                    @endif
+                @endif
+                @if(isset($translations) && !$translations->isEmpty())
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-language"></i>
+                            <h3 class="box-title">{{ __('Tłumaczenia') }}</h3>
+                        </div>
+                        <div class="box-body">
+                            @if(Session::has('status-translation'))
+                                <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-translation') }}!</h4>
+                                </div>
+                            @endif
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Klucz') }}</th>
+                                    <th>{{ __('Wartość') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($translations as $num => $translation)
+                                    <tr>
+                                        <td style="text-align: center;">{{ $num+1 }}</td>
+                                        <td>{{ $translation->key }}</td>
+                                        <td>{{ $translation->value }}</td>
+                                        <td><img src="{{ $translation->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $translation->updater->name }} <small class="text-muted">({{ $translation->updated_at }})</small></td>
+                                        @can('revokeDestroy', 'App\User')
+                                            <td class="text-right">
+                                                <a href="#" data-href="{{ route('trash.revoke', ['translation', $translation->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['translation', $translation->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Klucz') }}</th>
+                                    <th>{{ __('Wartość') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <div class="pull-right">
+                                {{ $translations->links() }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 @endsection
