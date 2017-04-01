@@ -10,7 +10,11 @@ class Redirect extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'from', 'to', 'status'
+        'from', 'to', 'status', 'who_updated'
     ];
+
+    public function updater() {
+        return $this->hasOne('App\User', 'id', 'who_updated');
+    }
 
 }

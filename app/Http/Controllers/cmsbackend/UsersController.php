@@ -19,7 +19,6 @@ class UsersController extends BackendController
         parent::__construct();
         $this->user = $user;
         $this->role = $role;
-        $this->required_role = $this->role->find(3);
     }
 
     /**
@@ -34,32 +33,9 @@ class UsersController extends BackendController
         $users = $this->user->paginatedUsers();
         return view('cmsbackend.users.index')->with([
             'users' => $users,
+            'roles' => $this->role->listAllRoles(),
             'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Użytkownicy'),
-            'required_role' => $this->required_role
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if(Auth::user()->role < $this->required_role->id) {
-            $statusmsg = __('Nie posiadasz uprawnień do tworzenia użytkowników');
-            return redirect()->route('users')->with([
-                'status' => $statusmsg,
-                'status_type' => 'danger'
-            ]);
-        }
-        $this->breadcrumbs->addCrumb(__('Użytkownicy'), '/cmsbackend/users');
-        $this->breadcrumbs->addCrumb(__('Dodaj użytkownika'), '/cmsbackend/users/create');
-        return view('cmsbackend.users.create')->with([
-            'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Dodaj użytkownika'),
-            'roles' => $this->role->listAllRoles()
+            'pageTitle' => __('Użytkownicy')
         ]);
     }
 
@@ -78,14 +54,15 @@ class UsersController extends BackendController
                 'password' => Hash::make($request->user_password),
                 'role' => $request->user_role,
                 'image' => Gravatar::src($request->user_email, ['width' => 250, 'height' => 250]),
-                'status' => 1
+                'status' => 1,
+                'who_updated' => Auth::id()
             ]);
             return redirect()->route('users')->with([
                 'status' => __('Użytkownik został stworzony. Jego konto jest już aktywne i może się zalogować'),
                 'status_type' => 'success'
             ]);
         }
-        return redirect()->route('users.create')->with([
+        return redirect()->route('users')->with([
             'status' => __('Użytkownik o podanym adresie e-mail istnieje'),
             'status_type' => 'danger'
         ])->withInput(
@@ -103,7 +80,7 @@ class UsersController extends BackendController
     public function edit($id)
     {
         $user = $this->user->find($id);
-        if(Auth::user()->role < $this->required_role->id || Auth::user()->role < $user->role) {
+        if(Auth::user()->role < 3 || Auth::user()->role < $user->role) {
             $statusmsg = __('Nie posiadasz uprawnień do edycji użytkowników');
             return redirect()->route('users')->with([
                 'status' => $statusmsg,
@@ -137,6 +114,7 @@ class UsersController extends BackendController
             if($request->user_password) {
                 $obj['password'] = Hash::make($request->user_password);
             }
+            $obj['who_updated'] = Auth::id();
             $this->user->update($obj, $id);
             return redirect()->route('users')->with([
                 'status' => __('Dane użytkownika zostały zaktualizowane'),
@@ -190,7 +168,8 @@ class UsersController extends BackendController
     private function change_status($id, $status, $statusmsg, $statusmsgtype)
     {
         $this->user->update([
-            'status' => $status
+            'status' => $status,
+            'who_updated' => Auth::id()
         ], $id);
         return redirect()->route('users')->with([
             'status' => $statusmsg,
@@ -213,6 +192,7 @@ class UsersController extends BackendController
         if($request->user_password) {
             $obj['password'] = Hash::make($request->user_password);
         }
+        $obj['who_updated'] = Auth::id();
         $this->user->update($obj, Auth::user()->id);
         if($user_email == $obj['email'] && !$request->user_password) {
             return redirect()->route('dashboard')->with('status', __('Twoje dane zostały zaktualizowane'));
@@ -243,6 +223,7 @@ class UsersController extends BackendController
             $request->photo->move(public_path('data/user'), $newname);
             $obj['image'] = '/data/user/'.$newname;
         }
+        $obj['who_updated'] = Auth::id();
         $this->user->update($obj, Auth::user()->id);
         return redirect()->route('dashboard')->with('status', __('Twoje zdjęcie zostało dodane'));
     }

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'role', 'image'
+        'name', 'email', 'password', 'status', 'role', 'image', 'who_updated'
     ];
     public $timestamps = true;
 
@@ -38,5 +38,9 @@ class User extends Authenticatable
 
     public function last_attmept_error() {
         return $this->hasMany('App\LoginAttempts', 'user_email', 'email')->where('status', 'error')->latest();
+    }
+
+    public function updater() {
+        return $this->hasOne('App\User', 'id', 'who_updated');
     }
 }

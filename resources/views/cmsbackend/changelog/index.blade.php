@@ -16,7 +16,7 @@
                             <div class="timeline-body">
                                 <ul>
                                     <li>{{ __('Lista przekierowań') }}</li>
-                                    <li>{{ __('Możliwość dodawania i usuwania przekierowań przez rangę administrator i wyżej') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania przekierowań przez rangę developer i wyżej') }}</li>
                                 </ul>
                             </div>
                         </div>

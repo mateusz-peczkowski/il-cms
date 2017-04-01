@@ -7,27 +7,34 @@
                 <div class="box">
                     <div class="box-body">
                         @can('add_dev', 'App\User')
-                            <a href="{{ route('redirects.create') }}" class="btn btn-success">{{ __('Dodaj przekierowanie') }}</a>
-                            <br /><br />
+                            <span class="btn btn-success" data-toggle="modal" data-target="#add-new">{{ __('Dodaj przekierowanie') }}</span>
+                            @if(!$redirects->isEmpty())
+                                <br /><br />
+                            @endif
                         @else
                             <div class="alert alert-warning alert-dismissible">
                                 {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać przekierowania (wymagane przynajmniej: <strong>developer</strong>). Możesz jedynie przeglądać przekierowania') !!}
                             </div>
                         @endcan
                         @if(Session::has('status'))
+                            @if($redirects->isEmpty())
+                                <br /><br />
+                            @endif
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                             </div>
                         @endif
+                        @if(!$redirects->isEmpty())
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Z adresu') }}</th>
                                 <th>{{ __('Na adres') }}</th>
+                                <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: 45px;">&nbsp;</th>
                                 @endcan
                             </tr>
                             </thead>
@@ -37,15 +44,19 @@
                                     <td style="text-align: center;">{!! $redirect->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $redirect->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $redirect->status == 2 ? '<s>' : '' !!}{{ $redirect->from }}{!! $redirect->status == 2 ? '</s>' : '' !!}</td>
                                     <td>{!! $redirect->status == 2 ? '<s>' : '' !!}{{ $redirect->to }}{!! $redirect->status == 2 ? '</s>' : '' !!}</td>
+                                    @if($redirect->who_updated)
+                                        <td><img src="{{ $redirect->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $redirect->updater->name }} <small class="text-muted">({{ $redirect->updated_at }})</small></td>
+                                    @else
+                                        <td>&nbsp;</td>
+                                    @endif
                                     @can('edit_dev', 'App\User')
                                         <td class="text-right">
-                                            <a href="{{ route('redirects.edit', $redirect->id) }}" class="text-light-blue"><i class="fa fa-edit"></i></a>
                                             @if($redirect->status == 1)
-                                                <a href="#" data-href="{{ route('redirects.deactivate', $redirect->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate"><i class="fa fa-close"></i></a>
+                                                <a href="#" data-href="{{ route('redirects.deactivate', $redirect->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
                                             @else
-                                                <a href="{{ route('redirects.activate', $redirect->id) }}" class="text-green"><i class="fa fa-check"></i></a>
+                                                <a href="{{ route('redirects.activate', $redirect->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
                                             @endif
-                                            <a href="#" data-href="{{ route('redirects.delete', $redirect->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a>
+                                            <a href="#" data-href="{{ route('redirects.delete', $redirect->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     @endcan
                                 </tr>
@@ -56,8 +67,9 @@
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Z adresu') }}</th>
                                 <th>{{ __('Na adres') }}</th>
+                                <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: 45px;">&nbsp;</th>
                                 @endcan
                             </tr>
                             </tfoot>
@@ -65,6 +77,7 @@
                         <div class="pull-right">
                             {{ $redirects->links() }}
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -73,6 +86,32 @@
 @endsection
 
 @section('modals')
+    @can('add_dev', 'App\User')
+    <div class="modal fade" id="add-new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form role="form" method="POST" action="{{ route('redirects') }}" class="modal-content">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    {{ __('Dodaj przekierowanie') }}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>{{ __('Z adresu') }} <small class="text-muted">({{ __('np. /adres-do-przekierowania/test') }})</small></label>
+                        <input type="text" id="redirect_from" name="redirect_from" class="form-control" value="{{ old('redirect_from') }}" required />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('Na adres') }} <small class="text-muted">({{ __('np. /adres lub http://adres.pl/adres jeżeli przekierowanie zewnętrzne') }})</small></label>
+                        <input type="text" id="redirect_to" name="redirect_to" class="form-control" value="{{ old('redirect_to') }}" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
+                    <button type="submit" class="btn btn-success margin">{{ __('Dodaj przekierowanie') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endcan
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -80,7 +119,7 @@
                     {{ __('Czy jesteś tego pewien?') }}
                 </div>
                 <div class="modal-body">
-                    {!! __('Po usunięciu przekierowanie zostanie wyłączone i trafi do elementów usuniętych. Usunięte przekierowanie można przywrócić lub usunąć na stałe. W przypadku nie usunięcia go na stałe nie będzie można stworzyć innego z tego samego adresu.') !!}
+                    {!! __('Po usunięciu przekierowanie zostanie wyłączone i trafi o elementów usuniętych. Usunięte przekierowanie można przywrócić lub usunąć na stałe. W przypadku nie usunięcia go na stałe nie będzie można stworzyć innego z tego samego adresu.') !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>

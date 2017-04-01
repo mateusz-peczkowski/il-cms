@@ -7,7 +7,7 @@ class ChangelogController extends BackendController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('admins');
+        $this->middleware('developers');
     }
 
     /**

@@ -12,7 +12,6 @@ class RedirectsController extends BackendController
     public function __construct(RedirectRepositoryInterface $redirects)
     {
         parent::__construct();
-        $this->middleware('admins');
         $this->redirects = $redirects;
     }
 
@@ -34,28 +33,6 @@ class RedirectsController extends BackendController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if (Auth::user()->role < 2) {
-            $statusmsg = __('Nie posiadasz uprawnień do tworzenia przekierowań');
-            return redirect()->route('redirects')->with([
-                'status' => $statusmsg,
-                'status_type' => 'danger'
-            ]);
-        }
-        $this->breadcrumbs->addCrumb(__('Przekierowania'), '/cmsbackend/settings/redirects');
-        $this->breadcrumbs->addCrumb(__('Dodaj przekierowanie'), '/cmsbackend/settings/redirects/create');
-        return view('cmsbackend.redirects.create')->with([
-            'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Dodaj przekierowanie')
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreRedirect  $request
@@ -65,7 +42,7 @@ class RedirectsController extends BackendController
     {
         if (!$this->redirects->checkRedirectExist($request->redirect_from)) {
             if($request->redirect_from == $request->redirect_to) {
-                return redirect()->route('redirects.create')->with([
+                return redirect()->route('redirects')->with([
                     'status' => __('Nie można przekierować z takiego samego adresu na jaki przekierowujemy'),
                     'status_type' => 'danger'
                 ])->withInput();
@@ -73,14 +50,15 @@ class RedirectsController extends BackendController
             $this->redirects->create([
                 'from' => $request->redirect_from,
                 'to' => $request->redirect_to,
-                'status' => 1
+                'status' => 1,
+                'who_updated' => Auth::id()
             ]);
             return redirect()->route('redirects')->with([
                 'status' => __('Przekierowanie zostało dodane'),
                 'status_type' => 'success'
             ]);
         }
-        return redirect()->route('redirects.create')->with([
+        return redirect()->route('redirects')->with([
             'status' => __('Przekierowanie z podanego adresu już istnieje'),
             'status_type' => 'danger'
         ])->withInput();
@@ -129,7 +107,8 @@ class RedirectsController extends BackendController
             }
             $this->redirects->update([
                 'from' => $request->redirect_from,
-                'to' => $request->redirect_to
+                'to' => $request->redirect_to,
+                'who_updated' => Auth::id()
             ], $id);
             return redirect()->route('redirects')->with([
                 'status' => __('Przekierowanie zostało zaaktualizowane'),
@@ -181,7 +160,8 @@ class RedirectsController extends BackendController
     private function change_status($id, $status, $statusmsg, $statusmsgtype)
     {
         $this->redirects->update([
-            'status' => $status
+            'status' => $status,
+            'who_updated' => Auth::id()
         ], $id);
         return redirect()->route('redirects')->with([
             'status' => $statusmsg,

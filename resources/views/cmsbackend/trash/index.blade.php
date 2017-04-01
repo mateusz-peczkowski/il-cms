@@ -31,6 +31,7 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
+                                <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('revokeDestroy', 'App\User')
                                     <th style="width: 50px;">&nbsp;</th>
                                 @endcan
@@ -43,10 +44,11 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->user_role->title }}</td>
+                                    <td><img src="{{ $user->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $user->updater->name }} <small class="text-muted">({{ $user->updated_at }})</small></td>
                                     @can('revokeDestroy', 'App\User')
                                         <td class="text-right">
-                                            <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
-                                            <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
+                                            <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply" title="{{ __('Przywróć') }}"></i></a>
+                                            <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     @endcan
                                 </tr>
@@ -58,6 +60,7 @@
                                 <th>{{ __('Imię i nazwisko') }}</th>
                                 <th>{{ __('Adres e-mail') }}</th>
                                 <th>{{ __('Poziom dostępu') }}</th>
+                                <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('revokeDestroy', 'App\User')
                                     <th>&nbsp;</th>
                                 @endcan
@@ -97,6 +100,7 @@
                                     <th style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Z adresu') }}</th>
                                     <th>{{ __('Na adres') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                     @can('revokeDestroy', 'App\User')
                                         <th style="width: 50px;">&nbsp;</th>
                                     @endcan
@@ -108,10 +112,11 @@
                                         <td style="text-align: center;">{{ $num+1 }}</td>
                                         <td>{{ $redirect->from }}</td>
                                         <td>{{ $redirect->to }}</td>
+                                        <td><img src="{{ $redirect->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $redirect->updater->name }} <small class="text-muted">({{ $redirect->updated_at }})</small></td>
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
-                                                <a href="#" data-href="{{ route('trash.revoke', ['redirect', $redirect->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['redirect', $redirect->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy"><i class="fa fa-trash"></i></a>
+                                                <a href="#" data-href="{{ route('trash.revoke', ['redirect', $redirect->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['redirect', $redirect->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endcan
                                     </tr>
@@ -122,6 +127,7 @@
                                     <th style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Z adresu') }}</th>
                                     <th>{{ __('Na adres') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                     @can('revokeDestroy', 'App\User')
                                         <th style="width: 50px;">&nbsp;</th>
                                     @endcan

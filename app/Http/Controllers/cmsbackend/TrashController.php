@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\RedirectRepositoryInterface;
+use Auth;
 
 class TrashController extends BackendController
 {
@@ -42,7 +43,8 @@ class TrashController extends BackendController
         $statusmsg = __('Element przywrócony');
 
         $this->$module->update([
-            'status' => 2
+            'status' => 2,
+            'who_updated' => Auth::id()
         ], $id);
         return redirect()->route('trash')->with([
             'status-'.$module => $statusmsg,

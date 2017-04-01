@@ -12,6 +12,7 @@ class CreateRedirectsTable extends Migration {
 			$table->string('from', 255)->unique();
 			$table->string('to', 255);
 			$table->enum('status', array('1', '2', '3'));
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

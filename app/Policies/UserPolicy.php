@@ -36,7 +36,7 @@ class UserPolicy
     }
 
     public function seechangelog(User $user) {
-        return $user->role >= 3;
+        return $user->role >= 2;
     }
 
 }

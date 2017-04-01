@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('role')->unsigned();
 			$table->enum('status', array('1', '2', '3'));
 			$table->rememberToken('rememberToken');
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

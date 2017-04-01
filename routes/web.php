@@ -24,14 +24,14 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => 'cmsbackend'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
-    Route::resource('users', 'UsersController', ['except' => ['show'], 'names' => ['index' => 'users']]);
+    Route::resource('users', 'UsersController', ['except' => ['show', 'create'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
     Route::get('users/{id}/deactivate', 'UsersController@deactivate')->name('users.deactivate');
     Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate');
     Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
 
-    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show'], 'names' => ['index' => 'redirects']]);
+    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create', 'edit'], 'names' => ['index' => 'redirects']]);
     Route::get('settings/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
     Route::get('settings/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
     Route::get('settings/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');

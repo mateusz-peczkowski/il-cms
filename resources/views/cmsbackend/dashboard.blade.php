@@ -76,7 +76,7 @@
                     <h3 class="box-title">{{ __('Informacje o Profilu') }}</h3>
                 </div>
                 <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie') }} <small class="text-muted">({{ __('Czas UTC') }})</small></strong>
+                    <strong><i class="fa fa-book margin-r-5"></i> {{ __('Data i godzina Twojej rejestracji w systemie') }} <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></strong>
                     <p class="text-muted">{{ Auth::user()->created_at }}</p>
                     <hr>
                     <strong><i class="fa fa-balance-scale margin-r-5"></i> {{ __('Poziom dostępu') }}</strong>
