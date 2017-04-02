@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Libraries\\CMS' => $baseDir . '/app/Libraries/CMS.php',
+    'App\\Repositories\\Contracts\\LanguageRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/LanguageRepositoryInterface.php',
     'App\\Repositories\\Contracts\\LoginAttemptsRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/LoginAttemptsRepositoryInterface.php',
     'App\\Repositories\\Contracts\\RedirectRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/RedirectRepositoryInterface.php',
     'App\\Repositories\\Contracts\\RepositoryInterface' => $baseDir . '/app/Repositories/Contracts/RepositoryInterface.php',
@@ -15,6 +16,7 @@ return array(
     'App\\Repositories\\Contracts\\UserRepositoryInterface' => $baseDir . '/app/Repositories/Contracts/UserRepositoryInterface.php',
     'App\\Repositories\\Eloquent\\AbstractRepository' => $baseDir . '/app/Repositories/Eloquent/AbstractRepository.php',
     'App\\Repositories\\Exceptions\\RepositoryException' => $baseDir . '/app/Repositories/Exceptions/RepositoryException.php',
+    'App\\Repositories\\Language\\EloquentLanguageRepository' => $baseDir . '/app/Repositories/Language/EloquentLanguageRepository.php',
     'App\\Repositories\\LoginAttempts\\EloquentLoginAttemptsRepository' => $baseDir . '/app/Repositories/LoginAttempts/EloquentLoginAttemptsRepository.php',
     'App\\Repositories\\Redirect\\EloquentRedirectRepository' => $baseDir . '/app/Repositories/Redirect/EloquentRedirectRepository.php',
     'App\\Repositories\\Role\\EloquentRoleRepository' => $baseDir . '/app/Repositories/Role/EloquentRoleRepository.php',
@@ -35,7 +37,9 @@ return array(
     'CreateRolesTable' => $baseDir . '/database/migrations/2017_03_09_122904_create_roles_table.php',
     'CreateSectionsTable' => $baseDir . '/database/migrations/2017_03_09_122904_create_sections_table.php',
     'CreateSeosTable' => $baseDir . '/database/migrations/2017_03_09_122904_create_seos_table.php',
+    'CreateSessionsTable' => $baseDir . '/database/migrations/2017_04_02_010737_create_sessions_table.php',
     'CreateSubmitTable' => $baseDir . '/database/migrations/2017_03_09_122905_create_submit_table.php',
+    'CreateTranslationsTable' => $baseDir . '/database/migrations/2017_03_09_122905_create_translations_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2017_03_09_122904_create_users_table.php',
     'CreateVisitorRegistry' => $baseDir . '/database/migrations/2014_02_09_225721_create_visitor_registry.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

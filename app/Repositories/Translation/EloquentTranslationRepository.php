@@ -18,10 +18,11 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
         return 'App\Translation';
     }
 
-    function paginatedTranslations($paggLimit = 15)
+    function paginatedTranslations($locale = '', $paggLimit = 15)
     {
         return $this->model
             ->where('status', '<', 3)
+            ->where('locale', $locale)
             ->orderBy('key', 'desc')
             ->paginate($paggLimit);
     }
@@ -33,11 +34,12 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
             ->paginate($paggLimit);
     }
 
-    function checkTranslationExist($key = false)
+    function checkTranslationExist($key = false, $locale = '')
     {
         $key = $this->model
             ->where('key', '=', $key)
-            ->first();
+            ->where('locale', $locale)
+            ->count();
         if($key) {
             return true;
         } else {

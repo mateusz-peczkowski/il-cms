@@ -8,6 +8,14 @@
                     <div class="box-body">
                         @can('add_dev', 'App\User')
                             <span class="btn btn-success" data-toggle="modal" data-target="#add-new">{{ __('Dodaj tłumaczenie') }}</span>
+                            @if(CMS::isMoreLocales())
+                            <div class="btn-group pull-right text-uppercase">
+                                <a href="{{ route('translations.changelocale', CMS::getDefaultLocale()) }}" class="btn btn-{{ (Session::get('cms_locale_translation') == CMS::getDefaultLocale() || !Session::has('cms_locale_translation')) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
+                                @foreach(CMS::getMoreDefaultLocales() as $lang)
+                                    <a href="{{ route('translations.changelocale', $lang->slug) }}" class="btn btn-{{ Session::get('cms_locale_translation') == $lang->slug ? 'success' : 'default' }}">{{ $lang->slug }}</a>
+                                @endforeach
+                            </div>
+                            @endif
                             @if(!$translations->isEmpty())
                                 <br /><br />
                             @endif
@@ -34,7 +42,7 @@
                                 <th>{{ __('Wartość') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: {{ CMS::isMoreLocales() ? '90' : '70' }}px;">&nbsp;</th>
                                 @endcan
                             </tr>
                             </thead>
@@ -51,6 +59,9 @@
                                     @endif
                                     @can('edit_dev', 'App\User')
                                         <td class="text-center">
+                                            @if(CMS::isMoreLocales())
+                                            <a href="#" class="text-yellow" data-toggle="modal" data-target="#duplicate-modal" data-id="{{ $translation->id }}" title="{{ __('Zduplikuj') }}"><i class="fa fa-copy"></i></a>
+                                            @endif
                                             <a href="{{ route('translations.edit', $translation->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
                                             @if($translation->status == 1)
                                                 <a href="#" data-href="{{ route('translations.deactivate', $translation->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
@@ -70,7 +81,7 @@
                                 <th>{{ __('Na adres') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: {{ CMS::isMoreLocales() ? '90' : '70' }}px;">&nbsp;</th>
                                 @endcan
                             </tr>
                             </tfoot>
@@ -112,6 +123,34 @@
             </form>
         </div>
     </div>
+    @if(CMS::isMoreLocales())
+    <div class="modal fade" id="duplicate-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form role="form" method="POST" action="{{ route('translations.duplicate') }}" class="modal-content">
+                {{ csrf_field() }}
+                <input type="hidden" id="translation_id" name="translation_id" class="form-control" value="" required />
+                <div class="modal-header">
+                    {{ __('Dla jakiego języka skopiować element?') }}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>{{ __('Wybierz język') }}</label>
+                        <select class="form-control select2 text-uppercase" name="translation_language" id="translation_language" style="width: 100%;">
+                            <?php $active = Session::get('cms_locale_translation') ? : CMS::getDefaultLocale(); ?>
+                            @foreach(CMS::getLocalesExcept($active) as $lang)
+                                <option{{ $lang->slug == old('translation_language') ? ' selected' : '' }} value="{{ $lang->slug }}">{{ $lang->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
+                    <button type="submit" class="btn btn-success margin">{{ __('Zduplikuj tłumaczenie') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
     @endcan
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -145,4 +184,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script>
+        $('#duplicate-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('#translation_id').val(id);
+        })
+    </script>
 @endsection

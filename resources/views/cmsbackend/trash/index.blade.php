@@ -234,6 +234,9 @@
                                     <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Klucz') }}</th>
                                     <th>{{ __('Wartość') }}</th>
+                                    @if(CMS::isMoreLocales())
+                                        <th>{{ __('Język') }}</th>
+                                    @endif
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                     @can('revokeDestroy', 'App\User')
                                         <th style="width: 50px;">&nbsp;</th>
@@ -246,6 +249,9 @@
                                         <td style="text-align: center;">{{ $num+1 }}</td>
                                         <td>{{ $translation->key }}</td>
                                         <td>{{ $translation->value }}</td>
+                                        @if(CMS::isMoreLocales())
+                                            <td class="text-uppercase">{{ $translation->locale }}</td>
+                                        @endif
                                         <td><img src="{{ $translation->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $translation->updater->name }} <small class="text-muted">({{ $translation->updated_at }})</small></td>
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
@@ -261,6 +267,9 @@
                                     <th class="text-center" style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Klucz') }}</th>
                                     <th>{{ __('Wartość') }}</th>
+                                    @if(CMS::isMoreLocales())
+                                        <th>{{ __('Język') }}</th>
+                                    @endif
                                     <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                     @can('revokeDestroy', 'App\User')
                                         <th style="width: 50px;">&nbsp;</th>

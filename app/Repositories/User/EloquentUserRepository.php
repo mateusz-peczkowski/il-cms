@@ -43,7 +43,7 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     {
         $email = $this->model
             ->where('email', '=', $email)
-            ->first();
+            ->count();
         if($email) {
             return true;
         } else {

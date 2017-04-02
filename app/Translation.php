@@ -10,7 +10,7 @@ class Translation extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'key', 'value', 'status', 'who_updated'
+        'key', 'value', 'status', 'who_updated', 'locale'
     ];
 
     public function updater() {

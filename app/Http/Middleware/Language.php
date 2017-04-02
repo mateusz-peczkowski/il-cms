@@ -25,7 +25,7 @@ class Language
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if (Session::has('cms_locale')) {
+        if (Session::has('cms_locale') && CMS::isLocale(Session::get('cms_locale'))) {
             App::setLocale(Session::get('cms_locale'));
         } else {
             App::setLocale(CMS::getDefaultLocale());

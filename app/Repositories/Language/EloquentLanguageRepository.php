@@ -42,7 +42,7 @@ class EloquentLanguageRepository extends AbstractRepository implements LanguageR
     {
         $slug = $this->model
             ->where('slug', '=', $slug)
-            ->first();
+            ->count();
         if($slug) {
             return true;
         } else {

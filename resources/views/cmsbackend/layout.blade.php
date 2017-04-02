@@ -166,5 +166,7 @@
     <script src="/backend/js/app.min.js"></script>
     <script src="/backend/js/custom.js"></script>
 
+    @yield('scripts')
+
 </body>
 </html>

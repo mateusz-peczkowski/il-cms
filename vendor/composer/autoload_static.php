@@ -344,6 +344,7 @@ class ComposerStaticInita1a34ede266b267cd762c34d17a7881c
 
     public static $classMap = array (
         'App\\Libraries\\CMS' => __DIR__ . '/../..' . '/app/Libraries/CMS.php',
+        'App\\Repositories\\Contracts\\LanguageRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/LanguageRepositoryInterface.php',
         'App\\Repositories\\Contracts\\LoginAttemptsRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/LoginAttemptsRepositoryInterface.php',
         'App\\Repositories\\Contracts\\RedirectRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/RedirectRepositoryInterface.php',
         'App\\Repositories\\Contracts\\RepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/RepositoryInterface.php',
@@ -352,6 +353,7 @@ class ComposerStaticInita1a34ede266b267cd762c34d17a7881c
         'App\\Repositories\\Contracts\\UserRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/UserRepositoryInterface.php',
         'App\\Repositories\\Eloquent\\AbstractRepository' => __DIR__ . '/../..' . '/app/Repositories/Eloquent/AbstractRepository.php',
         'App\\Repositories\\Exceptions\\RepositoryException' => __DIR__ . '/../..' . '/app/Repositories/Exceptions/RepositoryException.php',
+        'App\\Repositories\\Language\\EloquentLanguageRepository' => __DIR__ . '/../..' . '/app/Repositories/Language/EloquentLanguageRepository.php',
         'App\\Repositories\\LoginAttempts\\EloquentLoginAttemptsRepository' => __DIR__ . '/../..' . '/app/Repositories/LoginAttempts/EloquentLoginAttemptsRepository.php',
         'App\\Repositories\\Redirect\\EloquentRedirectRepository' => __DIR__ . '/../..' . '/app/Repositories/Redirect/EloquentRedirectRepository.php',
         'App\\Repositories\\Role\\EloquentRoleRepository' => __DIR__ . '/../..' . '/app/Repositories/Role/EloquentRoleRepository.php',
@@ -372,7 +374,9 @@ class ComposerStaticInita1a34ede266b267cd762c34d17a7881c
         'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122904_create_roles_table.php',
         'CreateSectionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122904_create_sections_table.php',
         'CreateSeosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122904_create_seos_table.php',
+        'CreateSessionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_02_010737_create_sessions_table.php',
         'CreateSubmitTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122905_create_submit_table.php',
+        'CreateTranslationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122905_create_translations_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_09_122904_create_users_table.php',
         'CreateVisitorRegistry' => __DIR__ . '/../..' . '/database/migrations/2014_02_09_225721_create_visitor_registry.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

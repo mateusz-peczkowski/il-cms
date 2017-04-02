@@ -37,7 +37,7 @@ class EloquentRedirectRepository extends AbstractRepository implements RedirectR
     {
         $from = $this->model
             ->where('from', '=', $from)
-            ->first();
+            ->count();
         if($from) {
             return true;
         } else {

@@ -9,8 +9,9 @@ class CreateTranslationsTable extends Migration {
 	{
 		Schema::create('translations', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('key', 255)->unique();
-			$table->string('value', 255);
+			$table->string('key', 255);
+            $table->string('value', 255);
+            $table->string('locale', 64);
 			$table->enum('status', array('1', '2', '3'));
             $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();

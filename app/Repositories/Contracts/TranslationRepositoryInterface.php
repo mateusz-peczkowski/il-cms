@@ -5,10 +5,10 @@ namespace App\Repositories\Contracts;
 interface TranslationRepositoryInterface
 {
 
-    public function paginatedTranslations($paggLimit = 15);
+    public function paginatedTranslations($locale = '', $paggLimit = 15);
 
     public function paginatedTranslationsTrash($paggLimit = 15);
 
-    public function checkTranslationExist($key = false);
+    public function checkTranslationExist($key = false, $locale = '');
 
 }

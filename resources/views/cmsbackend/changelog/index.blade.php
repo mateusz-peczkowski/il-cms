@@ -10,7 +10,19 @@
                         </span>
                     </li>
                     <li>
-                        <i class="fa fa-language bg-purple"></i>
+                        <i class="fa fa-language bg-green"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('translations') }}">{{ __('Języki') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista języków') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania języków przez rangę developer i wyżej') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-key bg-purple"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('translations') }}">{{ __('Tłumaczenia') }}</a></h3>
                             <div class="timeline-body">
