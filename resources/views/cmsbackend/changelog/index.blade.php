@@ -10,6 +10,19 @@
                         </span>
                     </li>
                     <li>
+                        <i class="fa fa-wrench bg-blue"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('options') }}">{{ __('Główne ustawienia') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista opcji') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania opcji przez rangę developer i wyżej') }}</li>
+                                    <li>{{ __('Możliwość podpinania osobnych opcji pod każdą stronę, sekcję') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <i class="fa fa-language bg-green"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('translations') }}">{{ __('Języki') }}</a></h3>
