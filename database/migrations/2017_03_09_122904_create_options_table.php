@@ -9,9 +9,11 @@ class CreateOptionsTable extends Migration {
 	{
 		Schema::create('options', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('type', 255);
-			$table->string('key', 64);
-			$table->text('value');
+            $table->string('key', 64);
+            $table->text('value');
+            $table->string('type', 255);
+            $table->string('locale', 64);
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

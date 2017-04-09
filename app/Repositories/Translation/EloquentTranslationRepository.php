@@ -36,15 +36,10 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
 
     function checkTranslationExist($key = false, $locale = '')
     {
-        $key = $this->model
+        return $this->model
             ->where('key', '=', $key)
             ->where('locale', $locale)
             ->count();
-        if($key) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

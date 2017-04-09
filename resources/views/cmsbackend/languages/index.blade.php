@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <button type="submit" class="btn btn-success margin">{{ __('Dodaj język') }}</button>
+                    <button type="submit" class="btn btn-success margin">{{ __('Zapisz') }}</button>
                 </div>
             </form>
         </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <a class="btn btn-danger pull-right btn-ok">{{ __('Usuń język') }}</a>
+                    <a class="btn btn-danger pull-right btn-ok">{{ __('Usuń') }}</a>
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <a class="btn btn-danger pull-right btn-ok">{{ __('Zdezaktywuj język') }}</a>
+                    <a class="btn btn-danger pull-right btn-ok">{{ __('Zdezaktywuj') }}</a>
                 </div>
             </div>
         </div>

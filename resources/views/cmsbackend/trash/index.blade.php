@@ -299,7 +299,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <a class="btn btn-success pull-right btn-ok">{{ __('Przywróć element') }}</a>
+                    <a class="btn btn-success pull-right btn-ok">{{ __('Przywróć') }}</a>
                 </div>
             </div>
         </div>
@@ -315,7 +315,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <a class="btn btn-danger pull-right btn-ok">{{ __('Usuń element') }}</a>
+                    <a class="btn btn-danger pull-right btn-ok">{{ __('Usuń') }}</a>
                 </div>
             </div>
         </div>

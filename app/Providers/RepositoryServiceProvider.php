@@ -29,6 +29,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerRedirectRepository();
         $this->registerTranslationRepository();
         $this->registerLanguageRepository();
+        $this->registerOptionRepository();
     }
 
     /*
@@ -88,6 +89,16 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\LanguageRepositoryInterface', function($app) {
             return new \App\Repositories\Language\EloquentLanguageRepository($app);
+        });
+    }
+
+    /*
+     * Register Option repository
+     */
+    protected function registerOptionRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\OptionRepositoryInterface', function($app) {
+            return new \App\Repositories\Option\EloquentOptionRepository($app);
         });
     }
 

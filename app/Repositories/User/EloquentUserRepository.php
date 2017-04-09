@@ -41,14 +41,9 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
 
     function checkUserEmailExist($email = false)
     {
-        $email = $this->model
+        return $this->model
             ->where('email', '=', $email)
             ->count();
-        if($email) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

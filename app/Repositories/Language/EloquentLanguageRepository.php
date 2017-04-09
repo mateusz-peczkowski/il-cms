@@ -40,14 +40,9 @@ class EloquentLanguageRepository extends AbstractRepository implements LanguageR
 
     function checkLanguageExist($slug = false)
     {
-        $slug = $this->model
+        return $this->model
             ->where('slug', '=', $slug)
             ->count();
-        if($slug) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

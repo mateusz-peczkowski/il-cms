@@ -25,30 +25,32 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/lang/{locale}', 'DashboardController@changelocale')->name('changelocale');
 
-    Route::resource('users', 'UsersController', ['except' => ['show', 'create'], 'names' => ['index' => 'users']]);
+    Route::resource('users', 'UsersController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
     Route::get('users/{id}/deactivate', 'UsersController@deactivate')->name('users.deactivate');
     Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate');
     Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
 
-    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create'], 'names' => ['index' => 'redirects']]);
+    Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'redirects']]);
     Route::get('settings/redirects/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
     Route::get('settings/redirects/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
     Route::get('settings/redirects/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');
 
-    Route::resource('settings/translations', 'TranslationsController', ['except' => ['show', 'create'], 'names' => ['index' => 'translations']]);
+    Route::resource('settings/translations', 'TranslationsController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'translations']]);
     Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate');
     Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate');
     Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete');
     Route::get('settings/translations/{slug}/locale', 'TranslationsController@changelocale')->name('translations.changelocale');
     Route::post('settings/translation/duplicate', 'TranslationsController@duplicate')->name('translations.duplicate');
 
-    Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create'], 'names' => ['index' => 'languages']]);
+    Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'languages']]);
     Route::get('settings/languages/{id}/deactivate', 'LanguagesController@deactivate')->name('languages.deactivate');
     Route::get('settings/languages/{id}/activate', 'LanguagesController@activate')->name('languages.activate');
     Route::get('settings/languages/{id}/delete', 'LanguagesController@delete')->name('languages.delete');
 
+    Route::resource('settings/options', 'OptionsController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'options']]);
+    Route::get('settings/options/{id}/delete', 'OptionsController@delete')->name('options.delete');
 
     Route::get('trash', 'TrashController@index')->name('trash');
     Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke');

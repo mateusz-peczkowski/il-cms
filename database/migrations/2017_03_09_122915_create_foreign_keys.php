@@ -43,6 +43,11 @@ class CreateForeignKeys extends Migration {
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });
+        Schema::table('options', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+        });
 	}
 
 	public function down()
@@ -67,6 +72,9 @@ class CreateForeignKeys extends Migration {
         });
         Schema::table('languages', function(Blueprint $table) {
             $table->dropForeign('languages_who_updated_foreign');
+        });
+        Schema::table('options', function(Blueprint $table) {
+            $table->dropForeign('options_who_updated_foreign');
         });
 	}
 }

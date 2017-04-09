@@ -51,7 +51,7 @@
                             <div class="col-xs-12">
                                 <div class="text-center mb-0">
                                     <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>
-                                    <button type="submit" class="btn btn-success margin">{{ __('Edytuj użytkownika') }}</button>
+                                    <button type="submit" class="btn btn-success margin">{{ __('Zapisz') }}</button>
                                 </div>
                             </div>
                         </div>

@@ -35,14 +35,9 @@ class EloquentRedirectRepository extends AbstractRepository implements RedirectR
 
     function checkRedirectExist($from = false)
     {
-        $from = $this->model
+        return $this->model
             ->where('from', '=', $from)
             ->count();
-        if($from) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

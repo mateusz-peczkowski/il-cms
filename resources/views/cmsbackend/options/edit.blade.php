@@ -11,21 +11,21 @@
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <form role="form" method="POST" action="{{ route('redirects.update', $redirect->id) }}">
+                    <form role="form" method="POST" action="{{ route('options.update', $option->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" name="id" value="{{ $redirect->id }}">
+                        <input type="hidden" name="id" value="{{ $option->id }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Z adresu') }} <small class="text-muted">({{ __('np. /adres-do-przekierowania/test') }})</small></label>
-                                    <input type="text" id="redirect_from" name="redirect_from" class="form-control" value="{{ old('redirect_from') ? : $redirect->from }}" required />
+                                    <label>{{ __('Klucz') }}</label>
+                                    <input type="text" id="option_key" name="option_key" class="form-control" value="{{ old('option_key') ? : $option->key }}" required />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Na adres') }} <small class="text-muted">({{ __('np. /adres lub http://adres.pl/adres jeżeli przekierowanie zewnętrzne') }})</small></label>
-                                    <input type="text" id="redirect_to" name="redirect_to" class="form-control" value="{{ old('redirect_to') ? : $redirect->to }}" required />
+                                    <label>{{ __('Wartość') }}</label>
+                                    <input type="text" id="option_value" name="option_value" class="form-control" value="{{ old('option_value') ? : $option->value }}" required />
                                 </div>
                             </div>
                             <div class="col-xs-12">

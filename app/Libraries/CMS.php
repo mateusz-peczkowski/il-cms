@@ -30,7 +30,7 @@ class CMS
 
     public static function isLocale($locale = '')
     {
-        return 'App\Language'::where('status', '1')->where('slug', '=', $locale)->count();;
+        return \App\Language::where('status', '1')->where('slug', '=', $locale)->count();
     }
 
     public static function getLocale()
@@ -40,28 +40,28 @@ class CMS
 
     public static function getDefaultLocale()
     {
-        $locale = 'App\Language'::where('status', '1')->where('is_default', '=', '1')->get();
+        $locale = \App\Language::where('status', '1')->where('is_default', '=', '1')->get();
         return $locale ? $locale[0]->slug : Config::get('app.fallback_locale');
     }
 
     public static function getMoreDefaultLocales()
     {
-        return 'App\Language'::where('status', '1')->where('is_default', '!=', '1')->get();
+        return \App\Language::where('status', '1')->where('is_default', '!=', '1')->get();
     }
 
     public static function getMoreLocales()
     {
-        return 'App\Language'::where('status', '1')->where('slug', '!=', Session::get('cms_locale'))->get();
+        return \App\Language::where('status', '1')->where('slug', '!=', Session::get('cms_locale'))->get();
     }
 
     public static function getLocalesExcept($locale = '')
     {
-        return 'App\Language'::where('status', '1')->where('slug', '!=', $locale)->get();
+        return \App\Language::where('status', '1')->where('slug', '!=', $locale)->get();
     }
 
     public static function isMoreLocales()
     {
-        return 'App\Language'::where('is_default', '!=', '1')->where('status', '1')->count();
+        return \App\Language::where('is_default', '!=', '1')->where('status', '1')->count();
     }
 
 }
