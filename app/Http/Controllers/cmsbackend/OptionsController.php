@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StoreOption;
 use App\Http\Requests\UpdateOption;
+use App\Http\Requests\StoreOptionDuplicate;
 use App\Repositories\Contracts\OptionRepositoryInterface;
 use Auth;
 use Session;
@@ -107,6 +108,36 @@ class OptionsController extends BackendController
             ]);
         }
         return redirect()->route('options.edit', $id)->with([
+            'status' => __('Opcja już istnieje w systemie'),
+            'status_type' => 'danger'
+        ])->withInput();
+    }
+
+    /**
+     * Duplicate the specified resource in storage of another lang.
+     *
+     * @param  \App\Http\Requests\UpdateOption  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate(StoreOptionDuplicate $request)
+    {
+        $duplicate = $this->options->find($request->option_id);
+        if($duplicate && !$this->options->checkOptionExist($duplicate->key, $request->option_language)) {
+            $this->options->create([
+                'type' => $duplicate->type,
+                'key' => $duplicate->key,
+                'value' => $duplicate->value,
+                'locale' => $request->option_language,
+                'who_updated' => Auth::id()
+            ]);
+            $this->locale($request->option_language);
+            return redirect()->route('options')->with([
+                'status' => __('Opcja została skopiowana'),
+                'status_type' => 'success'
+            ]);
+        }
+        return redirect()->route('options')->with([
             'status' => __('Opcja już istnieje w systemie'),
             'status_type' => 'danger'
         ])->withInput();

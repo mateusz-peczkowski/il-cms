@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::resource('settings/options', 'OptionsController', ['except' => ['show', 'create, destroy'], 'names' => ['index' => 'options']]);
     Route::get('settings/options/{id}/delete', 'OptionsController@delete')->name('options.delete');
+    Route::get('settings/options/{slug}/locale', 'OptionsController@changelocale')->name('options.changelocale');
+    Route::post('settings/options/duplicate', 'OptionsController@duplicate')->name('options.duplicate');
 
     Route::get('trash', 'TrashController@index')->name('trash');
     Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke');
