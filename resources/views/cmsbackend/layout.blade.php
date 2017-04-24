@@ -8,7 +8,7 @@
     <div class="wrapper">
         <header class="main-header">
             <a href="{{ route('dashboard') }}" class="logo">
-                <span class="logo-mini"><b>J</b>2</span>
+                <span class="logo-mini"><b>C</b>2</span>
                 <span class="logo-lg">{!! config('app.namesystem') !!}</span>
             </a>
             <nav class="navbar navbar-static-top">
