@@ -12,8 +12,8 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'JAMPcms2',
-    'namesystem' => '<b>JAMP</b>cms2',
+    'name' => 'CENTcms',
+    'namesystem' => '<b>CENT</b>cms2',
     'version' => '2.0.0',
 
     /*

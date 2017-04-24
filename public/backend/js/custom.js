@@ -52,5 +52,4 @@ $(function () {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
     removeAutoHide();
-    console.log('%cCreated by: %cJAMPstudio.pl%c -> %chttp://jampstudio.pl','color: #444','background: #2196F3; color: #fff; padding: 4px;','color: #444','color: #009fe3');
 });

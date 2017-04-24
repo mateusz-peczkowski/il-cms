@@ -22,7 +22,6 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
-        console.log('%cCreated by: %cJAMPstudio.pl%c -> %chttp://jampstudio.pl','color: #444','background: #2196F3; color: #fff; padding: 4px;','color: #444','color: #009fe3');
     });
 </script>
 </body>

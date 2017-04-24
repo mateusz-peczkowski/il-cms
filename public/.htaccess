@@ -7,7 +7,6 @@
 
     RewriteCond %{HTTP_HOST} !^www\.nazwa\.pl$  [NC]
     RewriteCond %{HTTP_HOST} !(.*).dev$
-    RewriteCond %{HTTP_HOST} !(.*).demo.jampstudio.pl$
     RewriteRule ^(.*)$ http://www.nazwa.pl/$1 [R=301,L]
 
     # Redirect Trailing Slashes If Not A Folder...

@@ -131,7 +131,7 @@
             <div class="pull-right hidden-xs">
                 <b>{{ __('Wersja') }}:</b> {{ config('app.version') }}
             </div>
-            <strong>{{ __('Prawo autorskie') }} &copy; <a href="http://jampstudio.pl" target="_blank">JAMPstudio</a>.</strong> {{ __('Wszystkie prawa zastrzeżone') }}.
+            <strong>&copy; {{ __('Wszelkie prawa zastrzeżone') }}.
         </footer>
 
         <div class="control-sidebar-bg"></div>
@@ -143,7 +143,7 @@
                         <h4 class="modal-title" id="exampleModalLabel">{{ __('Wystąpił błąd') }}</h4>
                     </div>
                     <div class="modal-body">
-                        <p>{{ __('Podczas wykonywanej akcji wystąpił błąd. Poniżej przedstawiamy kod błędu. Gdyby się powtarzał prosimy o skontaktowanie się z administratorem JAMPcms2') }}</p>
+                        <p>{{ __('Podczas wykonywanej akcji wystąpił błąd. Poniżej przedstawiamy kod błędu. Gdyby się powtarzał prosimy o skontaktowanie się z administratorem systemu') }}</p>
                         <p class="response" style="overflow-x: auto;"></p>
                     </div>
                     <div class="modal-footer">

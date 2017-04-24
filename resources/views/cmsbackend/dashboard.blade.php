@@ -61,7 +61,7 @@
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
                     <h5 class="profile-useremail text-center">{{ Auth::user()->email }}</h5>
                     <br />
-                    <p class="text-muted text-center">{{ __('Aby dodadać avatar skorzystaj z przycisku poniżej. Domyślnie do konta zaciągany jest avatar z serwisu Gravatar, jeżeli ten został uzupełniony na dokładnie taki sam adres e-mail jakim logujesz się do systemu JAMPcms2') }}</p>
+                    <p class="text-muted text-center">{{ __('Aby dodadać avatar skorzystaj z przycisku poniżej. Domyślnie do konta zaciągany jest avatar z serwisu Gravatar, jeżeli ten został uzupełniony na dokładnie taki sam adres e-mail jakim logujesz się do systemu') }}</p>
                     <hr>
                     <p class="text-center clearfix">
                         <span data-toggle="modal" data-target="#userAvatarModal" class="btn btn-success pull-left">{{ __('Dodaj/zmień zdjęcie profilowe') }}</span>
