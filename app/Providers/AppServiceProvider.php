@@ -23,6 +23,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerDebugbarServiceAndFacade();
+    }
+
+    /**
+     * Register Debug Bar when working in local environment
+     */
+    protected function registerDebugbarServiceAndFacade()
+    {
+        if ($this->app->environment('local')) {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->alias(\Barryvdh\Debugbar\Facade::class, 'Debugbar');
+        }
     }
 }
