@@ -8,3 +8,7 @@ Homestead.yaml
 .env
 composer.lock
 /public/data
+storage
+vendor
+Vagrantfile
+.vagrant
