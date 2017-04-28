@@ -4,6 +4,7 @@ namespace App\Repositories\Option;
 
 use App\Repositories\Contracts\OptionRepositoryInterface;
 use App\Repositories\Eloquent\AbstractRepository;
+use Illuminate\Support\Facades\Config;
 
 class EloquentOptionRepository extends AbstractRepository implements OptionRepositoryInterface
 {
@@ -13,12 +14,12 @@ class EloquentOptionRepository extends AbstractRepository implements OptionRepos
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'App\Option';
     }
 
-    function getByType($type = '', $locale = '')
+    public function getByType($type = '', $locale = '')
     {
         return $this->model
             ->where('type', $type)
@@ -27,7 +28,7 @@ class EloquentOptionRepository extends AbstractRepository implements OptionRepos
             ->get();
     }
 
-    function getByTypePaginated($type = '', $locale = '', $paggLimit = 15)
+    public function getByTypePaginated($type = '', $locale = '', $paggLimit = 15)
     {
         return $this->model
             ->where('type', $type)
@@ -36,12 +37,17 @@ class EloquentOptionRepository extends AbstractRepository implements OptionRepos
             ->paginate($paggLimit);
     }
 
-    function checkOptionExist($key = '', $locale = '')
+    public function checkOptionExist($key = '', $locale = '')
     {
         return $this->model
             ->where('key', $key)
             ->where('locale', $locale)
             ->count();
+    }
+
+    public function getDefaultOptions()
+    {
+        return Config::get('cms.default_optionss');
     }
 
 }
