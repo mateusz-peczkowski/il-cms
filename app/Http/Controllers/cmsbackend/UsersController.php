@@ -220,8 +220,8 @@ class UsersController extends BackendController
             $obj['image'] = Gravatar::src(Auth::user()->email, ['width' => 250, 'height' => 250]);
         } else {
             $newname = time().'-'.Auth::user()->id.'.'.$request->photo->getClientOriginalExtension();
-            $request->photo->move(public_path('data/user'), $newname);
-            $obj['image'] = '/data/user/'.$newname;
+            $request->photo->move(public_path('backend/data/user'), $newname);
+            $obj['image'] = '/backend/data/user/'.$newname;
         }
         $obj['who_updated'] = Auth::id();
         $this->user->update($obj, Auth::user()->id);

@@ -19,6 +19,16 @@ class UserTableSeeder extends Seeder {
                 'status' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],[
+                'id' => 2,
+                'name' => 'Tomasz urban',
+                'email' => 'tomek.urban@insanelab.com',
+                'image' => Gravatar::src('tomek.urban@insanelab.com', ['width' => 250, 'height' => 250]),
+                'role' => 4,
+                'password' => Hash::make('test1234'),
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
 	}
