@@ -76,13 +76,17 @@ class SetDefaultOptions extends Command
     {
         $languages = $this->language->all();
         foreach ($languages as $language) {
-            $this->options->create([
-                'key' => $option->option_key,
-                'value' => $option->option_value,
-                'type' => 'default',
-                'locale' => $language->slug,
-                'who_updated' => null
-            ]);
+            $optionExist = $this->options->findBy('key', $option->option_key);
+            if (!isset($optionExist)) {
+                $this->options->create([
+                    'key' => $option->option_key,
+                    'value' => $option->option_value,
+                    'type' => 'default',
+                    'locale' => $language->slug,
+                    'who_updated' => null
+                ]);
+            }
+
         }
     }
 }

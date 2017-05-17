@@ -235,11 +235,13 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        //Package facades
         'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
+        //App facades
         'CMS' => App\Libraries\CMS::class,
 
     ],
