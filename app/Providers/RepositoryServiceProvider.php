@@ -30,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerTranslationRepository();
         $this->registerLanguageRepository();
         $this->registerOptionRepository();
+        $this->registerFormRepository();
     }
 
     /*
@@ -99,6 +100,16 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\OptionRepositoryInterface', function($app) {
             return new \App\Repositories\Option\EloquentOptionRepository($app);
+        });
+    }
+
+    /*
+     * Register Form repository
+     */
+    protected function registerFormRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\FormRepositoryInterface', function($app) {
+            return new \App\Repositories\Form\EloquentFormRepository($app);
         });
     }
 

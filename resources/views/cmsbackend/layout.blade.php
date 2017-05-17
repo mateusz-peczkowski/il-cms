@@ -84,7 +84,16 @@
                         </ul>
                     </li>
                     <li{{ str_contains(Route::currentRouteName(), 'files') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'forms') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span></a></li>
+                    <li class="treeview{{ (str_contains(Route::currentRouteName(), 'forms.definition') || str_contains(Route::currentRouteName(), 'forms.sent')) ? ' active' : '' }}">
+                        <a href="#">
+                            <i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li{{ str_contains(Route::currentRouteName(), 'forms.definition') ? ' class=active' : '' }}><a href="{{ route('forms.definition') }}"> {{ __('Definicje') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'forms.sent') ? ' class=active' : '' }}><a href="{{ route('forms.sent') }}"> {{ __('Ustawienia') }}</a></li>
+                        </ul>
+                    </li>
                     <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
                     <li class="treeview{{ (str_contains(Route::currentRouteName(), 'options') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
                         <a href="#">

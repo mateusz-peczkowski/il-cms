@@ -9,7 +9,8 @@ class CreateSubmitTable extends Migration {
 	{
 		Schema::create('submit', function(Blueprint $table) {
 			$table->increments('id');
-			$table->text('data');
+            $table->integer('form_id')->unsigned()->nullable();
+            $table->text('data');
 			$table->string('ip', 255);
 			$table->string('language', 10);
 			$table->timestamps();

@@ -11,42 +11,47 @@ class CreateForeignKeys extends Migration {
 		Schema::table('nodes', function(Blueprint $table) {
 			$table->foreign('navigation_id')->references('id')->on('navigations')
 						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onUpdate('cascade');
 		});
 		Schema::table('nodes', function(Blueprint $table) {
 			$table->foreign('page_id')->references('id')->on('pages')
 						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onUpdate('cascade');
 		});
         Schema::table('users', function(Blueprint $table) {
             $table->foreign('role')->references('id')->on('roles')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
         Schema::table('users', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
         Schema::table('redirects', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
         Schema::table('translations', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
         Schema::table('languages', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
         Schema::table('options', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
+        });
+        Schema::table('submit', function(Blueprint $table) {
+            $table->foreign('form_id')->references('id')->on('forms')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
 	}
 
@@ -75,6 +80,9 @@ class CreateForeignKeys extends Migration {
         });
         Schema::table('options', function(Blueprint $table) {
             $table->dropForeign('options_who_updated_foreign');
+        });
+        Schema::table('submit', function(Blueprint $table) {
+            $table->dropForeign('submit_form_id_foreign');
         });
 	}
 }
