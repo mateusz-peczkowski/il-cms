@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Language\LanguageCacheDecorator;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Translation\TranslationCacheDecorator;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -78,7 +80,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerTranslationRepository()
     {
         $this->app->bind('App\Repositories\Contracts\TranslationRepositoryInterface', function($app) {
-            return new \App\Repositories\Translation\EloquentTranslationRepository($app);
+            $translation = new \App\Repositories\Translation\EloquentTranslationRepository($app);
+
+            return new TranslationCacheDecorator($translation, $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
@@ -88,7 +92,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerLanguageRepository()
     {
         $this->app->bind('App\Repositories\Contracts\LanguageRepositoryInterface', function($app) {
-            return new \App\Repositories\Language\EloquentLanguageRepository($app);
+            $language = new \App\Repositories\Language\EloquentLanguageRepository($app);
+
+            return new LanguageCacheDecorator($language, ['language'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

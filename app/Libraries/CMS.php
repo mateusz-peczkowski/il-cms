@@ -30,7 +30,8 @@ class CMS
 
     public static function isLocale($locale = '')
     {
-        return \App\Language::where('status', '1')->where('slug', '=', $locale)->count();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        return $language->isLocale($locale);
     }
 
     public static function getLocale()
@@ -40,28 +41,33 @@ class CMS
 
     public static function getDefaultLocale()
     {
-        $locale = \App\Language::where('status', '1')->where('is_default', '=', '1')->get();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        $locale = $language->getDefaultLocale();
         return $locale ? $locale[0]->slug : Config::get('app.fallback_locale');
     }
 
     public static function getMoreDefaultLocales()
     {
-        return \App\Language::where('status', '1')->where('is_default', '!=', '1')->get();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        return $language->getMoreDefaultLocales();
     }
 
     public static function getMoreLocales()
     {
-        return \App\Language::where('status', '1')->where('slug', '!=', Session::get('cms_locale'))->get();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        return $language->getMoreLocales();
     }
 
     public static function getLocalesExcept($locale = '')
     {
-        return \App\Language::where('status', '1')->where('slug', '!=', $locale)->get();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        return $language->getLocalesExcept($locale);
     }
 
     public static function isMoreLocales()
     {
-        return \App\Language::where('is_default', '!=', '1')->where('status', '1')->count();
+        $language = resolve('App\Repositories\Contracts\LanguageRepositoryInterface');
+        return $language->isMoreLocales();
     }
 
 }
