@@ -54,13 +54,13 @@
                                 @can('edit_dev', 'App\User')
                                 <td class="text-center">
                                             @if($form->role <= Auth::user()->role)
-                                            <a href="{{ route('users.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('forms.definition.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
                                             @if($form->status == 1)
-                                                <a href="#" data-href="{{ route('users.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
+                                                <a href="#" data-href="{{ route('forms.definition.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
                                             @else
-                                                <a href="{{ route('users.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
+                                                <a href="{{ route('forms.definition.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
                                             @endif
-                                            <a href="#" data-href="{{ route('users.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
+                                            <a href="#" data-href="{{ route('forms.definition.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
                                             @endif
                                 </td>
                                 @endcan
@@ -107,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Opis') }}</label>
-                            <textarea name="description" id="description" class="form-control"></textarea>
+                            <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
                         </div>
                         <div class="form-group{{ $errors->has('tag') ? ' has-error' : '' }}">
                             <label>{{ __('Tag') }}{{ $errors->has('tag') ? ' - '.(__($errors->first('tag'))) : '' }}</label>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label><input type="checkbox" id="confirmation" name="confirmation" class="form-control"{{ old('confirmation') ? ' selected' : '' }} /> {{ __('Wysyłac potwierdzenie?') }}</label>
+                            <label><input type="checkbox" id="confirmation" name="confirmation" class="form-control"{{ old('confirmation') ? ' checked' : '' }} /> {{ __('Wysyłac potwierdzenie?') }}</label>
                         </div>
                     </div>
                     <div class="modal-footer">

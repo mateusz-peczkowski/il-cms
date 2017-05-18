@@ -61,9 +61,16 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
     Route::get('documentation', 'DocumentationController@index')->name('documentation');
 
-    Route::resource('settings/forms/definitions', 'FormsController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'forms.definition']]);
+    Route::resource('forms/definitions', 'FormsController', ['except' => ['create', 'destroy'], 'names' => [
+        'index' => 'forms.definition',
+        'edit' => 'forms.definition.edit',
+        'update' => 'forms.definition.update'
+    ]]);
+    Route::get('forms/definitions/{id}/deactivate', 'FormsController@deactivate')->name('forms.definition.deactivate');
+    Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate');
+    Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete');
 
-    Route::get('settings/forms/sent', 'FormSentController@index')->name('forms.sent');
-    Route::get('settings/forms/sent/{id}', 'FormSentController@show')->name('forms.sent.form');
+    Route::get('forms/sent', 'FormSentController@index')->name('forms.sent');
+    Route::get('forms/sent/{id}', 'FormSentController@show')->name('forms.sent.form');
 
 });

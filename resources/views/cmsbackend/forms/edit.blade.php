@@ -11,43 +11,58 @@
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <form role="form" method="POST" action="{{ route('users.update', $user->id) }}">
+                    <form role="form" method="POST" action="{{ route('forms.definition.update', $form->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" name="id" value="{{ $user->id }}">
+                        <input type="hidden" name="id" value="{{ $form->id }}">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Imię i nazwisko') }}</label>
-                                    <input type="text" id="user_name" name="user_name" class="form-control" value="{{ old('user_name') ? : $user->name }}" required />
+                                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                    <label>{{ __('Nazwa') }}{{ $errors->has('title') ? ' - '.(__($errors->first('title'))) : '' }}</label>
+                                    <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? : $form->title }}" required autofocus />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Adres e-mail') }} <small class="text-muted">({{ __('służy do logowania') }})</small></label>
-                                    <input type="email" id="user_email" name="user_email" class="form-control" value="{{ old('user_email') ? : $user->email }}" required />
+                                    <label>{{ __('Opis') }}</label>
+                                    <textarea name="description" id="description" class="form-control">{{ old('description') ? : $form->description }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Hasło') }} <small class="text-muted">({{ __('wypełnić wyłącznie w przypadku zmiany') }}, {{ __('zalecane: :pass', ['pass' => bin2hex(openssl_random_pseudo_bytes(4))]) }})</small></label>
-                                    <input type="password" id="user_password" name="user_password" class="form-control" value="{{ old('user_password') }}">
+                                <div class="form-group{{ $errors->has('tag') ? ' has-error' : '' }}">
+                                    <label>{{ __('Tag') }}{{ $errors->has('tag') ? ' - '.(__($errors->first('tag'))) : '' }}</label>
+                                    <input type="text" id="tag" name="tag" class="form-control" value="{{ old('tag') ? : $form->tag }}" required autofocus />
                                 </div>
                             </div>
-                            @if(isset($roles))
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Poziom uprawnień') }}</label>
-                                    <select class="form-control select2" name="user_role" id="role" style="width: 100%;">
-                                        @foreach($roles as $num => $role)
-                                            @if(Auth::user()->role >= $role->id)
-                                                <option{{ $role->id == $user->role ? ' selected' : '' }} value="{{ $role->id }}">{{ $role->title }}</option>
-                                            @endif
-                                        @endforeach
+                                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                                    <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
+                                    <select name="type" id="type" class="form-control" required>
+                                        <option value="contact">{{ __('Formularz kontaktowy') }}</option>
+                                        <option value="newsletter">{{ __('Newsletter') }}</option>
                                     </select>
                                 </div>
                             </div>
-                            @endif
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('sender_name') ? ' has-error' : '' }}">
+                                    <label>{{ __('Nazwa wysyłającego') }}{{ $errors->has('sender_name') ? ' - '.(__($errors->first('sender_name'))) : '' }}</label>
+                                    <input type="text" id="sender_name" name="sender_name" class="form-control" value="{{ old('sender_name') ? : $form->sender_name }}" required autofocus />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('sender_email') ? ' has-error' : '' }}">
+                                    <label>{{ __('E-mail wysyłającego') }}{{ $errors->has('sender_email') ? ' - '.(__($errors->first('sender_email'))) : '' }}</label>
+                                    <input type="email" id="sender_email" name="sender_email" class="form-control" value="{{ old('sender_email') ? : $form->sender_email }}" required autofocus />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <?php
+                                        $confirmation = old('confirmation') ? : $form->confirmation;
+                                    ?>
+                                    <label><input type="checkbox" id="confirmation" name="confirmation" class="form-control"{{ $confirmation ? ' checked' : '' }} /> {{ __('Wysyłac potwierdzenie?') }}</label>
+                                </div>
+                            </div>
                             <div class="col-xs-12">
                                 <div class="text-center mb-0">
                                     <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>

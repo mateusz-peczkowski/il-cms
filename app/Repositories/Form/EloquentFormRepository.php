@@ -25,4 +25,11 @@ class EloquentFormRepository extends AbstractRepository implements FormRepositor
             ->paginate($paggLimit);
     }
 
+    function paginatedFormsTrash($paggLimit = 15)
+    {
+        return $this->model
+            ->where('status', '=', 3)
+            ->paginate($paggLimit);
+    }
+
 }

@@ -10,6 +10,19 @@
                         </span>
                     </li>
                     <li>
+                        <i class="fa fa-edit bg-blue"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('forms.definition') }}">{{ __('Formularze') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista formularz') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania formularzy przez rangę developer i wyżej') }}</li>
+                                    <li>{{ __('Możliwość podpinania osobnych kontrolek pod każdy formularz i ich możliwość rozbudowy') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <i class="fa fa-wrench bg-blue"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('options') }}">{{ __('Główne ustawienia') }}</a></h3>
