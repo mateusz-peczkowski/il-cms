@@ -18,7 +18,7 @@ class LanguagesController extends BackendController
     }
 
     /**
-     * Show the application languages.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

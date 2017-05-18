@@ -18,7 +18,7 @@ class FormsController extends BackendController
     }
 
     /**
-     * Show the application options.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

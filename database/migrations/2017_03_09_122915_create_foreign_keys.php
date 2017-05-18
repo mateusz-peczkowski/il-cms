@@ -48,6 +48,21 @@ class CreateForeignKeys extends Migration {
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
+        Schema::table('forms', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+        });
+        Schema::table('form_controls', function(Blueprint $table) {
+            $table->foreign('form_id')->references('id')->on('forms')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+        });
+        Schema::table('form_controls', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+        });
         Schema::table('submit', function(Blueprint $table) {
             $table->foreign('form_id')->references('id')->on('forms')
                 ->onDelete('restrict')
@@ -80,6 +95,15 @@ class CreateForeignKeys extends Migration {
         });
         Schema::table('options', function(Blueprint $table) {
             $table->dropForeign('options_who_updated_foreign');
+        });
+        Schema::table('forms', function(Blueprint $table) {
+            $table->dropForeign('forms_who_updated_foreign');
+        });
+        Schema::table('form_controls', function(Blueprint $table) {
+            $table->dropForeign('form_controls_who_updated_foreign');
+        });
+        Schema::table('form_controls', function(Blueprint $table) {
+            $table->dropForeign('form_controls_form_id_foreign');
         });
         Schema::table('submit', function(Blueprint $table) {
             $table->dropForeign('submit_form_id_foreign');

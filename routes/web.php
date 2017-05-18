@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
     Route::get('documentation', 'DocumentationController@index')->name('documentation');
 
-    Route::resource('forms/definitions', 'FormsController', ['except' => ['create', 'destroy'], 'names' => [
+    Route::resource('forms/definitions', 'FormsController', ['except' => ['show', 'create', 'destroy'], 'names' => [
         'index' => 'forms.definition',
         'edit' => 'forms.definition.edit',
         'update' => 'forms.definition.update'
@@ -70,7 +70,24 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate');
     Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete');
 
+    Route::resource('forms/definitions/{id}/controls', 'ControlsController', ['except' => ['show', 'create', 'destroy'], 'names' => [
+        'index' => 'forms.definition.controls',
+        'edit' => 'forms.definition.control.edit',
+        'update' => 'forms.definition.control.update'
+    ]]);
+    Route::get('forms/definitions/control/{id}/deactivate', 'ControlsController@deactivate')->name('forms.definition.control.deactivate');
+    Route::get('forms/definitions/control/{id}/activate', 'ControlsController@activate')->name('forms.definition.control.activate');
+    Route::get('forms/definitions/control/{id}/destroy', 'ControlsController@destroy')->name('forms.definition.control.destroy');
+
     Route::get('forms/sent', 'FormSentController@index')->name('forms.sent');
     Route::get('forms/sent/{id}', 'FormSentController@show')->name('forms.sent.form');
+
+    Route::get('settings', function() {
+        return redirect()->to('cmsbackend/settings/options');
+    });
+
+    Route::get('forms', function() {
+        return redirect()->to('cmsbackend/forms/definitions');
+    });
 
 });

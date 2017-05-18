@@ -22,7 +22,7 @@ class TrashController extends BackendController
     }
 
     /**
-     * Show the application trash.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

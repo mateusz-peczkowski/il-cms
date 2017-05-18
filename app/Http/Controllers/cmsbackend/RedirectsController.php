@@ -16,7 +16,7 @@ class RedirectsController extends BackendController
     }
 
     /**
-     * Show the application redirects.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

@@ -37,9 +37,12 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                                     <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
+                                    <?php
+                                        $type = old('type') ? : $form->type;
+                                    ?>
                                     <select name="type" id="type" class="form-control" required>
-                                        <option value="contact">{{ __('Formularz kontaktowy') }}</option>
-                                        <option value="newsletter">{{ __('Newsletter') }}</option>
+                                        <option value="contact"{{ $type == 'contact' ? ' selected' : '' }}>{{ __('Formularz kontaktowy') }}</option>
+                                        <option value="newsletter"{{ $type == 'newsletter' ? ' selected' : '' }}>{{ __('Newsletter') }}</option>
                                     </select>
                                 </div>
                             </div>

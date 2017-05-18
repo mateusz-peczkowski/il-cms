@@ -32,10 +32,10 @@
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Nazwa') }}</th>
                                 <th>{{ __('Liczba przesłanych formularzy') }}</th>
-                                <th>{{ __('Liczba kontrolek') }}</th>
+                                <th>{{ __('Aktywne kontrolki / Liczba kontrolek') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: 85px;">&nbsp;</th>
                                 @endcan
                             </tr>
                         </thead>
@@ -44,8 +44,8 @@
                             <tr>
                                 <td style="text-align: center;">{!! $form->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
                                 <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ $form->title }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
-                                <td>{{ count($form->submits) }}</td>
-                                <td>{{ count($form->controls) }}</td>
+                                <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ count($form->submits) }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
+                                <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ count($form->controls_active) }}/{{ count($form->controls) }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
                                 @if($form->who_updated)
                                     <td><img src="{{ $form->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $form->updater->name }} <small class="text-muted">({{ $form->updated_at }})</small></td>
                                 @else
@@ -53,15 +53,16 @@
                                 @endif
                                 @can('edit_dev', 'App\User')
                                 <td class="text-center">
-                                            @if($form->role <= Auth::user()->role)
-                                            <a href="{{ route('forms.definition.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
-                                            @if($form->status == 1)
-                                                <a href="#" data-href="{{ route('forms.definition.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
-                                            @else
-                                                <a href="{{ route('forms.definition.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
-                                            @endif
-                                            <a href="#" data-href="{{ route('forms.definition.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
-                                            @endif
+                                    @if($form->role <= Auth::user()->role)
+                                        <a href="{{ route('forms.definition.controls', $form->id) }}" class="text-purple" title="{{ __('Edycja kontrolek') }}"><i class="fa fa-list"></i></a>
+                                        <a href="{{ route('forms.definition.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
+                                        @if($form->status == 1)
+                                            <a href="#" data-href="{{ route('forms.definition.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
+                                        @else
+                                            <a href="{{ route('forms.definition.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
+                                        @endif
+                                        <a href="#" data-href="{{ route('forms.definition.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
+                                    @endif
                                 </td>
                                 @endcan
                             </tr>
@@ -72,10 +73,10 @@
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Nazwa') }}</th>
                                 <th>{{ __('Liczba przesłanych formularzy') }}</th>
-                                <th>{{ __('Liczba kontrolek') }}</th>
+                                <th>{{ __('Aktywne kontrolki / Liczba kontrolek') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 70px;">&nbsp;</th>
+                                    <th style="width: 85px;">&nbsp;</th>
                                 @endcan
                             </tr>
                         </tfoot>
@@ -116,8 +117,8 @@
                         <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                             <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
                             <select name="type" id="type" class="form-control" required>
-                                <option value="contact">{{ __('Formularz kontaktowy') }}</option>
-                                <option value="newsletter">{{ __('Newsletter') }}</option>
+                                <option value="contact"{{ old('type') == 'contact' ? ' selected' : '' }}>{{ __('Formularz kontaktowy') }}</option>
+                                <option value="newsletter"{{ old('type') == 'newsletter' ? ' selected' : '' }}>{{ __('Newsletter') }}</option>
                             </select>
                         </div>
                         <div class="row">

@@ -19,7 +19,7 @@ class OptionsController extends BackendController
     }
 
     /**
-     * Show the application options.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

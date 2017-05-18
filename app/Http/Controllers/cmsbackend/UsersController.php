@@ -22,7 +22,7 @@ class UsersController extends BackendController
     }
 
     /**
-     * Show the application users.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

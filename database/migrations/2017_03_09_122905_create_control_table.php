@@ -7,20 +7,23 @@ class CreateControlTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('control', function(Blueprint $table) {
+		Schema::create('form_controls', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name', 255);
 			$table->string('label', 255);
 			$table->string('type', 255);
 			$table->string('default', 255)->nullable();
 			$table->string('values', 255)->nullable();
-			$table->tinyInteger('required')->unsigned();
+			$table->boolean('required')->default(false);
+            $table->integer('form_id')->unsigned();
+            $table->enum('status', array('1', '2'))->default('1');
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('control');
+		Schema::drop('form_controls');
 	}
 }

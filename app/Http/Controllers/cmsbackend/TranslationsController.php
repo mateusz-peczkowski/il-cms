@@ -19,7 +19,7 @@ class TranslationsController extends BackendController
     }
 
     /**
-     * Show the application translations.
+     * Show the application resources.
      *
      * @return \Illuminate\Http\Response
      */

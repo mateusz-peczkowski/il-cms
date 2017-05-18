@@ -21,4 +21,12 @@ class Form extends Model
         return $this->hasMany('App\Submit', 'form_id', 'id');
     }
 
+    public function controls() {
+        return $this->hasMany('App\Control', 'form_id', 'id');
+    }
+
+    public function controls_active() {
+        return $this->hasMany('App\Control', 'form_id', 'id')->where('status', '=', 1);
+    }
+
 }
