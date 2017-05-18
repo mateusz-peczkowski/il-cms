@@ -3,8 +3,15 @@
 namespace App\Providers;
 
 use App\Language;
+use App\Observers\OptionObserver;
+use App\Observers\TranslationObserver;
+use App\Option;
+use App\Translation;
+use App\User;
 use App\Observers\LanguageObserver;
+use App\Observers\UserObserver;
 use App\Repositories\Language\LanguageCacheDecorator;
+use App\Repositories\Option\OptionCacheDecorator;
 use App\Repositories\Role\RoleCacheDecorator;
 use App\Repositories\User\UserCacheDecorator;
 use Illuminate\Support\ServiceProvider;
@@ -20,6 +27,9 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot()
     {
         Language::observe(LanguageObserver::class);
+        Translation::observe(TranslationObserver::class);
+        User::observe(UserObserver::class);
+        Option::observe(OptionObserver::class);
     }
 
     /**
@@ -112,7 +122,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerOptionRepository()
     {
         $this->app->bind('App\Repositories\Contracts\OptionRepositoryInterface', function($app) {
-            return new \App\Repositories\Option\EloquentOptionRepository($app);
+            $option = new \App\Repositories\Option\EloquentOptionRepository($app);
+
+            return new OptionCacheDecorator($option, ['option', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
