@@ -22,6 +22,7 @@ class EloquentControlRepository extends AbstractRepository implements ControlRep
     {
         return $this->model
             ->where('form_id', '=', $id)
+            ->orderBy('order', 'asc')
             ->paginate($paggLimit);
     }
 

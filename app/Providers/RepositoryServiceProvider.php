@@ -32,6 +32,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerOptionRepository();
         $this->registerFormRepository();
         $this->registerControlRepository();
+        $this->registerSubmitRepository();
     }
 
     /*
@@ -121,6 +122,16 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\ControlRepositoryInterface', function($app) {
             return new \App\Repositories\Control\EloquentControlRepository($app);
+        });
+    }
+
+    /*
+     * Register Submit repository
+     */
+    protected function registerSubmitRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\SubmitRepositoryInterface', function($app) {
+            return new \App\Repositories\Submit\EloquentSubmitRepository($app);
         });
     }
 

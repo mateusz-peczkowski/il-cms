@@ -91,7 +91,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li{{ str_contains(Route::currentRouteName(), 'forms.definition') ? ' class=active' : '' }}><a href="{{ route('forms.definition') }}"> {{ __('Definicje') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'forms.sent') ? ' class=active' : '' }}><a href="{{ route('forms.sent') }}"> {{ __('Ustawienia') }}</a></li>
+                            <li{{ str_contains(Route::currentRouteName(), 'forms.sent') ? ' class=active' : '' }}><a href="{{ route('forms.sent') }}"> {{ __('Wysłane') }}</a></li>
                         </ul>
                     </li>
                     <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>

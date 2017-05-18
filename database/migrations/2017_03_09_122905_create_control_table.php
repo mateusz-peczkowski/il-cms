@@ -18,6 +18,7 @@ class CreateControlTable extends Migration {
             $table->integer('form_id')->unsigned();
             $table->enum('status', array('1', '2'))->default('1');
             $table->integer('who_updated')->unsigned()->nullable();
+            $table->integer('order')->unsigned();
 			$table->timestamps();
 		});
 	}

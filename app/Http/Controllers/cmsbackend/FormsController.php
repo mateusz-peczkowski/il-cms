@@ -31,9 +31,7 @@ class FormsController extends BackendController
         return view('cmsbackend.forms.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Definicje'),
-            'forms' => $forms,
-            'statusksadmasd' => __('Formularz został dodany'),
-            'status_type' => 'success'
+            'forms' => $forms
         ]);
     }
 

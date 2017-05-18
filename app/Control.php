@@ -10,7 +10,7 @@ class Control extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name', 'label', 'type', 'default', 'values', 'required', 'form_id', 'status', 'who_updated'
+        'name', 'label', 'type', 'default', 'values', 'required', 'form_id', 'status', 'who_updated', 'order'
     ];
 
     public function updater() {

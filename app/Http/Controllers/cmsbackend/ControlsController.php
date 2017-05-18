@@ -49,6 +49,8 @@ class ControlsController extends BackendController
      */
     public function store(StoreControl $request)
     {
+        $last = $this->controls->findBy('form_id', $request->form_id) ? $this->controls->findBy('form_id', $request->form_id)->orderBy('order', 'desc')->first() : false;
+        $order = $last ? $last->order+1 : '1';
         $this->controls->create([
             'label' => $request->label,
             'name' => $request->name,
@@ -58,7 +60,8 @@ class ControlsController extends BackendController
             'required' => $request->required ? 1 : 0,
             'form_id' => $request->form_id,
             'status' => 1,
-            'who_updated' => Auth::id()
+            'who_updated' => Auth::id(),
+            'order' => $order
         ]);
         return redirect()->route('forms.definition.controls', $request->form_id)->with([
             'status' => __('Kontrolka została dodana'),

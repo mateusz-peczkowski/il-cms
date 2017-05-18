@@ -29,4 +29,8 @@ class Form extends Model
         return $this->hasMany('App\Control', 'form_id', 'id')->where('status', '=', 1);
     }
 
+    public function last_submit() {
+        return $this->hasMany('App\Submit', 'form_id', 'id')->orderBy('id', 'desc');
+    }
+
 }
