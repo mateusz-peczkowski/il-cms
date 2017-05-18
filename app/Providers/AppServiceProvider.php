@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerDebugbarServiceAndFacade();
+        $this->registerCacheService();
     }
 
     /**
@@ -35,5 +36,15 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->alias(\Barryvdh\Debugbar\Facade::class, 'Debugbar');
         }
+    }
+
+    /**
+     * Register Laravel Cache Service
+     */
+    protected function registerCacheService()
+    {
+        $this->app->bind('App\Services\Contracts\CacheInterface', function($app) {
+            return new \App\Services\Cache\LaravelCache($app['cache'], null, 60);
+        });
     }
 }

@@ -4,6 +4,10 @@ namespace App\Services\Cache\Contracts;
 
 interface CacheInterface
 {
+    public function setTags($tags);
+
+    public function tags($tags);
+
     /**
      * Retrieve data from cache
      *
