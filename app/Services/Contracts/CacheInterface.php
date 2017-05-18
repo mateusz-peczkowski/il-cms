@@ -46,7 +46,7 @@ interface CacheInterface
      * @param integer  Cache item lifetime in minutes
      * @return mixed   $items variable returned for convenience
      */
-    public function putPaginated($currentPage, $perPage, $totalItems, $items, $key, $minutes = null);
+    public function putPaginated($items, $key, $minutes = null);
 
     /**
      * Store item in cache permanently

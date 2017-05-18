@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Language;
+use App\Observers\LanguageObserver;
 use App\Repositories\Language\LanguageCacheDecorator;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Translation\TranslationCacheDecorator;
@@ -15,7 +17,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Language::observe(LanguageObserver::class);
     }
 
     /**

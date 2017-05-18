@@ -3,17 +3,11 @@
 namespace App\Repositories\Language;
 
 use App\Repositories\Contracts\LanguageRepositoryInterface;
+use App\Services\Cache\AbstractCacheDecorator;
 use App\Services\Cache\Contracts\CacheInterface;
-use Illuminate\Http\Request;
 
-class LanguageCacheDecorator implements LanguageRepositoryInterface
+class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageRepositoryInterface
 {
-
-    /**
-     * @var cache
-     */
-    protected $cache;
-
     /**
      * @var translation
      */
@@ -26,8 +20,9 @@ class LanguageCacheDecorator implements LanguageRepositoryInterface
      */
     public function __construct(LanguageRepositoryInterface $language, array $tags, CacheInterface $cache)
     {
+        parent::__construct($cache);
         $this->language = $language;
-        $this->cache = $cache;
+
         $this->cache->setTags($tags);
     }
 
@@ -59,13 +54,14 @@ class LanguageCacheDecorator implements LanguageRepositoryInterface
 
     public function paginatedLanguages($paggLimit = 15)
     {
-        $cacheName = 'languages_pag_' . $paggLimit;
+        $cacheName = 'languages_paginated';
+        //dd($this->cache);
         if ($this->cache->has($cacheName)) {
             return $this->cache->get($cacheName);
         }
 
         $translations = $this->language->paginatedLanguages($paggLimit);
-        $this->cache->putPaginated($translations->currentPage(), $translations->perPage(), $translations->total, $cacheName, 60);
+        $this->cache->put($cacheName, $translations, 60);
 
         return $translations;
     }
@@ -159,5 +155,10 @@ class LanguageCacheDecorator implements LanguageRepositoryInterface
         $this->cache->put($cacheName, $translations, 60);
 
         return $translations;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array([$this->language, $name], $arguments);
     }
 }

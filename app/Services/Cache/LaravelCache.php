@@ -4,6 +4,7 @@ namespace App\Services\Cache;
 
 use App\Services\Cache\Contracts\CacheInterface;
 use Illuminate\Cache\CacheManager;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LaravelCache implements CacheInterface
 {
@@ -99,18 +100,9 @@ class LaravelCache implements CacheInterface
      * @param integer  Cache item lifetime in minutes
      * @return mixed   $items variable returned for convenience
      */
-    public function putPaginated($currentPage, $perPage, $totalItems, $items, $key, $minutes = null)
+    public function putPaginated($items, $key, $minutes = null)
     {
-        $cached = new \StdClass;
-
-        $cached->currentPage = $currentPage;
-        $cached->items = $items;
-        $cached->total = $totalItems;
-        $cached->perPage = $perPage;
-
-        $this->put($key, $cached, $minutes);
-
-        return $cached;
+        return $this->put($key, $items, $minutes);
     }
 
     /**

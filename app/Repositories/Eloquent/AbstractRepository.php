@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Observers\LanguageObserver;
 use App\Repositories\Contracts\RepositoryInterface;
 use App\Repositories\Exceptions\RepositoryException;
 use Illuminate\Database\Eloquent\Model;
@@ -65,7 +66,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function create(array $data)
     {
-        $this->model->create($data);
+        return $this->model->create($data);
     }
 
     /*
@@ -76,7 +77,16 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function update(array $data, $id, $attribute = "id")
     {
-        return $this->model->where($attribute, '=', $id)->update($data);
+        if ($attribute == 'id') {
+            return $this->model->find($id)->update($data);
+        } else {
+            $updated = $this->model->where($attributte, '=', $id)->update($data);
+            if ($updated) {
+                event(Language::created());
+                return $updated;
+            }
+        }
+
     }
 
     /*
@@ -123,5 +133,10 @@ abstract class AbstractRepository implements RepositoryInterface
             throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
 
         return $this->model = $model;
+    }
+
+    public function observe($observer)
+    {
+        return $this->model->observe($observer);
     }
 }
