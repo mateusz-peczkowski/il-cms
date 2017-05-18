@@ -26,6 +26,7 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     function paginatedUsers($paggLimit = 15)
     {
         return $this->model
+            ->with('updater', 'user_role')
             ->where('status', '<', 3)
             ->orderBy('role', 'desc')
             ->orderBy('name', 'asc')

@@ -80,9 +80,9 @@ abstract class AbstractRepository implements RepositoryInterface
         if ($attribute == 'id') {
             return $this->model->find($id)->update($data);
         } else {
-            $updated = $this->model->where($attributte, '=', $id)->update($data);
+            $updated = $this->model->where($attribute, '=', $id)->update($data);
             if ($updated) {
-                event(Language::created());
+                event(Language::updated());
                 return $updated;
             }
         }

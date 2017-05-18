@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Language;
 use App\Observers\LanguageObserver;
 use App\Repositories\Language\LanguageCacheDecorator;
+use App\Repositories\Role\RoleCacheDecorator;
+use App\Repositories\User\UserCacheDecorator;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Translation\TranslationCacheDecorator;
 
@@ -52,7 +54,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerUserRepository()
     {
         $this->app->bind('App\Repositories\Contracts\UserRepositoryInterface', function($app) {
-            return new \App\Repositories\User\EloquentUserRepository($app);
+            $user = new \App\Repositories\User\EloquentUserRepository($app);
+
+            return new UserCacheDecorator($user, ['user', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
@@ -62,7 +66,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerRoleRepository()
     {
         $this->app->bind('App\Repositories\Contracts\RoleRepositoryInterface', function($app) {
-            return new \App\Repositories\Role\EloquentRoleRepository($app);
+            $role =  new \App\Repositories\Role\EloquentRoleRepository($app);
+
+            return new RoleCacheDecorator($role, ['role'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
@@ -84,7 +90,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Contracts\TranslationRepositoryInterface', function($app) {
             $translation = new \App\Repositories\Translation\EloquentTranslationRepository($app);
 
-            return new TranslationCacheDecorator($translation, $this->app->make('App\Services\Contracts\CacheInterface'));
+            return new TranslationCacheDecorator($translation, ['translation', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
@@ -96,7 +102,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Contracts\LanguageRepositoryInterface', function($app) {
             $language = new \App\Repositories\Language\EloquentLanguageRepository($app);
 
-            return new LanguageCacheDecorator($language, ['language'], $this->app->make('App\Services\Contracts\CacheInterface'));
+            return new LanguageCacheDecorator($language, ['language', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

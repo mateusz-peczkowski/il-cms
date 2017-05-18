@@ -20,7 +20,7 @@ class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageR
      */
     public function __construct(LanguageRepositoryInterface $language, array $tags, CacheInterface $cache)
     {
-        parent::__construct($cache);
+        parent::__construct($cache, $language);
         $this->language = $language;
 
         $this->cache->setTags($tags);
@@ -55,7 +55,6 @@ class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageR
     public function paginatedLanguages($paggLimit = 15)
     {
         $cacheName = 'languages_paginated';
-        //dd($this->cache);
         if ($this->cache->has($cacheName)) {
             return $this->cache->get($cacheName);
         }
@@ -157,8 +156,8 @@ class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageR
         return $translations;
     }
 
-    public function __call($name, $arguments)
+    public function updater()
     {
-        return call_user_func_array([$this->language, $name], $arguments);
+        return false;
     }
 }

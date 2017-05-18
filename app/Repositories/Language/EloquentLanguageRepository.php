@@ -27,6 +27,7 @@ class EloquentLanguageRepository extends AbstractRepository implements LanguageR
     function paginatedLanguages($paggLimit = 15)
     {
         return $this->model
+            ->with('updater')
             ->where('status', '<', 3)
             ->orderBy('order', 'asc')
             ->paginate($paggLimit);

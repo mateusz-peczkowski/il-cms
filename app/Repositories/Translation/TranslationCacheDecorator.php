@@ -23,10 +23,11 @@ class TranslationCacheDecorator implements TranslationRepositoryInterface
      *
      * @param
      */
-    public function __construct(TranslationRepositoryInterface $translation, CacheInterface $cache)
+    public function __construct(TranslationRepositoryInterface $translation, array $tags,  CacheInterface $cache)
     {
         $this->translation = $translation;
         $this->cache = $cache;
+        $this->cache->setTags($tags);
     }
 
     public function checkTranslationExist($key = false, $locale = '')
