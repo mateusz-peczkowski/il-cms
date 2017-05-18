@@ -7,7 +7,7 @@ class UserRolesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('roles')->insert([
+		DB::table('user_roles')->insert([
             ['id' => 1,
                 'title' => 'moderator',
                 'created_at' => Carbon::now(),

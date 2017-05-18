@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Submit extends Model
 {
-    protected $table = 'submit';
+    protected $table = 'form_submits';
     public $timestamps = true;
 
     protected $fillable = [

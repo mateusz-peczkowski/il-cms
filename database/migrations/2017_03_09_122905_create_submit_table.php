@@ -7,7 +7,7 @@ class CreateSubmitTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('submit', function(Blueprint $table) {
+		Schema::create('form_submits', function(Blueprint $table) {
 			$table->increments('id');
             $table->integer('form_id')->unsigned()->nullable();
             $table->text('data');
@@ -19,6 +19,6 @@ class CreateSubmitTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('submit');
+		Schema::drop('form_submits');
 	}
 }

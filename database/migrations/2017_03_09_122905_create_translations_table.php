@@ -7,7 +7,7 @@ class CreateTranslationsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('translations', function(Blueprint $table) {
+		Schema::create('language_translations', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('key', 255);
             $table->string('value', 255);
@@ -20,6 +20,6 @@ class CreateTranslationsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('translations');
+		Schema::drop('language_translations');
 	}
 }

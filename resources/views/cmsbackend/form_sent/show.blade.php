@@ -6,7 +6,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    @if(!$submits->isEmpty())
+                    @if($submits AND !$submits->isEmpty())
                     <table class="table table-bordered table-striped with-images">
                         <thead>
                             <tr>

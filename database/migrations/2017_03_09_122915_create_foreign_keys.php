@@ -8,18 +8,18 @@ class CreateForeignKeys extends Migration {
 
 	public function up()
 	{
-		Schema::table('nodes', function(Blueprint $table) {
+		Schema::table('navigation_nodes', function(Blueprint $table) {
 			$table->foreign('navigation_id')->references('id')->on('navigations')
 						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
-		Schema::table('nodes', function(Blueprint $table) {
+		Schema::table('navigation_nodes', function(Blueprint $table) {
 			$table->foreign('page_id')->references('id')->on('pages')
 						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
         Schema::table('users', function(Blueprint $table) {
-            $table->foreign('role')->references('id')->on('roles')
+            $table->foreign('role')->references('id')->on('user_roles')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
@@ -33,7 +33,7 @@ class CreateForeignKeys extends Migration {
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
-        Schema::table('translations', function(Blueprint $table) {
+        Schema::table('language_translations', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
@@ -63,7 +63,7 @@ class CreateForeignKeys extends Migration {
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
-        Schema::table('submit', function(Blueprint $table) {
+        Schema::table('form_submits', function(Blueprint $table) {
             $table->foreign('form_id')->references('id')->on('forms')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
@@ -72,11 +72,11 @@ class CreateForeignKeys extends Migration {
 
 	public function down()
 	{
-		Schema::table('nodes', function(Blueprint $table) {
-			$table->dropForeign('nodes_navigation_id_foreign');
+		Schema::table('navigation_nodes', function(Blueprint $table) {
+			$table->dropForeign('navigation_nodes_navigation_id_foreign');
 		});
-		Schema::table('nodes', function(Blueprint $table) {
-			$table->dropForeign('nodes_page_id_foreign');
+		Schema::table('navigation_nodes', function(Blueprint $table) {
+			$table->dropForeign('navigation_nodes_page_id_foreign');
 		});
         Schema::table('users', function(Blueprint $table) {
             $table->dropForeign('users_role_foreign');
@@ -87,8 +87,8 @@ class CreateForeignKeys extends Migration {
         Schema::table('redirects', function(Blueprint $table) {
             $table->dropForeign('redirects_who_updated_foreign');
         });
-        Schema::table('translations', function(Blueprint $table) {
-            $table->dropForeign('translations_who_updated_foreign');
+        Schema::table('language_translations', function(Blueprint $table) {
+            $table->dropForeign('language_translations_who_updated_foreign');
         });
         Schema::table('languages', function(Blueprint $table) {
             $table->dropForeign('languages_who_updated_foreign');
@@ -105,8 +105,8 @@ class CreateForeignKeys extends Migration {
         Schema::table('form_controls', function(Blueprint $table) {
             $table->dropForeign('form_controls_form_id_foreign');
         });
-        Schema::table('submit', function(Blueprint $table) {
-            $table->dropForeign('submit_form_id_foreign');
+        Schema::table('form_submits', function(Blueprint $table) {
+            $table->dropForeign('form_submits_form_id_foreign');
         });
 	}
 }

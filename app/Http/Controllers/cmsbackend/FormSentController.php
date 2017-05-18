@@ -44,7 +44,7 @@ class FormSentController extends BackendController
     {
         $form = $this->forms->find($id);
 
-        $submits = $this->submits->findBy('form_id', $id)->orderBy('id', 'desc')->paginate();
+        $submits = $this->submits->findBy('form_id', $id) ? $this->submits->findBy('form_id', $id)->orderBy('id', 'desc')->paginate() : false;
 
         $this->breadcrumbs->addCrumb(__('Formularze'), '/cmsbackend/forms/definitions');
         $this->breadcrumbs->addCrumb(__('Wysłane'), '/cmsbackend/forms/sent');

@@ -7,7 +7,7 @@ class CreateNodesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('nodes', function(Blueprint $table) {
+		Schema::create('navigation_nodes', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 255)->nullable();
 			$table->integer('navigation_id')->unsigned();
@@ -21,6 +21,6 @@ class CreateNodesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('nodes');
+		Schema::drop('navigation_nodes');
 	}
 }
