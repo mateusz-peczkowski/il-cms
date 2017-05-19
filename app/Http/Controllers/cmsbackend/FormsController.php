@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StoreForm;
 use App\Http\Requests\UpdateForm;
+use App\Http\Requests\StoreFormDuplicate;
 use App\Repositories\Contracts\FormRepositoryInterface;
 use Auth;
 use Session;
@@ -98,21 +99,61 @@ class FormsController extends BackendController
      */
     public function update($id, UpdateForm $request)
     {
-        $this->forms->update([
-            'title' => $request->title,
-            'tag' => $request->tag,
-            'type' => $request->type,
-            'description' => $request->description,
-            'sender_name' => $request->sender_name,
-            'sender_email' => $request->sender_email,
-            'confirmation' => $request->confirmation ? 1 : 0,
-            'status' => 1,
-            'who_updated' => Auth::id()
-        ], $id);
+        if($this->forms->find($id)->tag == $request->tag || !$this->forms->checkFormExist($request->tag, $this->checkLocale())) {
+            $this->forms->update([
+                'title' => $request->title,
+                'tag' => $request->tag,
+                'type' => $request->type,
+                'description' => $request->description,
+                'sender_name' => $request->sender_name,
+                'sender_email' => $request->sender_email,
+                'confirmation' => $request->confirmation ? 1 : 0,
+                'status' => 1,
+                'who_updated' => Auth::id()
+            ], $id);
+            return redirect()->route('forms.definition')->with([
+                'status' => __('Formularz został zaaktualizowany'),
+                'status_type' => 'success'
+            ]);
+        }
+        return redirect()->route('forms.definition.edit', $id)->with([
+            'status' => __('Formularz o podanych danych już istnieje w systemie'),
+            'status_type' => 'danger'
+        ])->withInput();
+    }
+
+    /**
+     * Duplicate the specified resource in storage of another lang.
+     *
+     * @param  \App\Http\Requests\UpdateOption  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate(StoreFormDuplicate $request)
+    {
+        $duplicate = $this->forms->find($request->form_id);
+        if($duplicate && !$this->forms->checkFormExist($duplicate->tag, $request->form_language)) {
+            $this->forms->create([
+                'title' => $duplicate->title,
+                'tag' => $duplicate->tag,
+                'type' => $duplicate->type,
+                'description' => $duplicate->description,
+                'sender_name' => $duplicate->sender_name,
+                'sender_email' => $duplicate->sender_email,
+                'confirmation' => $duplicate->confirmation ? 1 : 0,
+                'locale' => $request->form_language,
+                'who_updated' => Auth::id()
+            ]);
+            $this->locale($request->form_language);
+            return redirect()->route('forms.definition')->with([
+                'status' => __('Formularz został skopiowany'),
+                'status_type' => 'success'
+            ]);
+        }
         return redirect()->route('forms.definition')->with([
-            'status' => __('Formularz został zaaktualizowany'),
-            'status_type' => 'success'
-        ]);
+            'status' => __('Formularz już istnieje w systemie'),
+            'status_type' => 'danger'
+        ])->withInput();
     }
 
     /**

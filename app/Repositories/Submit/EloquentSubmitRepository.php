@@ -18,4 +18,12 @@ class EloquentSubmitRepository extends AbstractRepository implements SubmitRepos
         return 'App\Submit';
     }
 
+    public function getSubmitsByForm($id = null)
+    {
+    	return $this->model
+    		->where('form_id', $id)
+    		->orderBy('id', 'desc')
+    		->paginate();
+    }
+
 }

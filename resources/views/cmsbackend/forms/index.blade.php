@@ -43,7 +43,7 @@
                                 <th>{{ __('Aktywne kontrolki / Liczba kontrolek') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 85px;">&nbsp;</th>
+                                    <th style="width: {{ CMS::isMoreLocales() ? '105' : '85' }}px;">&nbsp;</th>
                                 @endcan
                             </tr>
                         </thead>
@@ -61,16 +61,17 @@
                                 @endif
                                 @can('edit_dev', 'App\User')
                                 <td class="text-center">
-                                    @if($form->role <= Auth::user()->role)
-                                        <a href="{{ route('forms.definition.controls', $form->id) }}" class="text-purple" title="{{ __('Edycja kontrolek') }}"><i class="fa fa-list"></i></a>
-                                        <a href="{{ route('forms.definition.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
-                                        @if($form->status == 1)
-                                            <a href="#" data-href="{{ route('forms.definition.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
-                                        @else
-                                            <a href="{{ route('forms.definition.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
-                                        @endif
-                                        <a href="#" data-href="{{ route('forms.definition.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
+                                    <a href="{{ route('forms.definition.controls', $form->id) }}" class="text-purple" title="{{ __('Edycja kontrolek') }}"><i class="fa fa-list"></i></a>
+                                    @if(CMS::isMoreLocales())
+                                        <a href="#" class="text-yellow" data-toggle="modal" data-target="#duplicate-modal" data-id="{{ $form->id }}" title="{{ __('Zduplikuj') }}"><i class="fa fa-copy"></i></a>
                                     @endif
+                                    <a href="{{ route('forms.definition.edit', $form->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
+                                    @if($form->status == 1)
+                                        <a href="#" data-href="{{ route('forms.definition.deactivate', $form->id) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
+                                    @else
+                                        <a href="{{ route('forms.definition.activate', $form->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
+                                    @endif
+                                    <a href="#" data-href="{{ route('forms.definition.delete', $form->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
                                 </td>
                                 @endcan
                             </tr>
@@ -84,7 +85,7 @@
                                 <th>{{ __('Aktywne kontrolki / Liczba kontrolek') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                 @can('edit_dev', 'App\User')
-                                    <th style="width: 85px;">&nbsp;</th>
+                                    <th style="width: {{ CMS::isMoreLocales() ? '105' : '85' }}px;">&nbsp;</th>
                                 @endcan
                             </tr>
                         </tfoot>
@@ -187,6 +188,34 @@
             </div>
         </div>
     </div>
+    @if(CMS::isMoreLocales())
+    <div class="modal fade" id="duplicate-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form role="form" method="POST" action="{{ route('forms.duplicate') }}" class="modal-content">
+                {{ csrf_field() }}
+                <input type="hidden" id="form_id" name="form_id" class="form-control" value="" required />
+                <div class="modal-header">
+                    {{ __('Dla jakiego języka skopiować element?') }}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>{{ __('Wybierz język') }}</label>
+                        <select class="form-control select2 text-uppercase" name="form_language" id="form_language" style="width: 100%;">
+                            <?php $active = Session::get('cms_locale_form') ? : CMS::getDefaultLocale(); ?>
+                            @foreach(CMS::getLocalesExcept($active) as $lang)
+                                <option{{ $lang->slug == old('form_language') ? ' selected' : '' }} value="{{ $lang->slug }}">{{ $lang->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
+                    <button type="submit" class="btn btn-success margin">{{ __('Zduplikuj') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @section('scripts')
@@ -195,4 +224,12 @@
             $('#create-new').trigger('click');
         </script>
     @endif
+    <script>
+        $('#duplicate-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('#form_id').val(id);
+        })
+    </script>
 @endsection

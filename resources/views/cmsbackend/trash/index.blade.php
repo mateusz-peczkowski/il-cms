@@ -329,7 +329,7 @@
                                     @foreach($forms as $num => $form)
                                         <tr>
                                             <td style="text-align: center;">{!! $form->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
-                                            <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ $form->title }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
+                                            <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ $form->title }} ({{ $form->locale }}){!! $form->status == 2 ? '</s>' : '' !!}</td>
                                             <td>{{ count($form->submits) }}</td>
                                             <td>{{ count($form->controls) }}</td>
                                             @if($form->who_updated)

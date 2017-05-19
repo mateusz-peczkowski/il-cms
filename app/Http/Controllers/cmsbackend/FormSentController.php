@@ -27,7 +27,7 @@ class FormSentController extends BackendController
         $this->breadcrumbs->addCrumb(__('Formularze'), '/cmsbackend/forms/definitions');
         $this->breadcrumbs->addCrumb(__('Wysłane'), '/cmsbackend/forms/sent');
 
-        $forms = $this->forms->paginatedForms();
+        $forms = $this->forms->paginatedForms($this->checkLocale());
         return view('cmsbackend.form_sent.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Wysłane'),
@@ -44,7 +44,7 @@ class FormSentController extends BackendController
     {
         $form = $this->forms->find($id);
 
-        $submits = $this->submits->findBy('form_id', $id) ? $this->submits->findBy('form_id', $id)->orderBy('id', 'desc')->paginate() : false;
+        $submits = $this->submits->findBy('form_id', $id) ? $this->submits->getSubmitsByForm($id) : false;
 
         $this->breadcrumbs->addCrumb(__('Formularze'), '/cmsbackend/forms/definitions');
         $this->breadcrumbs->addCrumb(__('Wysłane'), '/cmsbackend/forms/sent');
@@ -56,6 +56,41 @@ class FormSentController extends BackendController
             'form_id' => $id,
             'submits' => $submits
         ]);
+    }
+
+    /**
+     * Change set locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locale($slug)
+    {
+        Session::put('cms_locale_form', $slug);
+    }
+
+    /**
+     * Change component locale with redirect back.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changelocale($slug)
+    {
+        $this->locale($slug);
+        return redirect()->back();
+    }
+
+    /**
+     * Check component locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    private function checkLocale()
+    {
+        if(Session::has('cms_locale_form') && CMS::isLocale(Session::get('cms_locale_form'))) {
+            return Session::get('cms_locale_form');
+        }
+        $this->locale(CMS::getDefaultLocale());
+        return CMS::getDefaultLocale();
     }
 
 }

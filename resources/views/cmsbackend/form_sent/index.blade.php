@@ -6,6 +6,16 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
+                    @if(CMS::isMoreLocales())
+                    <div class="btn-group pull-right text-uppercase">
+                        <a href="{{ route('forms.changelocale', CMS::getDefaultLocale()) }}" class="btn btn-{{ (Session::get('cms_locale_form') == CMS::getDefaultLocale() || !Session::has('cms_locale_form')) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
+                        @foreach(CMS::getMoreDefaultLocales() as $lang)
+                            <a href="{{ route('forms.changelocale', $lang->slug) }}" class="btn btn-{{ Session::get('cms_locale_form') == $lang->slug ? 'success' : 'default' }}">{{ $lang->slug }}</a>
+                        @endforeach
+                        <br />
+                        <br />
+                    </div>
+                    @endif
                     @if(!$forms->isEmpty())
                     <table class="table table-bordered table-striped with-images">
                         <thead>
