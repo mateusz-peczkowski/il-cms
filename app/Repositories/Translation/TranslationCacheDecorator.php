@@ -3,9 +3,10 @@
 namespace App\Repositories\Translation;
 
 use App\Repositories\Contracts\TranslationRepositoryInterface;
+use App\Services\Cache\AbstractCacheDecorator;
 use App\Services\Contracts\CacheInterface;
 
-class TranslationCacheDecorator implements TranslationRepositoryInterface
+class TranslationCacheDecorator extends AbstractCacheDecorator implements TranslationRepositoryInterface
 {
 
     /**
