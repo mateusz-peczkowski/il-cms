@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\Language;
 use App\Observers\OptionObserver;
+use App\Observers\RedirectObserver;
 use App\Observers\TranslationObserver;
 use App\Option;
+use App\Redirect;
+use App\Repositories\Redirect\RedirectCacheDecorator;
 use App\Translation;
 use App\User;
 use App\Observers\LanguageObserver;
@@ -30,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
         Translation::observe(TranslationObserver::class);
         User::observe(UserObserver::class);
         Option::observe(OptionObserver::class);
+        Redirect::observe(RedirectObserver::class);
     }
 
     /**
@@ -88,7 +92,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerRedirectRepository()
     {
         $this->app->bind('App\Repositories\Contracts\RedirectRepositoryInterface', function($app) {
-            return new \App\Repositories\Redirect\EloquentRedirectRepository($app);
+            $redirect = new \App\Repositories\Redirect\EloquentRedirectRepository($app);
+
+            return new RedirectCacheDecorator($redirect, ['redirect', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
