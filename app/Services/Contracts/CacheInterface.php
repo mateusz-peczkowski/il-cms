@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Cache\Contracts;
+namespace App\Services\Contracts;
 
 interface CacheInterface
 {
