@@ -12,4 +12,7 @@ interface UserRepositoryInterface
 
     public function checkUserEmailExist($email = false);
 
+    public function findByIdAndToken($identifier, $token);
+
+    public function retrieveByCredentials(array $credentials);
 }

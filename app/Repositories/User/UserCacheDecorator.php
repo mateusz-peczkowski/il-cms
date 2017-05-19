@@ -73,4 +73,23 @@ class UserCacheDecorator extends AbstractCacheDecorator implements UserRepositor
 
         return $users;
     }
+
+    public function retrieveByCredentials(array $credentials)
+    {
+        return $this->user->retrieveByCredentials($credentials);
+    }
+
+    public function findByIdAndToken($identifier, $token)
+    {
+        $cacheName = 'user_by_id_and_token_' . $identifier . '_' . $token;
+
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $user = $this->user->findByIdAndToken($identifier, $token);
+        $this->cache->put($cacheName, $user, 60);
+
+        return $user;
+    }
 }

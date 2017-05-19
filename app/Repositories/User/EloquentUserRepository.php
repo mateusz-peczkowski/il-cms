@@ -23,7 +23,7 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         return $this->model->count();
     }
 
-    function paginatedUsers($paggLimit = 15)
+    public function paginatedUsers($paggLimit = 15)
     {
         return $this->model
             ->with('updater', 'user_role')
@@ -33,18 +33,38 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
             ->paginate($paggLimit);
     }
 
-    function paginatedUsersTrash($paggLimit = 15)
+    public function paginatedUsersTrash($paggLimit = 15)
     {
         return $this->model
             ->where('status', '=', 3)
             ->paginate($paggLimit);
     }
 
-    function checkUserEmailExist($email = false)
+    public function checkUserEmailExist($email = false)
     {
         return $this->model
             ->where('email', '=', $email)
             ->count();
+    }
+
+    public function findByIdAndToken($identifier, $token)
+    {
+        return $this->model
+            ->where($this->model->getKeyName(), $identifier)
+            ->where($this->model->getrememberTokenName(), $token)
+            ->first();
+    }
+
+    public function retrieveByCredentials(array $credentials)
+    {
+        $query = $this->model->newQuery();
+
+        foreach ($credentials as $key => $value) {
+            if (!str_contains($key, 'password'))
+                $query->where($key, $value);
+        }
+
+        return $query->first();
     }
 
 }
