@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerDebugbarServiceAndFacade()
     {
-        if ($this->app->environment('local')) {
+        if ($this->app->environment('local', 'test')) {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->alias(\Barryvdh\Debugbar\Facade::class, 'Debugbar');
         }
