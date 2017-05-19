@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('forms/definitions/{id}/deactivate', 'FormsController@deactivate')->name('forms.definition.deactivate');
     Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate');
     Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete');
+    Route::get('forms/definitions/{id}/locale', 'FormsController@changelocale')->name('forms.changelocale');
+    Route::post('forms/definitions/duplicate', 'FormsController@duplicate')->name('forms.duplicate');
 
     Route::resource('forms/definitions/{id}/controls', 'ControlsController', ['except' => ['show', 'create', 'destroy'], 'names' => [
         'index' => 'forms.definition.controls',

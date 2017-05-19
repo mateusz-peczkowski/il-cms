@@ -18,9 +18,11 @@ class EloquentFormRepository extends AbstractRepository implements FormRepositor
         return 'App\Form';
     }
 
-    function paginatedForms($paggLimit = 15)
+    function paginatedForms($locale = '', $paggLimit = 15)
     {
         return $this->model
+            ->with(['controls_active', 'controls'])
+            ->where('locale', $locale)
             ->where('status', '<', 3)
             ->paginate($paggLimit);
     }
@@ -30,6 +32,14 @@ class EloquentFormRepository extends AbstractRepository implements FormRepositor
         return $this->model
             ->where('status', '=', 3)
             ->paginate($paggLimit);
+    }
+
+    function checkFormExist($tag = '', $locale = '')
+    {
+        return $this->model
+            ->where('tag', $tag)
+            ->where('locale', $locale)
+            ->count();
     }
 
 }

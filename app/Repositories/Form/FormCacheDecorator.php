@@ -22,14 +22,14 @@ class FormCacheDecorator extends AbstractCacheDecorator implements FormRepositor
         $this->cache->setTags($tags);
     }
 
-    public function paginatedForms($paggLimit = 15)
+    public function paginatedForms($locale = '', $paggLimit = 15)
     {
-        $cacheName = 'forms_paginated';
+        $cacheName = 'forms_paginated_locale_'.$locale;
         if ($this->cache->has($cacheName)) {
             return $this->cache->get($cacheName);
         }
 
-        $forms = $this->form->paginatedForms($paggLimit);
+        $forms = $this->form->paginatedForms($locale, $paggLimit);
         $this->cache->put($cacheName, $forms, 60);
 
         return $forms;
@@ -46,5 +46,18 @@ class FormCacheDecorator extends AbstractCacheDecorator implements FormRepositor
         $this->cache->put($cacheName, $forms, 60);
 
         return $forms;
+    }
+
+    public function checkFormExist($tag = '', $locale = '')
+    {
+        $cacheName = 'form_' . $tag . '_' . $locale;
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $exist = $this->form->checkFormExist($tag, $locale);
+        $this->cache->put($cacheName, $exist, 60);
+
+        return $exist;
     }
 }

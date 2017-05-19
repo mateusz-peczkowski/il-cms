@@ -27,7 +27,7 @@ class FormsController extends BackendController
         $this->breadcrumbs->addCrumb(__('Formularze'), '/cmsbackend/forms/definitions');
         $this->breadcrumbs->addCrumb(__('Definicje'), '/cmsbackend/forms/definitions');
 
-        $forms = $this->forms->paginatedForms();
+        $forms = $this->forms->paginatedForms($this->checkLocale());
         return view('cmsbackend.forms.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Definicje'),
@@ -43,7 +43,7 @@ class FormsController extends BackendController
      */
     public function store(StoreForm $request)
     {
-        if (!$this->forms->checkFormExist($request->option_key, $this->checkLocale())) {
+        if (!$this->forms->checkFormExist($request->tag, $this->checkLocale())) {
             $this->forms->create([
                 'title' => $request->title,
                 'tag' => $request->tag,
@@ -161,6 +161,41 @@ class FormsController extends BackendController
             'status' => $statusmsg,
             'status_type' => $statusmsgtype
         ]);
+    }
+
+    /**
+     * Change set locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locale($slug)
+    {
+        Session::put('cms_locale_form', $slug);
+    }
+
+    /**
+     * Change component locale with redirect back.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changelocale($slug)
+    {
+        $this->locale($slug);
+        return redirect()->back();
+    }
+
+    /**
+     * Check component locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    private function checkLocale()
+    {
+        if(Session::has('cms_locale_form') && CMS::isLocale(Session::get('cms_locale_form'))) {
+            return Session::get('cms_locale_form');
+        }
+        $this->locale(CMS::getDefaultLocale());
+        return CMS::getDefaultLocale();
     }
 
 
