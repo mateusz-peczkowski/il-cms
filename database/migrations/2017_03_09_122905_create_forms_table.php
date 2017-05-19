@@ -10,7 +10,7 @@ class CreateFormsTable extends Migration {
 		Schema::create('forms', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 255);
-			$table->string('tag', 64)->unique()->nullable();
+			$table->string('tag', 64);
 			$table->enum('type', array('contact', 'newsletter'));
 			$table->text('description')->nullable();
 			$table->string('sender_name', 255);
