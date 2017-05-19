@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use App\Control;
+use App\Form;
 use App\Language;
+use App\Observers\ControlObserver;
+use App\Observers\FormObserver;
 use App\Observers\OptionObserver;
 use App\Observers\RedirectObserver;
 use App\Observers\TranslationObserver;
 use App\Option;
 use App\Redirect;
+use App\Repositories\Control\ControlCacheDecorator;
+use App\Repositories\Form\FormCacheDecorator;
 use App\Repositories\Redirect\RedirectCacheDecorator;
 use App\Translation;
 use App\User;
@@ -34,6 +40,8 @@ class RepositoryServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Option::observe(OptionObserver::class);
         Redirect::observe(RedirectObserver::class);
+        Form::observe(FormObserver::class);
+        Control::observe(ControlObserver::class);
     }
 
     /**
@@ -143,7 +151,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerFormRepository()
     {
         $this->app->bind('App\Repositories\Contracts\FormRepositoryInterface', function($app) {
-            return new \App\Repositories\Form\EloquentFormRepository($app);
+            $form =  new \App\Repositories\Form\EloquentFormRepository($app);
+
+            return new FormCacheDecorator($form, ['form', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
@@ -153,7 +163,9 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerControlRepository()
     {
         $this->app->bind('App\Repositories\Contracts\ControlRepositoryInterface', function($app) {
-            return new \App\Repositories\Control\EloquentControlRepository($app);
+            $control = new \App\Repositories\Control\EloquentControlRepository($app);
+
+            return new ControlCacheDecorator($control, ['control', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 
