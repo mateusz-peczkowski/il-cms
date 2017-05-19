@@ -17,6 +17,7 @@ class CreateFormsTable extends Migration {
 			$table->string('sender_email', 255);
 			$table->boolean('confirmation')->default(true);
 			$table->enum('status', array('1', '2', '3'))->default('1');
+			$table->string('locale', 64);
             $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});

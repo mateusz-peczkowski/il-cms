@@ -25,7 +25,7 @@ class StoreForm extends FormRequest
     {
         return [
             'title' => 'required',
-            'tag' => 'required|unique:forms,tag',
+            'tag' => 'required',
             'type' => 'required',
             'sender_name' => 'required',
             'sender_email' => 'required'

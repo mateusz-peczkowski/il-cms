@@ -110,7 +110,6 @@ class ControlsController extends BackendController
             'default' => $request->default,
             'values' => $request->values,
             'required' => $request->required ? 1 : 0,
-            'status' => 1,
             'who_updated' => Auth::id()
         ], $control_id);
         return redirect()->route('forms.definition.controls', $form_id)->with([

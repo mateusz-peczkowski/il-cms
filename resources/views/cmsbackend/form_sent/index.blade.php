@@ -24,7 +24,11 @@
                                 <td>{{ $form->title }}</td>
                                 <td>{{ count($form->submits) }}</td>
                                 <td>{{ count($form->submits) ? $form->last_submit[0]->created_at : '-' }}</td>
-                                <td><a href="{{ route('forms.sent.form', $form->id) }}" class="text-purple" title="{{ __('Wyświetl wysłane') }}"><i class="fa fa-list"></i></a></td>
+                                @if(count($form->submits))
+                                    <td><a href="{{ route('forms.sent.form', $form->id) }}" class="text-purple" title="{{ __('Wyświetl wysłane') }}"><i class="fa fa-list"></i></a></td>
+                                @else
+                                    <td>&nbsp;</td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

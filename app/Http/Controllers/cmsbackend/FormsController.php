@@ -43,21 +43,28 @@ class FormsController extends BackendController
      */
     public function store(StoreForm $request)
     {
-        $this->forms->create([
-            'title' => $request->title,
-            'tag' => $request->tag,
-            'type' => $request->type,
-            'description' => $request->description,
-            'sender_name' => $request->sender_name,
-            'sender_email' => $request->sender_email,
-            'confirmation' => $request->confirmation ? 1 : 0,
-            'status' => 1,
-            'who_updated' => Auth::id()
-        ]);
+        if (!$this->forms->checkFormExist($request->option_key, $this->checkLocale())) {
+            $this->forms->create([
+                'title' => $request->title,
+                'tag' => $request->tag,
+                'type' => $request->type,
+                'description' => $request->description,
+                'sender_name' => $request->sender_name,
+                'sender_email' => $request->sender_email,
+                'confirmation' => $request->confirmation ? 1 : 0,
+                'status' => 1,
+                'locale' => $this->checkLocale(),
+                'who_updated' => Auth::id()
+            ]);
+            return redirect()->route('forms.definition')->with([
+                'status' => __('Formularz został dodany'),
+                'status_type' => 'success'
+            ]);
+        }
         return redirect()->route('forms.definition')->with([
-            'status' => __('Formularz został dodany'),
-            'status_type' => 'success'
-        ]);
+            'status' => __('Formularz o podanych danych już istnieje w systemie'),
+            'status_type' => 'danger'
+        ])->withInput();
     }
 
     /**

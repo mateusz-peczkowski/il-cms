@@ -110,7 +110,7 @@ class LanguagesController extends BackendController
      */
     public function update(UpdateLanguage $request, $id = null)
     {
-        if($this->languages->find($id)->title == $request->language_title || !$this->languages->checkLanguageExist($request->language_slug)) {
+        if($this->languages->find($id)->slug == $request->language_slug || !$this->languages->checkLanguageExist($request->language_slug)) {
             if($request->language_is_default)
             {
                 $old_default = $this->languages->findBy('is_default', '1');

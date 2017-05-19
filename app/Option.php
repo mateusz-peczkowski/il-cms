@@ -10,7 +10,7 @@ class Option extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'type', 'key', 'value', 'locale'
+        'type', 'key', 'value', 'locale', 'who_updated'
     ];
 
     public function updater() {

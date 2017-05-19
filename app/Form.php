@@ -10,7 +10,7 @@ class Form extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'tag', 'type', 'description', 'sender_name', 'sender_email', 'confirmation', 'status', 'who_updated'
+        'title', 'tag', 'type', 'description', 'sender_name', 'sender_email', 'confirmation', 'status', 'who_updated', 'locale'
     ];
 
     public function updater() {
