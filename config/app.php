@@ -169,6 +169,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -93,3 +93,5 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     });
 
 });
+
+\TalvBansal\MediaManager\Routes\MediaRoutes::get();

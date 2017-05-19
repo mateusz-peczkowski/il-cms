@@ -96,6 +96,9 @@
                 </div>
             </div>
         </div>
+        <div id="app" class="col-sm-12">
+            <media-manager></media-manager>
+        </div>
     </div>
 @endsection
 

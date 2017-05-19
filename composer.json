@@ -20,9 +20,10 @@
         "creitive/laravel5-breadcrumbs": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "laravelcollective/html": "^5.3.0",
+        "talvbansal/media-manager": "^2.0",
         "thomaswelton/laravel-gravatar": "~1.0",
-        "weboap/visitor": "dev-master",
-        "laravelcollective/html": "^5.3.0"
+        "weboap/visitor": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.3",
