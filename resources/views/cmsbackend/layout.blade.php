@@ -83,7 +83,7 @@
                             <li{{ str_contains(Route::currentRouteName(), 'modules/{name}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('moduł') }}</a></li>
                         </ul>
                     </li>
-                    <li{{ str_contains(Route::currentRouteName(), 'files') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'filemanager') ? ' class=active' : '' }}><a href="{{ route('filemanager') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
                     <li class="treeview{{ (str_contains(Route::currentRouteName(), 'forms.definition') || str_contains(Route::currentRouteName(), 'forms.sent')) ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span>

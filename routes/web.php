@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
         return redirect()->to('cmsbackend/forms/definitions');
     });
 
+    Route::get('filemanager', 'FilesManagerController@view')->name('filemanager');
+
 });
 
 \TalvBansal\MediaManager\Routes\MediaRoutes::get();
