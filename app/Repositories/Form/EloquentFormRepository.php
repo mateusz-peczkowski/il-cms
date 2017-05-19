@@ -21,7 +21,7 @@ class EloquentFormRepository extends AbstractRepository implements FormRepositor
     function paginatedForms($locale = '', $paggLimit = 15)
     {
         return $this->model
-            ->with(['controls_active', 'controls'])
+            ->with('controls_active', 'controls')
             ->where('locale', $locale)
             ->where('status', '<', 3)
             ->paginate($paggLimit);

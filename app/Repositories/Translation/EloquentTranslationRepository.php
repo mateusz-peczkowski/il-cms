@@ -21,6 +21,7 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
     function paginatedTranslations($locale = '', $paggLimit = 15)
     {
         return $this->model
+            ->with('updater')
             ->where('status', '<', 3)
             ->where('locale', $locale)
             ->orderBy('key', 'desc')
@@ -30,6 +31,7 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
     function paginatedTranslationsTrash($paggLimit = 15)
     {
         return $this->model
+            ->with('updater')
             ->where('status', '=', 3)
             ->paginate($paggLimit);
     }
@@ -37,6 +39,7 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
     function checkTranslationExist($key = false, $locale = '')
     {
         return $this->model
+            ->with('updater')
             ->where('key', '=', $key)
             ->where('locale', $locale)
             ->count();

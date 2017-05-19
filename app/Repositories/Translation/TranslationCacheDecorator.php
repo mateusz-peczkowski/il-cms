@@ -26,8 +26,9 @@ class TranslationCacheDecorator extends AbstractCacheDecorator implements Transl
      */
     public function __construct(TranslationRepositoryInterface $translation, array $tags,  CacheInterface $cache)
     {
+        parent::__construct($cache, $translation);
+
         $this->translation = $translation;
-        $this->cache = $cache;
         $this->cache->setTags($tags);
     }
 
