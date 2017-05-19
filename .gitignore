@@ -11,3 +11,7 @@ composer.lock
 /vendor
 /.vagrant
 Vagrantfile
+storage
+vendor
+Vagrantfile
+.vagrant
