@@ -16,6 +16,8 @@ class CreatePagesTable extends Migration {
 			$table->string('controller', 64)->nullable();
 			$table->string('view', 64)->nullable();
 			$table->enum('status', array('1', '2', '3'));
+			$table->string('locale', 64);
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

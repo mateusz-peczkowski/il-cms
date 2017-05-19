@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Page;
 use App\Control;
 use App\Form;
 use App\Language;
+use App\Observers\PageObserver;
 use App\Observers\ControlObserver;
 use App\Observers\FormObserver;
 use App\Observers\OptionObserver;
@@ -12,6 +14,7 @@ use App\Observers\RedirectObserver;
 use App\Observers\TranslationObserver;
 use App\Option;
 use App\Redirect;
+use App\Repositories\Page\PageCacheDecorator;
 use App\Repositories\Control\ControlCacheDecorator;
 use App\Repositories\Form\FormCacheDecorator;
 use App\Repositories\Redirect\RedirectCacheDecorator;
@@ -42,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
         Redirect::observe(RedirectObserver::class);
         Form::observe(FormObserver::class);
         Control::observe(ControlObserver::class);
+        Page::observe(PageObserver::class);
     }
 
     /**
@@ -61,6 +65,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerFormRepository();
         $this->registerControlRepository();
         $this->registerSubmitRepository();
+        $this->registerPageRepository();
     }
 
     /*
@@ -176,6 +181,18 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\SubmitRepositoryInterface', function($app) {
             return new \App\Repositories\Submit\EloquentSubmitRepository($app);
+        });
+    }
+
+    /*
+     * Register Page repository
+     */
+    protected function registerPageRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\PageRepositoryInterface', function($app) {
+            $page = new \App\Repositories\Page\EloquentPageRepository($app);
+
+            return new PageCacheDecorator($page, ['page', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate');
     Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate');
     Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete');
-    Route::get('settings/translations/{slug}/locale', 'TranslationsController@changelocale')->name('translations.changelocale');
+    Route::get('settings/translations/locale/{locale}', 'TranslationsController@changelocale')->name('translations.changelocale');
     Route::post('settings/translation/duplicate', 'TranslationsController@duplicate')->name('translations.duplicate');
 
     Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'languages']]);
@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::resource('settings/options', 'OptionsController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'options']]);
     Route::get('settings/options/{id}/delete', 'OptionsController@delete')->name('options.delete');
-    Route::get('settings/options/{slug}/locale', 'OptionsController@changelocale')->name('options.changelocale');
+    Route::get('settings/options/locale/{locale}', 'OptionsController@changelocale')->name('options.changelocale');
     Route::post('settings/options/duplicate', 'OptionsController@duplicate')->name('options.duplicate');
 
     Route::get('trash', 'TrashController@index')->name('trash');
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('forms/definitions/{id}/deactivate', 'FormsController@deactivate')->name('forms.definition.deactivate');
     Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate');
     Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete');
-    Route::get('forms/definitions/{id}/locale', 'FormsController@changelocale')->name('forms.changelocale');
+    Route::get('forms/definitions/locale/{locale}', 'FormsController@changelocale')->name('forms.changelocale');
     Route::post('forms/definitions/duplicate', 'FormsController@duplicate')->name('forms.duplicate');
 
     Route::resource('forms/definitions/{id}/controls', 'ControlsController', ['except' => ['show', 'create', 'destroy'], 'names' => [
@@ -91,5 +91,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('forms', function() {
         return redirect()->to('cmsbackend/forms/definitions');
     });
+
+    Route::resource('pages', 'PagesController', ['except' => ['show', 'destroy'], 'names' => ['index' => 'pages']]);
+    Route::get('pages/{id}/deactivate', 'PagesController@deactivate')->name('pages.deactivate');
+    Route::get('pages/{id}/activate', 'PagesController@activate')->name('pages.activate');
+    Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete');
+    Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
+    Route::post('pages/duplicate', 'PagesController@duplicate')->name('pages.duplicate');
 
 });

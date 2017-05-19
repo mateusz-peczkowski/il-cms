@@ -16,6 +16,7 @@ class PageTableSeeder extends Seeder {
                 'controller' => '',
                 'view' => 'home',
                 'status' => 1,
+                'locale' => 'pl',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]

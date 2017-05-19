@@ -71,7 +71,7 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li{{ str_contains(Route::currentRouteName(), 'dashboard') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'pages') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'pages') ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'navigations') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
                     <li class="treeview{{ str_contains(Route::currentRouteName(), 'modules') ? ' active' : '' }}">
                         <a href="#">
