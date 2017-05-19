@@ -92,4 +92,18 @@ class UserCacheDecorator extends AbstractCacheDecorator implements UserRepositor
 
         return $user;
     }
+
+    public function retrieveById($identifier)
+    {
+        $cacheName = 'user_by_id_' . $identifier;
+
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $user = $this->user->retrieveById($identifier);
+        $this->cache->put($cacheName, $user, 60);
+
+        return $user;
+    }
 }

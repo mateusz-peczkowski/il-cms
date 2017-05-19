@@ -15,4 +15,6 @@ interface UserRepositoryInterface
     public function findByIdAndToken($identifier, $token);
 
     public function retrieveByCredentials(array $credentials);
+
+    public function retrieveById($identifier);
 }

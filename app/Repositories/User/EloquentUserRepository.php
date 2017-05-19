@@ -50,6 +50,7 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     public function findByIdAndToken($identifier, $token)
     {
         return $this->model
+            ->with('user_role')
             ->where($this->model->getKeyName(), $identifier)
             ->where($this->model->getrememberTokenName(), $token)
             ->first();
@@ -65,6 +66,13 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         }
 
         return $query->first();
+    }
+
+    public function retrieveById($identifier)
+    {
+        return $this->model
+            ->with('user_role')
+            ->find($identifier);
     }
 
 }
