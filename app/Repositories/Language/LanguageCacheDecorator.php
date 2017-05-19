@@ -4,7 +4,7 @@ namespace App\Repositories\Language;
 
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageRepositoryInterface
 {

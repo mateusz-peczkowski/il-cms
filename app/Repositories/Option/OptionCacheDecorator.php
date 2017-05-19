@@ -5,7 +5,7 @@ namespace App\Repositories\Option;
 
 use App\Repositories\Contracts\OptionRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 class OptionCacheDecorator extends AbstractCacheDecorator implements OptionRepositoryInterface
 {

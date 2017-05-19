@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 class UserCacheDecorator extends AbstractCacheDecorator implements UserRepositoryInterface
 {

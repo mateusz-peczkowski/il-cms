@@ -5,7 +5,7 @@ namespace App\Repositories\Role;
 
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 class RoleCacheDecorator extends AbstractCacheDecorator implements RoleRepositoryInterface
 {

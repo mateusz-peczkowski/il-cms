@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;

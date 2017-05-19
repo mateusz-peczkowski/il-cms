@@ -3,7 +3,7 @@
 namespace App\Services\Cache;
 
 
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 abstract class AbstractCacheDecorator
 {

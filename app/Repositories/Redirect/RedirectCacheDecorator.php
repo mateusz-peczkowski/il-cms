@@ -5,7 +5,7 @@ namespace App\Repositories\Redirect;
 
 use App\Repositories\Contracts\RedirectRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
-use App\Services\Cache\Contracts\CacheInterface;
+use App\Services\Contracts\CacheInterface;
 
 class RedirectCacheDecorator extends AbstractCacheDecorator implements RedirectRepositoryInterface
 {
