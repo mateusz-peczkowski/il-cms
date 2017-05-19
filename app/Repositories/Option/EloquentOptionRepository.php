@@ -21,6 +21,7 @@ class EloquentOptionRepository extends AbstractRepository implements OptionRepos
     function getByType($type = '', $locale = '')
     {
         return $this->model
+            ->with('updater')
             ->where('type', $type)
             ->where('locale', $locale)
             ->orderBy('id', 'asc')
@@ -30,6 +31,7 @@ class EloquentOptionRepository extends AbstractRepository implements OptionRepos
     function getByTypePaginated($type = '', $locale = '', $paggLimit = 15)
     {
         return $this->model
+            ->with('updater')
             ->where('type', $type)
             ->where('locale', $locale)
             ->orderBy('id', 'asc')

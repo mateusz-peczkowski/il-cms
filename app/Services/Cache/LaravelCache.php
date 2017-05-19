@@ -4,12 +4,14 @@ namespace App\Services\Cache;
 
 use App\Services\Cache\Contracts\CacheInterface;
 use Illuminate\Cache\CacheManager;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LaravelCache implements CacheInterface
 {
     protected $cache;
     protected $cacheKey;
     protected $minutes;
+    protected $tags;
 
     /**
      * Cache constructor
@@ -22,6 +24,31 @@ class LaravelCache implements CacheInterface
     }
 
     /**
+     * Set tags for this Cache Store
+     *
+     * @param $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Set Cache Store tags if driver supports tagging
+     * fallback to normal cache
+     *
+     * @param $tags
+     * @return CacheManager
+     */
+    public function tags($tags)
+    {
+        if ($this->cache->driver()->getStore() instanceof \Illuminate\Cache\TaggableStore) {
+            return $this->cache->tags($tags);
+        }
+        return $this->cache;
+    }
+
+    /**
      * Retrieve data from cache
      *
      * @param string Cache item key
@@ -29,7 +56,7 @@ class LaravelCache implements CacheInterface
      */
     public function get($key)
     {
-        return $this->cache->get($key);
+        return $this->tags($this->tags)->get($key);
     }
 
     /**
@@ -40,7 +67,7 @@ class LaravelCache implements CacheInterface
      */
     public function pull($key)
     {
-        return $this->cache->pull($key);
+        return $this->tags($this->tags)->pull($key);
     }
 
     /**
@@ -58,7 +85,7 @@ class LaravelCache implements CacheInterface
             $minutes = $this->minutes;
         }
 
-        return $this->cache->put($key, $value, $minutes);
+        return $this->tags($this->tags)->put($key, $value, $minutes);
     }
 
     /**
@@ -73,18 +100,9 @@ class LaravelCache implements CacheInterface
      * @param integer  Cache item lifetime in minutes
      * @return mixed   $items variable returned for convenience
      */
-    public function putPaginated($currentPage, $perPage, $totalItems, $items, $key, $minutes = null)
+    public function putPaginated($items, $key, $minutes = null)
     {
-        $cached = new \StdClass;
-
-        $cached->currentPage = $currentPage;
-        $cached->items = $items;
-        $cached->totalItems = $totalItems;
-        $cached->perPage = $perPage;
-
-        $this->put($key, $cached, $minutes);
-
-        return $cached;
+        return $this->put($key, $items, $minutes);
     }
 
     /**
@@ -95,7 +113,7 @@ class LaravelCache implements CacheInterface
      */
     public function forever($key, $value)
     {
-        return $this->cache->forever($key, $value);
+        return $this->tags($this->tags)->forever($key, $value);
     }
 
     /**
@@ -107,7 +125,7 @@ class LaravelCache implements CacheInterface
      */
     public function has($key)
     {
-        return $this->cache->has($key);
+        return $this->tags($this->tags)->has($key);
     }
 
     /**
@@ -118,7 +136,7 @@ class LaravelCache implements CacheInterface
      */
     public function forget($key)
     {
-        $this->cache->forget($key);
+        $this->tags($this->tags)->forget($key);
     }
 
     /**
@@ -128,7 +146,7 @@ class LaravelCache implements CacheInterface
      */
     public function flush()
     {
-        $this->cache->flush();
+        $this->tags($this->tags)->flush();
     }
 
 }

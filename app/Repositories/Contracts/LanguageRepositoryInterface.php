@@ -13,4 +13,16 @@ interface LanguageRepositoryInterface
 
     public function checkLanguageExist($slug = false);
 
+    public function isLocale($locale = '');
+
+    public function getDefaultLocale();
+
+    public function getMoreDefaultLocales();
+
+    public function getMoreLocales();
+
+    public function getLocalesExcept($locale = '');
+
+    public function isMoreLocales();
+
 }
