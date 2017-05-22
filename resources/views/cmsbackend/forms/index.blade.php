@@ -23,6 +23,14 @@
                         <div class="alert alert-warning alert-dismissible">
                             {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać formularze (wymagane przynajmniej: <strong>developer</strong>). Możesz jedynie przeglądać listę formularzy') !!}
                         </div>
+                        @if(CMS::isMoreLocales())
+                            <div class="btn-group pull-right text-uppercase">
+                                <a href="{{ route('forms.changelocale', CMS::getDefaultLocale()) }}" class="btn btn-{{ (Session::get('cms_locale_form') == CMS::getDefaultLocale() || !Session::has('cms_locale_form')) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
+                                @foreach(CMS::getMoreDefaultLocales() as $lang)
+                                    <a href="{{ route('forms.changelocale', $lang->slug) }}" class="btn btn-{{ Session::get('cms_locale_form') == $lang->slug ? 'success' : 'default' }}">{{ $lang->slug }}</a>
+                                @endforeach
+                            </div>
+                        @endif
                     @endcan
                     @if(Session::has('status'))
                         @if($forms->isEmpty())
