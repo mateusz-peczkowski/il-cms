@@ -61,4 +61,17 @@ class PageCacheDecorator extends AbstractCacheDecorator implements PageRepositor
         return $exist;
     }
 
+    public function checkPageExistByURL($url = '', $locale = '')
+    {
+        $cacheName = 'page_' . $url . '_' . $locale;
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $exist = $this->page->checkPageExistByURL($url, $locale);
+        $this->cache->put($cacheName, $exist, 60);
+
+        return $exist;
+    }
+
 }

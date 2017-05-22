@@ -7,7 +7,7 @@
             <div class="box">
                 <div class="box-body">
                     @can('add_dev', 'App\User')
-                        <a class="btn btn-success" href="{{ route('pages.create') }}">{{ __('Dodaj stronę') }}</a>
+                        <span class="btn btn-success" data-toggle="modal" data-target="#add-new" id="create-new">{{ __('Dodaj stronę') }}</span>
                         @if(CMS::isMoreLocales())
                         <div class="btn-group pull-right text-uppercase">
                             <a href="{{ route('pages.changelocale', CMS::getDefaultLocale()) }}" class="btn btn-{{ (Session::get('cms_locale_page') == CMS::getDefaultLocale() || !Session::has('cms_locale_page')) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
@@ -51,7 +51,7 @@
                                 <td style="text-align: center;">{!! $page->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $page->status == 2 ? '</s>' : '' !!}</td>
                                 <td>{!! $page->status == 2 ? '<s>' : '' !!}{{ $page->name }}{!! $page->status == 2 ? '</s>' : '' !!}</td>
                                 <td>{!! $page->status == 2 ? '<s>' : '' !!}{{ $page->url }}{!! $page->status == 2 ? '</s>' : '' !!}</td>
-                                <td>{!! $page->status == 2 ? '<s>' : '' !!}{{ $page->created_at }}/{{ count($page->controls) }}{!! $page->status == 2 ? '</s>' : '' !!}</td>
+                                <td>{!! $page->status == 2 ? '<s>' : '' !!}{{ $page->created_at }}{!! $page->status == 2 ? '</s>' : '' !!}</td>
                                 @if($page->who_updated)
                                     <td><img src="{{ $page->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $page->updater->name }} <small class="text-muted">({{ $page->updated_at }})</small></td>
                                 @else
@@ -92,6 +92,36 @@
 @endsection
 
 @section('modals')
+    @can('add_dev', 'App\User')
+        <div class="modal fade" id="add-new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                {{Form::open(['route' => 'pages', 'files' => true, 'method' => 'POST', 'class' => 'modal-content'])}}
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        {{ __('Dodaj stronę') }}
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label>{{ __('Nazwa') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required autofocus />
+                        </div>
+                        <div class="form-group">
+                            <label>{{ __('Opis') }}</label>
+                            <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ __('Zdjęcie') }}</label>
+                            <input type="file" id="thumbnail" name="thumbnail" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
+                        <button type="submit" class="btn btn-success margin">{{ __('Zapisz') }}</button>
+                    </div>
+                {{Form::close()}}
+            </div>
+        </div>
+    @endcan
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

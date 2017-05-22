@@ -10,7 +10,7 @@ class Page extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name', 'url', 'tag', 'controller', 'view', 'status', 'order', 'who_updated', 'locale'
+        'name', 'description', 'thumbnail', 'url', 'tag', 'controller', 'view', 'status', 'order', 'who_updated', 'locale'
     ];
 
     public function updater() {

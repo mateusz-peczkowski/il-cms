@@ -9,16 +9,18 @@ class CreatePagesTable extends Migration {
 	{
 		Schema::create('pages', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('name', 255);
+            $table->string('name', 255);
+            $table->text('description')->nullable();
+            $table->string('thumbnail', 255)->nullable();
 			$table->string('url', 255);
-			$table->integer('order')->unsigned();
-			$table->string('tag', 64)->unique()->nullable();
-			$table->string('controller', 64)->nullable();
-			$table->string('view', 64)->nullable();
-			$table->enum('status', array('1', '2', '3'));
-			$table->string('locale', 64);
+            $table->string('tag', 64)->nullable();
+            $table->string('controller', 64)->nullable();
+            $table->string('view', 64)->nullable();
+            $table->string('locale', 64);
             $table->integer('who_updated')->unsigned()->nullable();
-			$table->timestamps();
+            $table->integer('order')->unsigned();
+            $table->enum('status', array('1', '2', '3'));
+            $table->timestamps();
 		});
 	}
 

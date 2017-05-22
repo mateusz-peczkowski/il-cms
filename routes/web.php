@@ -92,11 +92,16 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
         return redirect()->to('cmsbackend/forms/definitions');
     });
 
-    Route::resource('pages', 'PagesController', ['except' => ['show', 'destroy'], 'names' => ['index' => 'pages']]);
+    Route::resource('pages', 'PagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'pages']]);
     Route::get('pages/{id}/deactivate', 'PagesController@deactivate')->name('pages.deactivate');
     Route::get('pages/{id}/activate', 'PagesController@activate')->name('pages.activate');
     Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete');
     Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
     Route::post('pages/duplicate', 'PagesController@duplicate')->name('pages.duplicate');
+    Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
+    Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
+    Route::get('pages/{id}/options', 'PagesController@options')->name('pages.options');
+    Route::get('pages/{id}/advanced', 'PagesController@advanced')->name('pages.advanced');
+    Route::put('pages/{id}/advanced', 'PagesController@update_advanced');
 
 });

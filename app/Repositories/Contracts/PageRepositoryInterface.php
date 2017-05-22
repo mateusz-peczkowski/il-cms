@@ -9,6 +9,8 @@ interface PageRepositoryInterface
 
 	public function paginatedPagesTrash($paggLimit = 15);
 
-	public function checkPageExist($tag = '', $locale = '');
+    public function checkPageExist($tag = '', $locale = '');
+
+    public function checkPageExistByURL($url = '', $locale = '');
 
 }

@@ -44,7 +44,7 @@ class ControlsController extends BackendController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLanguage  $request
+     * @param  \App\Http\Requests\StoreControl  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreControl $request)
@@ -99,6 +99,9 @@ class ControlsController extends BackendController
     /**
      * Edit created resource.
      *
+     * @param  int  $form_id
+     * @param  int  $control_id
+     * @param  \App\Http\Requests\UpdateControl  $request
      * @return \Illuminate\Http\Response
      */
     public function update($form_id, $control_id, UpdateControl $request)

@@ -42,4 +42,12 @@ class EloquentPageRepository extends AbstractRepository implements PageRepositor
             ->count();
     }
 
+    function checkPageExistByURL($url = '', $locale = '')
+    {
+        return $this->model
+            ->where('url', $url)
+            ->where('locale', $locale)
+            ->count();
+    }
+
 }
