@@ -131,8 +131,8 @@
                             <label>{{ __('Wartość domyślna') }}{{ $errors->has('default') ? ' - '.(__($errors->first('default'))) : '' }}</label>
                             <input type="text" id="default" name="default" class="form-control" value="{{ old('default') }}" autofocus />
                         </div>
-                        <div class="form-group{{ $errors->has('values') ? ' has-error' : '' }}">
-                            <label>{{ __('Wartości - rozdzielone znakiem ";" (użyć w przypadku typów: select, checkbox [dla grup], radio)') }}{{ $errors->has('values') ? ' - '.(__($errors->first('values'))) : '' }}</label>
+                        <div class="form-group{{ $errors->has('values') ? ' has-error' : '' }}" id="show-type">
+                            <label>{{ __('Wartości typu - rozdzielone znakiem ";". Np. "Test;Test2"') }}{{ $errors->has('values') ? ' - '.(__($errors->first('values'))) : '' }}</label>
                             <input type="text" id="values" name="values" class="form-control" value="{{ old('values') }}" autofocus />
                         </div>
                         <div class="form-group">
@@ -188,4 +188,15 @@
             $('#create-new').trigger('click');
         </script>
     @endif
+    <script>
+        $('#show-type').slideUp();
+        $('#type').on('change', function() {
+            var allowArray = ['select', 'checkbox', 'radio'];
+            if($.inArray($(this).val(), allowArray) > -1) {
+                $('#show-type').slideDown();
+            } else {
+                $('#show-type').slideUp();
+            }
+        });
+    </script>
 @endsection

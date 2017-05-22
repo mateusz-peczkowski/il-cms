@@ -66,6 +66,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerControlRepository();
         $this->registerSubmitRepository();
         $this->registerPageRepository();
+        $this->registerPageOptionRepository();
     }
 
     /*
@@ -193,6 +194,16 @@ class RepositoryServiceProvider extends ServiceProvider
             $page = new \App\Repositories\Page\EloquentPageRepository($app);
 
             return new PageCacheDecorator($page, ['page', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
+        });
+    }
+
+    /*
+     * Register PageOption repository
+     */
+    protected function registerPageOptionRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\PageOptionRepositoryInterface', function($app) {
+            return new \App\Repositories\PageOption\EloquentPageOptionRepository($app);
         });
     }
 

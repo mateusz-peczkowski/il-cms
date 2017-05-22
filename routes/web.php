@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
     Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
     Route::get('pages/{id}/options', 'PagesController@options')->name('pages.options');
+    Route::post('pages/{id}/options', 'PagesController@store_option');
     Route::get('pages/{id}/advanced', 'PagesController@advanced')->name('pages.advanced');
     Route::put('pages/{id}/advanced', 'PagesController@update_advanced');
 

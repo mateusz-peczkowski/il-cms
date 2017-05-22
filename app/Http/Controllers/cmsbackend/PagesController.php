@@ -4,18 +4,21 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StorePage;
 use App\Http\Requests\UpdatePage;
+use App\Http\Requests\StorePageOption;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\PageRepositoryInterface;
+use App\Repositories\Contracts\PageOptionRepositoryInterface;
 use Auth;
 use Session;
 use CMS;
 
 class PagesController extends BackendController
 {
-    public function __construct(PageRepositoryInterface $pages)
+    public function __construct(PageRepositoryInterface $pages, PageOptionRepositoryInterface $page_options)
     {
         parent::__construct();
         $this->pages = $pages;
+        $this->page_options = $page_options;
     }
 
     /**
@@ -55,13 +58,13 @@ class PagesController extends BackendController
         }
         $last = $this->pages->findBy('locale', $this->checkLocale()) ? $this->pages->findBy('locale', $this->checkLocale())->orderBy('order', 'desc')->first() : false;
         $order = $last ? $last->order+1 : '1';
-        $obj['order'] = $order;
+        $obj['order'] = $order;return redirect()->route('pages.edit', $page->id);
         $obj['locale'] = $this->checkLocale();
         $obj['who_updated'] = Auth::id();
         $obj['status'] = 1;
         $page = $this->pages->create($obj);
 
-        return redirect()->route('pages.edit', $page->id);
+
     }
 
     /**
@@ -158,13 +161,35 @@ class PagesController extends BackendController
     public function options($id)
     {
         $page = $this->pages->find($id);
+        $options = $this->page_options->findBy('page_id', $id)->get();
         $this->breadcrumbs->addCrumb(__('Strony'), '/cmsbackend/pages');
         $this->breadcrumbs->addCrumb(__('Opcje'), '/cmsbackend/pages/'.$id.'/options');
         return view('cmsbackend.pages.options')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Opcje'),
-            'page' => $page
+            'page' => $page,
+            'options' => $options
         ]);
+    }
+
+    /**
+     * Store options of created resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function store_option($id, StorePageOption $request)
+    {
+        $obj = $request->only('key', 'type', 'values');
+        $obj['who_updated'] = Auth::id();
+        $last = $this->page_options->findBy('page_id', $id) ? $this->page_options->findBy('page_id', $id)->orderBy('order', 'desc')->first() : false;
+        $order = $last ? $last->order+1 : '1';
+        $obj['order'] = $order;
+        $obj['status'] = 1;
+        $obj['page_id'] = $id;
+        $this->page_options->create($obj);
+
+        return redirect()->route('pages.options', $id);
     }
 
     /**
