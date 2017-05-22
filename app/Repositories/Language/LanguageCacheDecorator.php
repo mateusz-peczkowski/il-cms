@@ -5,6 +5,7 @@ namespace App\Repositories\Language;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Services\Cache\AbstractCacheDecorator;
 use App\Services\Contracts\CacheInterface;
+use Illuminate\Support\Facades\Session;
 
 class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageRepositoryInterface
 {
@@ -119,7 +120,7 @@ class LanguageCacheDecorator extends AbstractCacheDecorator implements LanguageR
 
     public function getMoreLocales()
     {
-        $cacheName = 'language_more_locales';
+        $cacheName = 'language_more_locales_' . Session::get('cms_locale');
         if ($this->cache->has($cacheName)) {
             return $this->cache->get($cacheName);
         }

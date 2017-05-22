@@ -23,6 +23,14 @@
                             <div class="alert alert-warning alert-dismissible">
                                 {!! __('Posiadasz za małe uprawnienia aby móc edytować i dodawać opcje (wymagane przynajmniej: <strong>developer</strong>). Możesz jedynie przeglądać listę opcji') !!}
                             </div>
+                            @if(CMS::isMoreLocales())
+                                <div class="btn-group pull-right text-uppercase">
+                                    <a href="{{ route('options.changelocale', CMS::getDefaultLocale()) }}" class="btn btn-{{ (Session::get('cms_locale_option') == CMS::getDefaultLocale() || !Session::has('cms_locale_option')) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
+                                    @foreach(CMS::getMoreDefaultLocales() as $lang)
+                                        <a href="{{ route('options.changelocale', $lang->slug) }}" class="btn btn-{{ Session::get('cms_locale_option') == $lang->slug ? 'success' : 'default' }}">{{ $lang->slug }}</a>
+                                    @endforeach
+                                </div>
+                            @endif
                         @endcan
                         @if(Session::has('status'))
                             @if($options->isEmpty())
