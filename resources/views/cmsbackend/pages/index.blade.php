@@ -102,7 +102,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label>{{ __('Nazwa') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
+                            <label>{{ __('Tytuł') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
                             <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required autofocus />
                         </div>
                         <div class="form-group">

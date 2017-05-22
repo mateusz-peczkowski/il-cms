@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label>{{ __('Nazwa') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
+                                    <label>{{ __('Tytuł') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
                                     <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? : $page->name }}" required autofocus />
                                 </div>
                             </div>
