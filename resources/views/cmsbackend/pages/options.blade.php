@@ -18,7 +18,7 @@
                     @can('add_dev', 'App\User')
                         <span class="btn btn-success" data-toggle="modal" data-target="#add-new" id="create-new">{{ __('Dodaj opcje') }}</span>
                     @endcan
-                    @if(isset($options))
+                    @if(!$options->isEmpty())
                         @foreach($options as $option)
                             {{ $option->key }}
                         @endforeach
