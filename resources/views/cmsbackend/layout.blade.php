@@ -95,13 +95,13 @@
                         </ul>
                     </li>
                     <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ (str_contains(Route::currentRouteName(), 'options') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
+                    <li class="treeview{{ ((str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li{{ str_contains(Route::currentRouteName(), 'options') ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
+                            <li{{ (str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'languages') ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'translations') ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
