@@ -194,8 +194,10 @@
             var allowArray = ['select', 'checkbox', 'radio'];
             if($.inArray($(this).val(), allowArray) > -1) {
                 $('#show-type').slideDown();
+                $('#show-type #values').attr('required', 'required');
             } else {
                 $('#show-type').slideUp();
+                $('#show-type #values').removeAttr('required');
             }
         });
     </script>

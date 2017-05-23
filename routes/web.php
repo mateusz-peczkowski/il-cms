@@ -92,15 +92,29 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
         return redirect()->to('cmsbackend/forms/definitions');
     });
 
+
     Route::resource('pages', 'PagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'pages']]);
+
     Route::get('pages/{id}/deactivate', 'PagesController@deactivate')->name('pages.deactivate');
+
     Route::get('pages/{id}/activate', 'PagesController@activate')->name('pages.activate');
+
     Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete')->middleware('developers');
+
     Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
+
     Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
+
     Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
-    Route::get('pages/{id}/options', 'PagesController@options')->name('pages.options');
-    Route::post('pages/{id}/options', 'PagesController@store_option')->middleware('developers');
+
+    Route::get('pages/{id}/options', 'PageOptionsController@index')->name('pages.options');
+    Route::post('pages/{id}/options', 'PageOptionsController@store')->middleware('developers');
+    Route::get('pages/options/{id}', 'PageOptionsController@value')->name('pages.options.value');
+    Route::put('pages/options/{id}', 'PageOptionsController@update_value');
+    Route::get('pages/options/{id}/edit', 'PageOptionsController@edit')->name('pages.options.edit')->middleware('developers');
+    Route::put('pages/options/{id}/edit', 'PageOptionsController@update')->middleware('developers');
+    Route::get('pages/options/{id}/destroy', 'PageOptionsController@destroy')->name('pages.options.delete')->middleware('developers');
+
     Route::get('pages/{id}/advanced', 'PagesController@advanced')->name('pages.advanced')->middleware('developers');
     Route::put('pages/{id}/advanced', 'PagesController@update_advanced')->middleware('developers');
 
