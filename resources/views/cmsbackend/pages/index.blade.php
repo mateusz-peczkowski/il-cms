@@ -64,7 +64,9 @@
                                     @else
                                         <a href="{{ route('pages.activate', $page->id) }}" class="text-green" title="{{ __('Aktywuj') }}"><i class="fa fa-check"></i></a>
                                     @endif
+                                    @can('add_dev', 'App\User')
                                     <a href="#" data-href="{{ route('pages.delete', $page->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
