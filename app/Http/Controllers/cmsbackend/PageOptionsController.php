@@ -52,6 +52,9 @@ class PageOptionsController extends BackendController
         $obj = $request->only('key', 'type', 'values');
         $obj['who_updated'] = Auth::id();
         $obj['page_id'] = $id;
+
+        $obj['slug'] = $this->constructSlug(0, $obj['key']);
+
         $this->page_options->create($obj);
 
         return redirect()->route('pages.options', $id)->with([
@@ -156,6 +159,20 @@ class PageOptionsController extends BackendController
             'status_type' => 'danger'
         ]);
 
+    }
+
+
+    private function constructSlug($num, $name) {
+        if($num) {
+            $slug = str_slug($name).'-'.$num;
+        } else {
+            $slug = str_slug($name);
+        }
+        if($this->page_options->findBy('slug', $slug)) {
+            $num++;
+            return $this->constructSlug($num, $name);
+        }
+        return $slug;
     }
 
 }

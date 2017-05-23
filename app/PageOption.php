@@ -10,7 +10,7 @@ class PageOption extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'key', 'type', 'values', 'page_id', 'order', 'who_updated', 'status', 'value'
+        'key', 'type', 'values', 'page_id', 'order', 'who_updated', 'status', 'value', 'slug'
     ];
 
     public function updater() {

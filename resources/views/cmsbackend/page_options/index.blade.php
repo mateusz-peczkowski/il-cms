@@ -40,6 +40,7 @@
                             <tr>
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Tytuł') }}</th>
+                                <th>{{ __('Slug') }}</th>
                                 <th>{{ __('Typ') }}</th>
                                 <th>{{ __('Wartość') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
@@ -51,6 +52,7 @@
                                 <tr>
                                     <td style="text-align: center;">{{ $num+1 }}</td>
                                     <td>{{ $option->key }}</td>
+                                    <td>{{ $option->slug }}</td>
                                     <td>{{ $option->type }}</td>
                                     <td>{{ $option->value }}</td>
                                     @if($option->who_updated)
@@ -72,6 +74,7 @@
                             <tr>
                                 <th style="width: 35px;">{{ __('Lp.') }}</th>
                                 <th>{{ __('Tytuł') }}</th>
+                                <th>{{ __('Slug') }}</th>
                                 <th>{{ __('Typ') }}</th>
                                 <th>{{ __('Wartość') }}</th>
                                 <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>

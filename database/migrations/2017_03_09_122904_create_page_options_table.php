@@ -10,6 +10,7 @@ class CreatePageOptionsTable extends Migration {
 		Schema::create('page_options', function(Blueprint $table) {
 			$table->increments('id');
             $table->string('key', 255);
+            $table->string('slug', 255);
             $table->enum('type', array('text', 'textarea', 'select', 'checkbox'));
             $table->text('values')->nullable();
             $table->text('value')->nullable();
