@@ -291,7 +291,83 @@
                 @endif
 
 
-                    @if(isset($forms) && $forms->isEmpty())
+                @if(isset($forms) && $forms->isEmpty())
+                    @if(Session::has('status-form'))
+                        <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                        </div>
+                    @endif
+                @endif
+                @if(isset($forms) && !$forms->isEmpty())
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-edit"></i>
+                            <h3 class="box-title">{{ __('Formularze') }}</h3>
+                        </div>
+                        <div class="box-body">
+                            @if(Session::has('status-form'))
+                                <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                                </div>
+                            @endif
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Nazwa') }}</th>
+                                    <th>{{ __('Liczba przesłanych formularzy') }}</th>
+                                    <th>{{ __('Liczba kontrolek') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($forms as $num => $form)
+                                    <tr>
+                                        <td style="text-align: center;">{{ $num+1 }}</td>
+                                        <td>{{ $form->title }} ({{ $form->locale }})</td>
+                                        <td>{{ count($form->submits) }}</td>
+                                        <td>{{ count($form->controls) }}</td>
+                                        @if($form->who_updated)
+                                            <td><img src="{{ $form->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $form->updater->name }} <small class="text-muted">({{ $form->updated_at }})</small></td>
+                                        @else
+                                            <td>&nbsp;</td>
+                                        @endif
+                                        @can('revokeDestroy', 'App\User')
+                                            <td class="text-right">
+                                                <a href="#" data-href="{{ route('trash.revoke', ['form', $form->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['form', $form->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                    <th>{{ __('Nazwa') }}</th>
+                                    <th>{{ __('Liczba przesłanych formularzy') }}</th>
+                                    <th>{{ __('Liczba kontrolek') }}</th>
+                                    <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                    @can('revokeDestroy', 'App\User')
+                                        <th style="width: 50px;">&nbsp;</th>
+                                    @endcan
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <div class="pull-right">
+                                {{ $forms->links() }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+                @if(isset($pages) && $pages->isEmpty())
                         @if(Session::has('status-form'))
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -299,26 +375,26 @@
                             </div>
                         @endif
                     @endif
-                    @if(isset($forms) && !$forms->isEmpty())
+                    @if(isset($pages) && !$pages->isEmpty())
                         <div class="box">
                             <div class="box-header with-border">
-                                <i class="fa fa-edit"></i>
-                                <h3 class="box-title">{{ __('Formularze') }}</h3>
+                                <i class="fa fa-files-o"></i>
+                                <h3 class="box-title">{{ __('Strony') }}</h3>
                             </div>
                             <div class="box-body">
-                                @if(Session::has('status-form'))
+                                @if(Session::has('status-page'))
                                     <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                                        <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-page') }}!</h4>
                                     </div>
                                 @endif
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th style="width: 35px;">{{ __('Lp.') }}</th>
-                                        <th>{{ __('Nazwa') }}</th>
-                                        <th>{{ __('Liczba przesłanych formularzy') }}</th>
-                                        <th>{{ __('Liczba kontrolek') }}</th>
+                                        <th>{{ __('Tytuł') }}</th>
+                                        <th>{{ __('URL') }}</th>
+                                        <th>{{ __('Data stworzenia') }} <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                         <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                         @can('revokeDestroy', 'App\User')
                                             <th style="width: 50px;">&nbsp;</th>
@@ -326,21 +402,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($forms as $num => $form)
+                                    @foreach($pages as $num => $page)
                                         <tr>
-                                            <td style="text-align: center;">{!! $form->status == 2 ? '<s>' : '' !!}{{ $num+1 }}{!! $form->status == 2 ? '</s>' : '' !!}</td>
-                                            <td>{!! $form->status == 2 ? '<s>' : '' !!}{{ $form->title }} ({{ $form->locale }}){!! $form->status == 2 ? '</s>' : '' !!}</td>
-                                            <td>{{ count($form->submits) }}</td>
-                                            <td>{{ count($form->controls) }}</td>
-                                            @if($form->who_updated)
-                                                <td><img src="{{ $form->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $form->updater->name }} <small class="text-muted">({{ $form->updated_at }})</small></td>
+                                            <td style="text-align: center;">{{ $num+1 }}</td>
+                                            <td>{{ $page->name }} ({{ $page->locale }})</td>
+                                            <td>{{ $page->url }}</td>
+                                            <td>{{ $page->created_at }}</td>
+                                            @if($page->who_updated)
+                                                <td><img src="{{ $page->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $page->updater->name }} <small class="text-muted">({{ $page->updated_at }})</small></td>
                                             @else
                                                 <td>&nbsp;</td>
                                             @endif
                                             @can('revokeDestroy', 'App\User')
                                                 <td class="text-right">
-                                                    <a href="#" data-href="{{ route('trash.revoke', ['form', $form->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                    <a href="#" data-href="{{ route('trash.destroy', ['form', $form->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.revoke', ['page', $page->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.destroy', ['page', $page->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             @endcan
                                         </tr>
@@ -349,9 +425,9 @@
                                     <tfoot>
                                     <tr>
                                         <th style="width: 35px;">{{ __('Lp.') }}</th>
-                                        <th>{{ __('Nazwa') }}</th>
-                                        <th>{{ __('Liczba przesłanych formularzy') }}</th>
-                                        <th>{{ __('Liczba kontrolek') }}</th>
+                                        <th>{{ __('Tytuł') }}</th>
+                                        <th>{{ __('URL') }}</th>
+                                        <th>{{ __('Data stworzenia') }} <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                         <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
                                         @can('revokeDestroy', 'App\User')
                                             <th style="width: 50px;">&nbsp;</th>
@@ -360,7 +436,7 @@
                                     </tfoot>
                                 </table>
                                 <div class="pull-right">
-                                    {{ $forms->links() }}
+                                    {{ $pages->links() }}
                                 </div>
                             </div>
                         </div>

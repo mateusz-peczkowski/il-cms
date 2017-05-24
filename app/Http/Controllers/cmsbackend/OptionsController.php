@@ -38,7 +38,7 @@ class OptionsController extends BackendController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLanguage  $request
+     * @param  \App\Http\Requests\StoreOption  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOption $request)

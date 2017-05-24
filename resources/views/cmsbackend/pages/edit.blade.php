@@ -5,36 +5,41 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
+                    @include('cmsbackend.parts.top_nav.pages', ['active' => 'edit', 'model' => $page])
+                    <hr>
                     @if(Session::has('status'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <form role="form" method="POST" action="{{ route('languages.update', $language->id) }}">
+                    <form role="form" method="POST" action="{{ route('pages.update', $page->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" name="id" value="{{ $language->id }}">
+                        <input type="hidden" name="id" value="{{ $page->id }}">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Tytuł') }}</label>
-                                    <input type="text" id="language_title" name="language_title" class="form-control" value="{{ old('language_title') ? : $language->title }}" required />
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label>{{ __('Tytuł') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? : $page->name }}" required autofocus />
                                 </div>
-                                @if(!$language->is_default)
                                 <div class="form-group">
-                                    <div class="checkbox icheck">
-                                        <label>
-                                            <input type="checkbox" name="language_is_default"{{ old('language_is_default') ? ' checked' : '' }}> {{ __('Domyślny język') }} <small>({{ __('Przełączenie spowoduje zmianę domyślnego języka strony oraz systemu') }})</small>
-                                        </label>
-                                    </div>
+                                    <label>{{ __('Opis') }}</label>
+                                    <textarea name="description" id="description" class="form-control">{{ old('description') ? : $page->description }}</textarea>
                                 </div>
-                                @endif
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Slug') }} <small>({{ __('np. pl') }})</small></label>
-                                    <input type="text" id="language_slug" name="language_slug" class="form-control" value="{{ old('language_slug') ? : $language->slug }}" required />
+                                    <label>{{ __('URL') }}</label>
+                                    <input name="url" id="url" class="form-control" required value="{{ old('url') ? : $page->url }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ __('Zdjęcie') }}</label>
+                                    @if($page->thumbnail)
+                                        <input type="text" class="form-control" value="{{ $page->thumbnail }}" disabled>
+                                        <br />
+                                    @endif
+                                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" />
                                 </div>
                             </div>
                             <div class="col-xs-12">

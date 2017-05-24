@@ -10,7 +10,23 @@
                         </span>
                     </li>
                     <li>
-                        <i class="fa fa-edit bg-blue"></i>
+                        <i class="fa fa-files-o bg-purple"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('pages') }}">{{ __('Strony') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista stron') }}</li>
+                                    <li>{{ __('Możliwość dodawania i usuwania stron przez rangę developer i wyżej') }}</li>
+                                    <li>{{ __('Edycja dla wszystkich rang.') }}</li>
+                                    <li>{{ __('Dopinanie opcji, sekcji, galerii.') }}</li>
+                                    <li>{{ __('Możliwość tworzenia różnych stron dla różnych języków.') }}</li>
+                                    <li>{{ __('Możliwość definiowania meta kluczy potrzebnych do SEO (title, description, keys) + dodatkowe rzeczy które można dorzucić w sekcję head bądź footer.') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-edit bg-orange"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('forms.definition') }}">{{ __('Formularze') }}</a></h3>
                             <div class="timeline-body">

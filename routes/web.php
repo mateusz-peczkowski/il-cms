@@ -27,36 +27,36 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::resource('users', 'UsersController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'users']]);
     Route::post('/users/editcurrent', 'UsersController@editcurrent')->name('user.editcurrent');
-    Route::get('users/{id}/deactivate', 'UsersController@deactivate')->name('users.deactivate');
-    Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate');
-    Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete');
+    Route::get('users/{id}/deactivate', 'UsersController@deactivate')->name('users.deactivate')->middleware('admins');
+    Route::get('users/{id}/activate', 'UsersController@activate')->name('users.activate')->middleware('admins');
+    Route::get('users/{id}/delete', 'UsersController@delete')->name('users.delete')->middleware('admins');
     Route::post('/users/addavatar', 'UsersController@addavatar')->name('user.addavatar');
 
     Route::resource('settings/redirects', 'RedirectsController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'redirects']]);
-    Route::get('settings/redirects/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate');
-    Route::get('settings/redirects/{id}/activate', 'RedirectsController@activate')->name('redirects.activate');
-    Route::get('settings/redirects/{id}/delete', 'RedirectsController@delete')->name('redirects.delete');
+    Route::get('settings/redirects/{id}/deactivate', 'RedirectsController@deactivate')->name('redirects.deactivate')->middleware('developers');
+    Route::get('settings/redirects/{id}/activate', 'RedirectsController@activate')->name('redirects.activate')->middleware('developers');
+    Route::get('settings/redirects/{id}/delete', 'RedirectsController@delete')->name('redirects.delete')->middleware('developers');
 
     Route::resource('settings/translations', 'TranslationsController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'translations']]);
-    Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate');
-    Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate');
-    Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete');
-    Route::get('settings/translations/{slug}/locale', 'TranslationsController@changelocale')->name('translations.changelocale');
-    Route::post('settings/translation/duplicate', 'TranslationsController@duplicate')->name('translations.duplicate');
+    Route::get('settings/translations/{id}/deactivate', 'TranslationsController@deactivate')->name('translations.deactivate')->middleware('developers');
+    Route::get('settings/translations/{id}/activate', 'TranslationsController@activate')->name('translations.activate')->middleware('developers');
+    Route::get('settings/translations/{id}/delete', 'TranslationsController@delete')->name('translations.delete')->middleware('developers');
+    Route::get('settings/translations/locale/{locale}', 'TranslationsController@changelocale')->name('translations.changelocale');
+    Route::post('settings/translation/duplicate', 'TranslationsController@duplicate')->name('translations.duplicate')->middleware('developers');
 
     Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'languages']]);
-    Route::get('settings/languages/{id}/deactivate', 'LanguagesController@deactivate')->name('languages.deactivate');
-    Route::get('settings/languages/{id}/activate', 'LanguagesController@activate')->name('languages.activate');
-    Route::get('settings/languages/{id}/delete', 'LanguagesController@delete')->name('languages.delete');
+    Route::get('settings/languages/{id}/deactivate', 'LanguagesController@deactivate')->name('languages.deactivate')->middleware('developers');
+    Route::get('settings/languages/{id}/activate', 'LanguagesController@activate')->name('languages.activate')->middleware('developers');
+    Route::get('settings/languages/{id}/delete', 'LanguagesController@delete')->name('languages.delete')->middleware('developers');
 
     Route::resource('settings/options', 'OptionsController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'options']]);
-    Route::get('settings/options/{id}/delete', 'OptionsController@delete')->name('options.delete');
-    Route::get('settings/options/{slug}/locale', 'OptionsController@changelocale')->name('options.changelocale');
-    Route::post('settings/options/duplicate', 'OptionsController@duplicate')->name('options.duplicate');
+    Route::get('settings/options/{id}/delete', 'OptionsController@delete')->name('options.delete')->middleware('developers');
+    Route::get('settings/options/locale/{locale}', 'OptionsController@changelocale')->name('options.changelocale');
+    Route::post('settings/options/duplicate', 'OptionsController@duplicate')->name('options.duplicate')->middleware('developers');
 
     Route::get('trash', 'TrashController@index')->name('trash');
-    Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke');
-    Route::get('trash/{module}/{id}/destroy', 'TrashController@destroy')->name('trash.destroy');
+    Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke')->middleware('developers');
+    Route::get('trash/{module}/{id}/destroy', 'TrashController@destroy')->name('trash.destroy')->middleware('developers');
 
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
     Route::get('documentation', 'DocumentationController@index')->name('documentation');
@@ -66,20 +66,20 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
         'edit' => 'forms.definition.edit',
         'update' => 'forms.definition.update'
     ]]);
-    Route::get('forms/definitions/{id}/deactivate', 'FormsController@deactivate')->name('forms.definition.deactivate');
-    Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate');
-    Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete');
-    Route::get('forms/definitions/{id}/locale', 'FormsController@changelocale')->name('forms.changelocale');
-    Route::post('forms/definitions/duplicate', 'FormsController@duplicate')->name('forms.duplicate');
+    Route::get('forms/definitions/{id}/deactivate', 'FormsController@deactivate')->name('forms.definition.deactivate')->middleware('developers');
+    Route::get('forms/definitions/{id}/activate', 'FormsController@activate')->name('forms.definition.activate')->middleware('developers');
+    Route::get('forms/definitions/{id}/delete', 'FormsController@delete')->name('forms.definition.delete')->middleware('developers');
+    Route::get('forms/definitions/locale/{locale}', 'FormsController@changelocale')->name('forms.changelocale');
+    Route::post('forms/definitions/duplicate', 'FormsController@duplicate')->name('forms.duplicate')->middleware('developers');
 
     Route::resource('forms/definitions/{id}/controls', 'ControlsController', ['except' => ['show', 'create', 'destroy'], 'names' => [
         'index' => 'forms.definition.controls',
         'edit' => 'forms.definition.control.edit',
         'update' => 'forms.definition.control.update'
     ]]);
-    Route::get('forms/definitions/control/{id}/deactivate', 'ControlsController@deactivate')->name('forms.definition.control.deactivate');
-    Route::get('forms/definitions/control/{id}/activate', 'ControlsController@activate')->name('forms.definition.control.activate');
-    Route::get('forms/definitions/control/{id}/destroy', 'ControlsController@destroy')->name('forms.definition.control.destroy');
+    Route::get('forms/definitions/control/{id}/deactivate', 'ControlsController@deactivate')->name('forms.definition.control.deactivate')->middleware('developers');
+    Route::get('forms/definitions/control/{id}/activate', 'ControlsController@activate')->name('forms.definition.control.activate')->middleware('developers');
+    Route::get('forms/definitions/control/{id}/destroy', 'ControlsController@destroy')->name('forms.definition.control.destroy')->middleware('developers');
 
     Route::get('forms/sent', 'FormSentController@index')->name('forms.sent');
     Route::get('forms/sent/{id}', 'FormSentController@show')->name('forms.sent.form');
@@ -91,5 +91,35 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('forms', function() {
         return redirect()->to('cmsbackend/forms/definitions');
     });
+
+
+    Route::resource('pages', 'PagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'pages']]);
+
+    Route::get('pages/{id}/deactivate', 'PagesController@deactivate')->name('pages.deactivate');
+
+    Route::get('pages/{id}/activate', 'PagesController@activate')->name('pages.activate');
+
+    Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete')->middleware('developers');
+
+    Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
+
+    Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
+
+    Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
+
+    Route::get('pages/{id}/options', 'PageOptionsController@index')->name('pages.options');
+    Route::post('pages/{id}/options', 'PageOptionsController@store')->middleware('developers');
+    Route::get('pages/options/{id}', 'PageOptionsController@value')->name('pages.options.value');
+    Route::put('pages/options/{id}', 'PageOptionsController@update_value');
+    Route::get('pages/options/{id}/edit', 'PageOptionsController@edit')->name('pages.options.edit')->middleware('developers');
+    Route::put('pages/options/{id}/edit', 'PageOptionsController@update')->middleware('developers');
+    Route::get('pages/options/{id}/destroy', 'PageOptionsController@destroy')->name('pages.options.delete')->middleware('developers');
+
+    Route::get('pages/{id}/advanced', 'PagesController@advanced')->name('pages.advanced')->middleware('developers');
+    Route::put('pages/{id}/advanced', 'PagesController@update_advanced')->middleware('developers');
+
+    Route::get('{model}/{model_id}/seo', 'SeoController@edit')->name('seo');
+    Route::post('{model}/{model_id}/seo', 'SeoController@store');
+    Route::put('{model}/{model_id}/seo', 'SeoController@update');
 
 });

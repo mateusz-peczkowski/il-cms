@@ -7,11 +7,12 @@ use App\Repositories\Contracts\RedirectRepositoryInterface;
 use App\Repositories\Contracts\TranslationRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Repositories\Contracts\FormRepositoryInterface;
+use App\Repositories\Contracts\PageRepositoryInterface;
 use Auth;
 
 class TrashController extends BackendController
 {
-    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form)
+    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page)
     {
         parent::__construct();
         $this->user = $user;
@@ -19,6 +20,7 @@ class TrashController extends BackendController
         $this->translation = $translation;
         $this->language = $language;
         $this->form = $form;
+        $this->page = $page;
     }
 
     /**
@@ -33,6 +35,7 @@ class TrashController extends BackendController
         $translations = $this->translation->paginatedTranslationsTrash();
         $languages = $this->language->paginatedLanguagesTrash();
         $forms = $this->form->paginatedFormsTrash();
+        $pages = $this->page->paginatedPagesTrash();
         $this->breadcrumbs->addCrumb(__('Usunięte elementy'), '/cmsbackend/trash');
         return view('cmsbackend.trash.index')->with([
             'users' => $users,
@@ -40,6 +43,7 @@ class TrashController extends BackendController
             'translations' => $translations,
             'languages' => $languages,
             'forms' => $forms,
+            'pages' => $pages,
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Usunięte elementy')
         ]);

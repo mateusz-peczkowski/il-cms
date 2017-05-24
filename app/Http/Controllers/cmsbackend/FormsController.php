@@ -39,7 +39,7 @@ class FormsController extends BackendController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLanguage  $request
+     * @param  \App\Http\Requests\StoreForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreForm $request)
@@ -95,6 +95,8 @@ class FormsController extends BackendController
     /**
      * Edit created resource.
      *
+     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateForm  $request
      * @return \Illuminate\Http\Response
      */
     public function update($id, UpdateForm $request)

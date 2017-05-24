@@ -71,7 +71,7 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li{{ str_contains(Route::currentRouteName(), 'dashboard') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'pages') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
+                    <li{{ str_contains(Route::currentRouteName(), 'pages') ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
                     <li{{ str_contains(Route::currentRouteName(), 'navigations') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
                     <li class="treeview{{ str_contains(Route::currentRouteName(), 'modules') ? ' active' : '' }}">
                         <a href="#">
@@ -95,13 +95,13 @@
                         </ul>
                     </li>
                     <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ (str_contains(Route::currentRouteName(), 'options') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
+                    <li class="treeview{{ ((str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li{{ str_contains(Route::currentRouteName(), 'options') ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
+                            <li{{ (str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'languages') ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'translations') ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
