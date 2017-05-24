@@ -20,6 +20,7 @@
                                     <li>{{ __('Edycja dla wszystkich rang.') }}</li>
                                     <li>{{ __('Dopinanie opcji, sekcji, galerii.') }}</li>
                                     <li>{{ __('Możliwość tworzenia różnych stron dla różnych języków.') }}</li>
+                                    <li>{{ __('Możliwość definiowania meta kluczy potrzebnych do SEO (title, description, keys) + dodatkowe rzeczy które można dorzucić w sekcję head bądź footer.') }}</li>
                                 </ul>
                             </div>
                         </div>
