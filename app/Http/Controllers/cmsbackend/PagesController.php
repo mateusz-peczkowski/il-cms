@@ -55,12 +55,12 @@ class PagesController extends BackendController
         }
         $last = $this->pages->findBy('locale', $this->checkLocale()) ? $this->pages->findBy('locale', $this->checkLocale())->orderBy('order', 'desc')->first() : false;
         $order = $last ? $last->order+1 : '1';
-        $obj['order'] = $order;return redirect()->route('pages.edit', $page->id);
+        $obj['order'] = $order;
         $obj['locale'] = $this->checkLocale();
         $obj['who_updated'] = Auth::id();
         $obj['status'] = 1;
         $page = $this->pages->create($obj);
-
+        return redirect()->route('pages.edit', $page->id);
 
     }
 

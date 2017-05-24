@@ -20,20 +20,16 @@
                                     <label>{{ __('Tytuł') }}</label>
                                     <input type="text" id="key" name="key" class="form-control" value="{{ $option->key }}" disabled />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Typ') }}</label>
-                                    <input type="text" id="type" name="type" class="form-control" value="{{ $option->type }}" disabled />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Slug') }} {{ __('(służy do wywołania na stronie)') }}</label>
                                     <input type="text" id="type" name="type" class="form-control" value="{{ $option->slug }}" disabled />
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Typ') }}</label>
+                                    <input type="text" id="type" name="type" class="form-control" value="{{ $option->type }}" disabled />
+                                </div>
                                 <div class="form-group ">
                                     <label>{{ __('Wartość') }}</label>
                                     @if($option->type == 'textarea')
@@ -41,9 +37,9 @@
                                         <textarea name="value" id="value" class="form-control">{{ $selected }}</textarea>
                                     @elseif($option->type == 'checkbox')
                                         <?php
-                                            $num = 0;
-                                            $selected = old('value') ? : $option->value;
-                                            $selected = explode(',', $selected);
+                                        $num = 0;
+                                        $selected = old('value') ? : $option->value;
+                                        $selected = explode(',', $selected);
                                         ?>
                                         <div class="radcheck">
                                             <?php $num++; ?>

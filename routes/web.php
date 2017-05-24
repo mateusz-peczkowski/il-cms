@@ -118,4 +118,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('pages/{id}/advanced', 'PagesController@advanced')->name('pages.advanced')->middleware('developers');
     Route::put('pages/{id}/advanced', 'PagesController@update_advanced')->middleware('developers');
 
+    Route::get('{model}/{model_id}/seo', 'SeoController@edit')->name('seo');
+    Route::post('{model}/{model_id}/seo', 'SeoController@store');
+    Route::put('{model}/{model_id}/seo', 'SeoController@update');
+
 });

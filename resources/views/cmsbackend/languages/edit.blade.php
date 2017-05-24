@@ -21,15 +21,7 @@
                                     <label>{{ __('Tytuł') }}</label>
                                     <input type="text" id="language_title" name="language_title" class="form-control" value="{{ old('language_title') ? : $language->title }}" required />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Slug') }} <small>({{ __('np. pl') }})</small></label>
-                                    <input type="text" id="language_slug" name="language_slug" class="form-control" value="{{ old('language_slug') ? : $language->slug }}" required />
-                                </div>
-                            </div>
-                            @if(!$language->is_default)
-                            <div class="col-md-6">
+                                @if(!$language->is_default)
                                 <div class="form-group">
                                     <div class="checkbox icheck">
                                         <label>
@@ -37,8 +29,14 @@
                                         </label>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-                            @endif
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Slug') }} <small>({{ __('np. pl') }})</small></label>
+                                    <input type="text" id="language_slug" name="language_slug" class="form-control" value="{{ old('language_slug') ? : $language->slug }}" required />
+                                </div>
+                            </div>
                             <div class="col-xs-12">
                                 <div class="text-center mb-0">
                                     <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>

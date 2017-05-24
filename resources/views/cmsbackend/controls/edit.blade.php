@@ -21,14 +21,6 @@
                                     <label>{{ __('Nazwa wyświetlana') }}{{ $errors->has('label') ? ' - '.(__($errors->first('label'))) : '' }}</label>
                                     <input type="text" id="label" name="label" class="form-control" value="{{ old('label') ? : $control->label }}" required autofocus />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label>{{ __('Nazwa (pole name)') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? : $control->name }}" required autofocus />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                                     <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
                                     <?php $type = old('type') ? : $control->type; ?>
@@ -49,17 +41,19 @@
                                         <option value="url"{{ $type == 'url' ? ' selected' : '' }}>{{ __('URL') }}</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('default') ? ' has-error' : '' }}">
-                                    <label>{{ __('Wartość domyślna') }}{{ $errors->has('default') ? ' - '.(__($errors->first('default'))) : '' }}</label>
-                                    <input type="text" id="default" name="default" class="form-control" value="{{ old('default') ? : $control->default }}" autofocus />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('values') ? ' has-error' : '' }}">
                                     <label>{{ __('Wartości - rozdzielone znakiem ";" (użyć w przypadku typów: select, checkbox [dla grup], radio)') }}{{ $errors->has('values') ? ' - '.(__($errors->first('values'))) : '' }}</label>
                                     <input type="text" id="values" name="values" class="form-control" value="{{ old('values') ? : $control->values }}" autofocus />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label>{{ __('Nazwa (pole name)') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? : $control->name }}" required autofocus />
+                                </div>
+                                <div class="form-group{{ $errors->has('default') ? ' has-error' : '' }}">
+                                    <label>{{ __('Wartość domyślna') }}{{ $errors->has('default') ? ' - '.(__($errors->first('default'))) : '' }}</label>
+                                    <input type="text" id="default" name="default" class="form-control" value="{{ old('default') ? : $control->default }}" autofocus />
                                 </div>
                             </div>
                             <div class="col-xs-12">

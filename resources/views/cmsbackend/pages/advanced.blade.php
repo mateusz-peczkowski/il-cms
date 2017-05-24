@@ -5,15 +5,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    <div class="btn-group">
-                        <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-success">{{ __('Ogólne') }}</a>
-                        <a href="{{ route('pages.gallery', $page->id) }}" class="btn btn-success">{{ __('Zdjęcia') }}</a>
-                        <a href="{{ route('pages.sections', $page->id) }}" class="btn btn-success">{{ __('Sekcje') }}</a>
-                        <a href="{{ route('pages.options', $page->id) }}" class="btn btn-success">{{ __('Opcje') }}</a>
-                        @can('edit_dev', 'App\User')
-                            <a href="{{ route('pages.advanced', $page->id) }}" class="btn btn-default disabled">{{ __('Zaawansowane') }}</a>
-                        @endcan
-                    </div>
+                    @include('cmsbackend.parts.top_nav.pages', ['active' => 'advanced', 'model' => $page])
                     <hr>
                     @if(Session::has('status'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
@@ -31,17 +23,15 @@
                                     <label>{{ __('Tag') }}</label>
                                     <input type="text" id="tag" name="tag" class="form-control" value="{{ old('tag') ? : $page->tag }}" autofocus />
                                 </div>
+                                <div class="form-group">
+                                    <label>{{ __('Widok') }}</label>
+                                    <input name="view" id="view" class="form-control" value="{{ old('view') ? : $page->view }}">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Kontroler') }}</label>
                                     <input name="controller" id="controller" class="form-control" value="{{ old('controller') ? : $page->controller }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Widok') }}</label>
-                                    <input name="view" id="view" class="form-control" value="{{ old('view') ? : $page->view }}">
                                 </div>
                             </div>
                             <div class="col-xs-12">

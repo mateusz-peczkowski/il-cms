@@ -21,38 +21,30 @@
                                     <label>{{ __('Nazwa') }}{{ $errors->has('title') ? ' - '.(__($errors->first('title'))) : '' }}</label>
                                     <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? : $form->title }}" required autofocus />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Opis') }}</label>
-                                    <textarea name="description" id="description" class="form-control">{{ old('description') ? : $form->description }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('tag') ? ' has-error' : '' }}">
                                     <label>{{ __('Tag') }}{{ $errors->has('tag') ? ' - '.(__($errors->first('tag'))) : '' }}</label>
                                     <input type="text" id="tag" name="tag" class="form-control" value="{{ old('tag') ? : $form->tag }}" required autofocus />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-                                    <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
-                                    <?php
-                                        $type = old('type') ? : $form->type;
-                                    ?>
-                                    <select name="type" id="type" class="form-control" required>
-                                        <option value="contact"{{ $type == 'contact' ? ' selected' : '' }}>{{ __('Formularz kontaktowy') }}</option>
-                                        <option value="newsletter"{{ $type == 'newsletter' ? ' selected' : '' }}>{{ __('Newsletter') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('sender_name') ? ' has-error' : '' }}">
                                     <label>{{ __('Nazwa wysyłającego') }}{{ $errors->has('sender_name') ? ' - '.(__($errors->first('sender_name'))) : '' }}</label>
                                     <input type="text" id="sender_name" name="sender_name" class="form-control" value="{{ old('sender_name') ? : $form->sender_name }}" required autofocus />
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Opis') }}</label>
+                                    <textarea name="description" id="description" class="form-control">{{ old('description') ? : $form->description }}</textarea>
+                                </div>
+                                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                                    <label>{{ __('Typ') }}{{ $errors->has('type') ? ' - '.(__($errors->first('type'))) : '' }}</label>
+                                    <?php
+                                    $type = old('type') ? : $form->type;
+                                    ?>
+                                    <select name="type" id="type" class="form-control" required>
+                                        <option value="contact"{{ $type == 'contact' ? ' selected' : '' }}>{{ __('Formularz kontaktowy') }}</option>
+                                        <option value="newsletter"{{ $type == 'newsletter' ? ' selected' : '' }}>{{ __('Newsletter') }}</option>
+                                    </select>
+                                </div>
                                 <div class="form-group{{ $errors->has('sender_email') ? ' has-error' : '' }}">
                                     <label>{{ __('E-mail wysyłającego') }}{{ $errors->has('sender_email') ? ' - '.(__($errors->first('sender_email'))) : '' }}</label>
                                     <input type="email" id="sender_email" name="sender_email" class="form-control" value="{{ old('sender_email') ? : $form->sender_email }}" required autofocus />

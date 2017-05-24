@@ -9,11 +9,14 @@ class CreateSeosTable extends Migration {
 	{
 		Schema::create('seos', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('title', 128)->nullable();
-			$table->string('keys', 255)->nullable();
-			$table->string('description', 255)->nullable();
+            $table->string('model', 64);
+            $table->integer('model_id')->unsigned();
+            $table->string('meta_title', 128)->nullable();
+			$table->string('meta_keys', 255)->nullable();
+			$table->string('meta_description', 255)->nullable();
 			$table->text('page_head')->nullable();
-			$table->text('page_footer')->nullable();
+            $table->text('page_footer')->nullable();
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

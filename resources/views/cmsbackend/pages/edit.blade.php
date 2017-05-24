@@ -5,15 +5,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    <div class="btn-group">
-                        <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-default disabled">{{ __('Ogólne') }}</a>
-                        <a href="{{ route('pages.gallery', $page->id) }}" class="btn btn-success">{{ __('Zdjęcia') }}</a>
-                        <a href="{{ route('pages.sections', $page->id) }}" class="btn btn-success">{{ __('Sekcje') }}</a>
-                        <a href="{{ route('pages.options', $page->id) }}" class="btn btn-success">{{ __('Opcje') }}</a>
-                        @can('edit_dev', 'App\User')
-                            <a href="{{ route('pages.advanced', $page->id) }}" class="btn btn-success">{{ __('Zaawansowane') }}</a>
-                        @endcan
-                    </div>
+                    @include('cmsbackend.parts.top_nav.pages', ['active' => 'edit', 'model' => $page])
                     <hr>
                     @if(Session::has('status'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
@@ -31,14 +23,6 @@
                                     <label>{{ __('Tytuł') }}{{ $errors->has('name') ? ' - '.(__($errors->first('name'))) : '' }}</label>
                                     <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? : $page->name }}" required autofocus />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('URL') }}</label>
-                                    <input name="url" id="url" class="form-control" required value="{{ old('url') ? : $page->url }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Opis') }}</label>
                                     <textarea name="description" id="description" class="form-control">{{ old('description') ? : $page->description }}</textarea>
@@ -46,9 +30,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>{{ __('URL') }}</label>
+                                    <input name="url" id="url" class="form-control" required value="{{ old('url') ? : $page->url }}">
+                                </div>
+                                <div class="form-group">
                                     <label>{{ __('Zdjęcie') }}</label>
                                     @if($page->thumbnail)
-                                    <input type="text" class="form-control" value="{{ $page->thumbnail }}" disabled>
+                                        <input type="text" class="form-control" value="{{ $page->thumbnail }}" disabled>
                                         <br />
                                     @endif
                                     <input type="file" id="thumbnail" name="thumbnail" accept="image/*" />

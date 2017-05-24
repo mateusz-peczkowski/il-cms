@@ -21,21 +21,17 @@
                                     <label>{{ __('Imię i nazwisko') }}</label>
                                     <input type="text" id="user_name" name="user_name" class="form-control" value="{{ old('user_name') ? : $user->name }}" required />
                                 </div>
+                                <div class="form-group">
+                                    <label>{{ __('Hasło') }} <small class="text-muted">({{ __('wypełnić wyłącznie w przypadku zmiany') }}, {{ __('zalecane: :pass', ['pass' => bin2hex(openssl_random_pseudo_bytes(4))]) }})</small></label>
+                                    <input type="password" id="user_password" name="user_password" class="form-control" value="{{ old('user_password') }}">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Adres e-mail') }} <small class="text-muted">({{ __('służy do logowania') }})</small></label>
                                     <input type="email" id="user_email" name="user_email" class="form-control" value="{{ old('user_email') ? : $user->email }}" required />
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Hasło') }} <small class="text-muted">({{ __('wypełnić wyłącznie w przypadku zmiany') }}, {{ __('zalecane: :pass', ['pass' => bin2hex(openssl_random_pseudo_bytes(4))]) }})</small></label>
-                                    <input type="password" id="user_password" name="user_password" class="form-control" value="{{ old('user_password') }}">
-                                </div>
-                            </div>
-                            @if(isset($roles))
-                            <div class="col-md-6">
+                                @if(isset($roles))
                                 <div class="form-group">
                                     <label>{{ __('Poziom uprawnień') }}</label>
                                     <select class="form-control select2" name="user_role" id="role" style="width: 100%;">
@@ -46,8 +42,8 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @endif
                             </div>
-                            @endif
                             <div class="col-xs-12">
                                 <div class="text-center mb-0">
                                     <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>
