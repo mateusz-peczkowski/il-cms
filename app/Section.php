@@ -18,6 +18,10 @@ class Section extends Model
     }
 
     public function contentFields() {
-        return $this->hasMany('App\SectionContentField', 'id', '');
+        return $this->hasMany('App\SectionContentField', 'id', 'section_id');
+    }
+
+    public function page() {
+        return $this->belongsTo('App\Page');
     }
 }
