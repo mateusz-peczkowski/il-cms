@@ -9,10 +9,11 @@ class CreateSectionsTable extends Migration {
 	{
 		Schema::create('sections', function(Blueprint $table) {
 			$table->increments('id');
+			$table->integer('page_id')->unsigned();
 			$table->string('title', 255);
 			$table->string('header', 255);
-			$table->text('content');
 			$table->string('view', 64);
+            $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}
