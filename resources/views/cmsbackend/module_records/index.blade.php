@@ -32,9 +32,7 @@
                                     <th style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Tytuł') }}</th>
                                     <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
-                                    @can('edit_dev', 'App\User')
-                                        <th style="width: 70px;">&nbsp;</th>
-                                    @endcan
+                                    <th style="width: 105px;">&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +47,7 @@
                                         @endif
                                         <td class="text-center">
                                             <a href="{{ route('records.edit', [$module->id, $record->id]) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
+                                                <a href="#" class="text-yellow" data-toggle="modal" data-target="#duplicate-modal" data-id="{{ $record->id }}" title="{{ __('Zduplikuj') }}"><i class="fa fa-copy"></i></a>
                                             @if($record->status == 1)
                                                 <a href="#" data-href="{{ route('records.deactivate', [$module->id, $record->id]) }}" class="text-yellow" data-toggle="modal" data-target="#confirm-deactivate" title="{{ __('Zdezaktywuj') }}"><i class="fa fa-close"></i></a>
                                             @else
@@ -64,9 +63,7 @@
                                     <th style="width: 35px;">{{ __('Lp.') }}</th>
                                     <th>{{ __('Tytuł') }}</th>
                                     <th><strong>{{ __('Ostatnia edycja') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
-                                    @can('edit_dev', 'App\User')
-                                        <th style="width: 70px;">&nbsp;</th>
-                                    @endcan
+                                    <th style="width: 105px;">&nbsp;</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -155,4 +152,52 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="duplicate-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form role="form" method="POST" action="{{ route('records.duplicate', $module->id) }}" class="modal-content">
+                {{ csrf_field() }}
+                <input type="hidden" id="record_id" name="record_id" class="form-control" value="" required />
+                <div class="modal-header">
+                    @if(CMS::isMoreLocales())
+                        {{ __('Dla jakiego języka skopiować element?') }}
+                    @else
+                        {{ __('Czy jesteś tego pewien?') }}
+                    @endif
+                </div>
+                <div class="modal-body">
+                <?php $active = Session::get('cms_locale_form') ? : CMS::getDefaultLocale(); ?>
+                    @if(CMS::isMoreLocales())
+                        <p class="text-muted">{{ __('Rekord zostanie skopiowany łącznie ze wszystkimi danymi.') }} {{ __('Z listy poniżej wybierz w jakim języku skopiowany rekord ma być dostępny') }}</p>
+                        <div class="form-group">
+                            <label>{{ __('Wybierz język') }}</label>
+                            <select class="form-control select2 text-uppercase" name="form_language" id="form_language" style="width: 100%;">
+                                <option{{ $active == old('form_language') ? ' selected' : '' }} value="{{ $active }}">{{ __('Skopiuj w tym samym języku') }}</option>
+                                @foreach(CMS::getLocalesExcept($active) as $lang)
+                                    <option{{ $lang->slug == old('form_language') ? ' selected' : '' }} value="{{ $lang->slug }}">{{ $lang->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <p class="text-muted">{{ __('Rekord zostanie skopiowany łącznie ze wszystkimi danymi.') }}</p>
+                        <input type="hidden" id="form_language" name="form_language" class="form-control" value="{{ $active }}" required />
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
+                    <button type="submit" class="btn btn-success margin">{{ __('Zduplikuj') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#duplicate-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('#record_id').val(id);
+        })
+    </script>
 @endsection

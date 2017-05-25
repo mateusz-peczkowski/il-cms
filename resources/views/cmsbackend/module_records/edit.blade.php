@@ -25,7 +25,8 @@
                                     <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? : $record->title }}" required />
                                 </div>
                             </div>
-                            @if($structures = json_decode($module->structure) AND $data = json_decode($record->data))
+                            @if($structures = json_decode($module->structure))
+                                <?php $data = json_decode($record->data); ?>
                                 <div class="col-md-12">
                                     <hr>
                                 </div>

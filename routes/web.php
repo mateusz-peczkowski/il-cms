@@ -137,6 +137,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('modules/{module_id}/{record_id}/activate', 'ModuleRecordsController@activate')->name('records.activate');
     Route::get('modules/{module_id}/{record_id}/deactivate', 'ModuleRecordsController@deactivate')->name('records.deactivate');
     Route::get('modules/{module_id}/{record_id}/destroy', 'ModuleRecordsController@destroy')->name('records.destroy');
+    Route::post('modules/{module_id}/duplicate', 'ModuleRecordsController@duplicate')->name('records.duplicate');
     Route::get('modules/{module_id}/{locale}', 'ModulesController@changelocale')->name('records.changelocale');
 
 });

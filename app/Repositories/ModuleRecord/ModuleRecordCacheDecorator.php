@@ -22,6 +22,19 @@ class ModuleRecordCacheDecorator extends AbstractCacheDecorator implements Modul
         $this->cache->setTags($tags);
     }
 
+    public function allByLang($locale = '')
+    {
+        $cacheName = 'module_records_all_'.$locale;
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $module = $this->module_record->allByLang($locale);
+        $this->cache->put($cacheName, $module, 60);
+
+        return $module;
+    }
+
     public function paginateByModule($order_records = 'created_at', $order_records_type = 'asc', $module_id = null, $locale = '', $paggLimit = 15)
     {
         $cacheName = 'module_records_paginate'.$module_id.'_'.$paggLimit.'_'.$order_records.'_'.$order_records_type.'_'.$locale;

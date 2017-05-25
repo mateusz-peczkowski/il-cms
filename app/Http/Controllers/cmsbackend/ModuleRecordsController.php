@@ -4,19 +4,22 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StoreRecordModule;
 use App\Http\Requests\UpdateRecordModule;
+use App\Http\Requests\StoreModuleRecordDuplicate;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
 use App\Repositories\Contracts\ModuleRecordRepositoryInterface;
+use App\Repositories\Contracts\LanguageRepositoryInterface;
 use Auth;
 use Session;
 use CMS;
 
 class ModuleRecordsController extends BackendController
 {
-    public function __construct(ModuleRepositoryInterface $modules, ModuleRecordRepositoryInterface $module_records)
+    public function __construct(ModuleRepositoryInterface $modules, ModuleRecordRepositoryInterface $module_records, LanguageRepositoryInterface $languages)
     {
         parent::__construct();
         $this->modules = $modules;
         $this->module_records = $module_records;
+        $this->languages = $languages;
     }
 
     /**
@@ -37,7 +40,8 @@ class ModuleRecordsController extends BackendController
             'pageTitle' => __('Moduł').' - '.__($module->title),
             'module' => $module,
             'records' => $records,
-            'is_active_nav' => 'modules-'.$module->slug
+            'is_active_nav' => 'modules-'.$module->slug,
+            'all_languages' => $this->languages->all()
         ]);
     }
 
@@ -71,7 +75,7 @@ class ModuleRecordsController extends BackendController
                 }
             }
         }
-        $last = $this->module_records->all()->count() ? $this->module_records->orderBy('order', 'desc')->first() : false;
+        $last = $this->module_records->allByLang($this->checkLocale($module->slug))->count() ? $this->module_records->allByLang($this->checkLocale($module->slug))->first() : false;
         $order = $last ? $last->order+1 : '1';
         $this->module_records->create([
             'title' => $obj['title'],
@@ -155,6 +159,38 @@ class ModuleRecordsController extends BackendController
             'status_type' => 'success'
         ]);
 
+    }
+
+    /**
+     * Duplicate the specified resource in storage of another lang.
+     *
+     * @param  \App\Http\Requests\UpdateOption  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate($id, StoreModuleRecordDuplicate $request)
+    {
+        $duplicate = $this->module_records->find($request->record_id);
+        $module = $this->modules->find($id);
+        $last = $this->module_records->allByLang($request->form_language)->count() ? $this->module_records->allByLang($request->form_language)->first() : false;
+        $order = $last ? $last->order+1 : '1';
+        $this->module_records->create([
+            'title' => $duplicate->title,
+            'slug' => $this->constructSlug(0, $duplicate->title),
+            'data' => $duplicate->data,
+            'module_id' => $id,
+            'order' => $order,
+            'status' => 2,
+            'who_updated' => Auth::id(),
+            'locale' => $request->form_language
+        ]);
+        if($request->form_language != $this->checkLocale($module->slug)) {
+            $this->locale($module->slug, $request->form_language);
+        }
+        return redirect()->route('records', $id)->with([
+            'status' => __('Formularz został skopiowany'),
+            'status_type' => 'success'
+        ]);
     }
 
     private function constructSlug($num, $name) {
