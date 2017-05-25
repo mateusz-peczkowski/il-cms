@@ -10,7 +10,7 @@ class ModuleRecord extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'data', 'module_id', 'who_updated', 'status', 'slug', 'order'
+        'title', 'data', 'module_id', 'who_updated', 'status', 'slug', 'order', 'locale'
     ];
 
     public function updater() {

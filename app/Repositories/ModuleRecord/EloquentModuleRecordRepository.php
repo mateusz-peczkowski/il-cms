@@ -18,11 +18,12 @@ class EloquentModuleRecordRepository extends AbstractRepository implements Modul
         return 'App\ModuleRecord';
     }
 
-    public function paginateByModule($order_records = 'created_at', $order_records_type = 'asc', $module_id = null, $paggLimit = 15)
+    public function paginateByModule($order_records = 'created_at', $order_records_type = 'asc', $module_id = null, $locale = '', $paggLimit = 15)
     {
         return $this->model
             ->with('updater')
             ->where('module_id', '=', $module_id)
+            ->where('locale', '=', $locale)
             ->orderBy($order_records, $order_records_type)
             ->paginate($paggLimit);
     }

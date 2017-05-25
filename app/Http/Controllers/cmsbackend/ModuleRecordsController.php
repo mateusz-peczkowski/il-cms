@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateRecordModule;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
 use App\Repositories\Contracts\ModuleRecordRepositoryInterface;
 use Auth;
+use Session;
+use CMS;
 
 class ModuleRecordsController extends BackendController
 {
@@ -28,7 +30,7 @@ class ModuleRecordsController extends BackendController
         $module = $this->modules->find($id);
         $order_method = $module->order_records;
         $order_method_type = $order_method == 'order' ? 'desc' : $module->order_records_type;
-        $records = $this->module_records->paginateByModule($order_method, $order_method_type, $id);
+        $records = $this->module_records->paginateByModule($order_method, $order_method_type, $id, $this->checkLocale($module->slug));
         $this->breadcrumbs->addCrumb(__('Moduł').' - '.__($module->title), '/cmsbackend/modules/'.$id);
         return view('cmsbackend.module_records.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
@@ -51,19 +53,21 @@ class ModuleRecordsController extends BackendController
         $module = $this->modules->find($id);
         $obj = $request->only('title', 'data');
         $data_send = [];
-        foreach($obj['data'] as $key => $value) {
-            if($value != null) {
-                if(gettype($value) == 'object') {
-                    $dot = $value->getClientOriginalExtension() ? '.'.$value->getClientOriginalExtension() : '';
-                    $newname = str_slug(pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME)).'-'.time().$dot;
-                    if(!file_exists(public_path('source/modules/'.$module->id))) {
-                        mkdir(public_path('source/modules/'.$module->id), 0777, true);
-                        chmod(public_path('source/modules/'.$module->id), 0777);
+        if($obj['data']) {
+            foreach($obj['data'] as $key => $value) {
+                if($value != null) {
+                    if(gettype($value) == 'object') {
+                        $dot = $value->getClientOriginalExtension() ? '.'.$value->getClientOriginalExtension() : '';
+                        $newname = str_slug(pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME)).'-'.time().$dot;
+                        if(!file_exists(public_path('source/modules/'.$module->id))) {
+                            mkdir(public_path('source/modules/'.$module->id), 0777, true);
+                            chmod(public_path('source/modules/'.$module->id), 0777);
+                        }
+                        $value->move(public_path('source/modules/'.$module->id), $newname);
+                        $data_send[$key] = '/source/modules/'.$module->id.'/'.$newname;
+                    } else {
+                        $data_send[$key] = $value;
                     }
-                    $value->move(public_path('source/modules/'.$module->id), $newname);
-                    $data_send[$key] = '/source/modules/'.$module->id.'/'.$newname;
-                } else {
-                    $data_send[$key] = $value;
                 }
             }
         }
@@ -76,6 +80,7 @@ class ModuleRecordsController extends BackendController
             'module_id' => $id,
             'status' => 1,
             'order' => $order,
+            'locale' => $this->checkLocale($module->slug),
             'who_updated' => Auth::id()
         ]);
         return redirect()->route('records', $id)->with([
@@ -118,19 +123,21 @@ class ModuleRecordsController extends BackendController
         $record = $this->module_records->find($id);
         $obj = $request->only('title', 'data');
         $data_send = [];
-        foreach($obj['data'] as $key => $value) {
-            if($value != null) {
-                if(gettype($value) == 'object') {
-                    $dot = $value->getClientOriginalExtension() ? '.'.$value->getClientOriginalExtension() : '';
-                    $newname = str_slug(pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME)).'-'.time().$dot;
-                    if(!file_exists(public_path('source/modules/'.$module->id))) {
-                        mkdir(public_path('source/modules/'.$module->id), 0777, true);
-                        chmod(public_path('source/modules/'.$module->id), 0777);
+        if($obj['data']) {
+            foreach ($obj['data'] as $key => $value) {
+                if ($value != null) {
+                    if (gettype($value) == 'object') {
+                        $dot = $value->getClientOriginalExtension() ? '.' . $value->getClientOriginalExtension() : '';
+                        $newname = str_slug(pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME)) . '-' . time() . $dot;
+                        if (!file_exists(public_path('source/modules/' . $module->id))) {
+                            mkdir(public_path('source/modules/' . $module->id), 0777, true);
+                            chmod(public_path('source/modules/' . $module->id), 0777);
+                        }
+                        $value->move(public_path('source/modules/' . $module->id), $newname);
+                        $data_send[$key] = '/source/modules/' . $module->id . '/' . $newname;
+                    } else {
+                        $data_send[$key] = $value;
                     }
-                    $value->move(public_path('source/modules/'.$module->id), $newname);
-                    $data_send[$key] = '/source/modules/'.$module->id.'/'.$newname;
-                } else {
-                    $data_send[$key] = $value;
                 }
             }
         }
@@ -212,6 +219,30 @@ class ModuleRecordsController extends BackendController
             'status_type' => 'danger'
         ]);
 
+    }
+
+    /**
+     * Change set locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locale($module_slug, $slug)
+    {
+        Session::put('cms_locale_module_'.$module_slug, $slug);
+    }
+
+    /**
+     * Check component locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    private function checkLocale($slug)
+    {
+        if(Session::has('cms_locale_module_'.$slug) && CMS::isLocale(Session::get('cms_locale_module_'.$slug))) {
+            return Session::get('cms_locale_module_'.$slug);
+        }
+        $this->locale($slug, CMS::getDefaultLocale());
+        return CMS::getDefaultLocale();
     }
 
 }

@@ -24,8 +24,7 @@ class StoreRecordModule extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'data' => 'required'
+            'title' => 'required'
         ];
     }
 }

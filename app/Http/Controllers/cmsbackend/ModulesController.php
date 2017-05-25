@@ -6,6 +6,7 @@ use App\Http\Requests\StoreModule;
 use App\Http\Requests\UpdateModule;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
 use Auth;
+use Session;
 
 class ModulesController extends BackendController
 {
@@ -159,6 +160,28 @@ class ModulesController extends BackendController
             'status' => $statusmsg,
             'status_type' => $statusmsgtype
         ]);
+    }
+
+    /**
+     * Change set locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locale($module_slug, $slug)
+    {
+        Session::put('cms_locale_module_'.$module_slug, $slug);
+    }
+
+    /**
+     * Change component locale with redirect back.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changelocale($module_id, $slug)
+    {
+        $module = $this->modules->find($module_id);
+        $this->locale($module->slug, $slug);
+        return redirect()->back();
     }
 
 

@@ -16,6 +16,7 @@ class CreateModuleRecordsTable extends Migration {
             $table->integer('order')->unsigned();
             $table->enum('status', array('1', '2'));
             $table->integer('who_updated')->unsigned()->nullable();
+            $table->string('locale', 64);
 			$table->timestamps();
 		});
 	}

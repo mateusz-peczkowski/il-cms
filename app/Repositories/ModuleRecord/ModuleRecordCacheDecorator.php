@@ -22,14 +22,14 @@ class ModuleRecordCacheDecorator extends AbstractCacheDecorator implements Modul
         $this->cache->setTags($tags);
     }
 
-    public function paginateByModule($order_records = 'created_at', $order_records_type = 'asc', $module_id = null, $paggLimit = 15)
+    public function paginateByModule($order_records = 'created_at', $order_records_type = 'asc', $module_id = null, $locale = '', $paggLimit = 15)
     {
-        $cacheName = 'module_records_paginate'.$module_id.'_'.$paggLimit.'_'.$order_records.'_'.$order_records_type;
+        $cacheName = 'module_records_paginate'.$module_id.'_'.$paggLimit.'_'.$order_records.'_'.$order_records_type.'_'.$locale;
         if ($this->cache->has($cacheName)) {
             return $this->cache->get($cacheName);
         }
 
-        $module = $this->module_record->paginateByModule($order_records, $order_records_type, $module_id, $paggLimit);
+        $module = $this->module_record->paginateByModule($order_records, $order_records_type, $module_id, $locale, $paggLimit);
         $this->cache->put($cacheName, $module, 60);
 
         return $module;

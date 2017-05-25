@@ -7,6 +7,14 @@
                 <div class="box">
                     <div class="box-body">
                         <span class="btn btn-success" data-toggle="modal" data-target="#add-new">{{ __('Dodaj rekord') }}</span>
+                        @if(CMS::isMoreLocales())
+                            <div class="btn-group pull-right text-uppercase">
+                                <a href="{{ route('records.changelocale', [$module->id, CMS::getDefaultLocale()]) }}" class="btn btn-{{ (Session::get('cms_locale_module_'.$module->slug) == CMS::getDefaultLocale() || !Session::has('cms_locale_module_'.$module->slug)) ? 'success' : 'default' }}">{{ CMS::getDefaultLocale() }}</a>
+                                @foreach(CMS::getMoreDefaultLocales() as $lang)
+                                    <a href="{{ route('records.changelocale', [$module->id, $lang->slug]) }}" class="btn btn-{{ Session::get('cms_locale_module_'.$module->slug) == $lang->slug ? 'success' : 'default' }}">{{ $lang->slug }}</a>
+                                @endforeach
+                            </div>
+                        @endif
                         @if(Session::has('status'))
                             <br />
                             <br />
@@ -80,7 +88,7 @@
                 {{Form::open(['route' => ['records', $module->id], 'files' => true, 'method' => 'POST', 'class' => 'modal-content'])}}
                     {{ csrf_field() }}
                     <div class="modal-header">
-                        {{ __('Dodaj moduł') }}
+                        {{ __('Dodaj rekord') }}
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
