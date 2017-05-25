@@ -10,6 +10,23 @@
                         </span>
                     </li>
                     <li>
+                        <i class="fa fa-database bg-black"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('index-modules') }}">{{ __('Moduły') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista modułów') }}</li>
+                                    <li>{{ __('Możliwość dodawania, edytowania i usuwania modułów przez rangę developer i wyżej') }}</li>
+                                    <li>{{ __('Lista modułów w nawigacji.') }}</li>
+                                    <li>{{ __('Lista rekordów w module.') }}</li>
+                                    <li>{{ __('Możliwość dodawania, edytowania rekordów według zdefiniowanej formuły modułu.') }}</li>
+                                    <li>{{ __('Możliwość tworzenia różnych rekordów dla różnych języków') }}</li>
+                                    <li>{{ __('Możliwość definiowania meta kluczy potrzebnych do SEO (title, description, keys) + dodatkowe rzeczy które można dorzucić w sekcję head bądź footer.') }} ({{ __(' dla modułów które mają stronę ze szczegółami') }})</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <i class="fa fa-files-o bg-purple"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('pages') }}">{{ __('Strony') }}</a></h3>
