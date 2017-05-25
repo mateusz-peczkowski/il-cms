@@ -35,7 +35,8 @@ class UsersController extends BackendController
             'users' => $users,
             'roles' => $this->role->listAllRoles(),
             'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Użytkownicy')
+            'pageTitle' => __('Użytkownicy'),
+            'is_active_nav' => 'users'
         ]);
     }
 
@@ -93,7 +94,8 @@ class UsersController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj użytkownika'),
             'roles' => $this->role->listAllRoles(),
-            'user' => $user
+            'user' => $user,
+            'is_active_nav' => 'users'
         ]);
     }
 

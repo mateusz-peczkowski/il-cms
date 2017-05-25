@@ -35,7 +35,8 @@ class SeoController extends BackendController
             'pageTitle' => __('Edytuj meta dane'),
             'seo' => $seo,
             'model' => $model_obj,
-            'model_name' => $model
+            'model_name' => $model,
+            'is_active_nav' => $model
         ]);
     }
 

@@ -31,7 +31,8 @@ class OptionsController extends BackendController
         return view('cmsbackend.options.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Opcje'),
-            'options' => $options
+            'options' => $options,
+            'is_active_nav' => 'settings/options'
         ]);
     }
 
@@ -83,7 +84,8 @@ class OptionsController extends BackendController
         return view('cmsbackend.options.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj opcje'),
-            'option' => $option
+            'option' => $option,
+            'is_active_nav' => 'settings/options'
         ]);
     }
 

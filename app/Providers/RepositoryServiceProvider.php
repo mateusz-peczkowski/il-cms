@@ -6,7 +6,12 @@ use App\Page;
 use App\Control;
 use App\Form;
 use App\Language;
+use App\Translation;
+use App\User;
+use App\Option;
+use App\Redirect;
 use App\Seo;
+use App\Module;
 use App\Observers\PageObserver;
 use App\Observers\ControlObserver;
 use App\Observers\FormObserver;
@@ -14,23 +19,21 @@ use App\Observers\OptionObserver;
 use App\Observers\RedirectObserver;
 use App\Observers\TranslationObserver;
 use App\Observers\SeoObserver;
-use App\Option;
-use App\Redirect;
+use App\Observers\ModuleObserver;
+use App\Observers\LanguageObserver;
+use App\Observers\UserObserver;
 use App\Repositories\Page\PageCacheDecorator;
 use App\Repositories\Control\ControlCacheDecorator;
 use App\Repositories\Form\FormCacheDecorator;
 use App\Repositories\Redirect\RedirectCacheDecorator;
 use App\Repositories\Seo\SeoCacheDecorator;
-use App\Translation;
-use App\User;
-use App\Observers\LanguageObserver;
-use App\Observers\UserObserver;
+use App\Repositories\Module\ModuleCacheDecorator;
 use App\Repositories\Language\LanguageCacheDecorator;
 use App\Repositories\Option\OptionCacheDecorator;
 use App\Repositories\Role\RoleCacheDecorator;
 use App\Repositories\User\UserCacheDecorator;
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\Translation\TranslationCacheDecorator;
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -50,6 +53,7 @@ class RepositoryServiceProvider extends ServiceProvider
         Control::observe(ControlObserver::class);
         Page::observe(PageObserver::class);
         Seo::observe(SeoObserver::class);
+        Module::observe(ModuleObserver::class);
     }
 
     /**
@@ -72,6 +76,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerPageRepository();
         $this->registerPageOptionRepository();
         $this->registerSeoRepository();
+        $this->registerModuleRepository();
     }
 
     /*
@@ -221,6 +226,18 @@ class RepositoryServiceProvider extends ServiceProvider
             $seo = new \App\Repositories\Seo\EloquentSeoRepository($app);
 
             return new SeoCacheDecorator($seo, ['seo', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
+        });
+    }
+
+    /*
+     * Register Module repository
+     */
+    protected function registerModuleRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\ModuleRepositoryInterface', function($app) {
+            $module = new \App\Repositories\Module\EloquentModuleRepository($app);
+
+            return new ModuleCacheDecorator($module, ['module', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

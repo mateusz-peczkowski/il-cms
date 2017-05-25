@@ -120,6 +120,17 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     /*
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function orderBy($field, $value)
+    {
+        return $this->model->orderBy($field, $value);
+    }
+
+    /*
      * Model factory
      *
      * @return Model

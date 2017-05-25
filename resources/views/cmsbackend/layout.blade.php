@@ -70,50 +70,52 @@
         <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu">
-                    <li{{ str_contains(Route::currentRouteName(), 'dashboard') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'pages') ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'navigations') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
-                    <li class="treeview{{ str_contains(Route::currentRouteName(), 'modules') ? ' active' : '' }}">
+                    <?php $is_active_nav = isset($is_active_nav) ? $is_active_nav : null; ?>
+                    <li{{ $is_active_nav == 'dashboard' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
+                    <li{{ $is_active_nav == 'pages' ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
+                    <li{{ $is_active_nav == 'navigations' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
+                    <li class="treeview{{ $is_active_nav == 'modules' ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-database"></i> <span>{{ __('Moduły') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
                             {{-- TODO: DOROBIC LISTING MODULOW --}}
-                            <li{{ str_contains(Route::currentRouteName(), 'modules/{name}') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('moduł') }}</a></li>
+                            <li{{ $is_active_nav == 'modules' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('moduł') }}</a></li>
                         </ul>
                     </li>
-                    <li{{ str_contains(Route::currentRouteName(), 'files') ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
-                    <li class="treeview{{ (str_contains(Route::currentRouteName(), 'forms.definition') || str_contains(Route::currentRouteName(), 'forms.sent')) ? ' active' : '' }}">
+                    <li{{ $is_active_nav == 'filemanager' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
+                    <li class="treeview{{ ($is_active_nav == 'forms/definition' || $is_active_nav == 'forms/sent') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-edit"></i> <span>{{ __('Formularze') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li{{ str_contains(Route::currentRouteName(), 'forms.definition') ? ' class=active' : '' }}><a href="{{ route('forms.definition') }}"> {{ __('Definicje') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'forms.sent') ? ' class=active' : '' }}><a href="{{ route('forms.sent') }}"> {{ __('Wysłane') }}</a></li>
+                            <li{{ $is_active_nav == 'forms/definition' ? ' class=active' : '' }}><a href="{{ route('forms.definition') }}"> {{ __('Definicje') }}</a></li>
+                            <li{{ $is_active_nav == 'forms/sent' ? ' class=active' : '' }}><a href="{{ route('forms.sent') }}"> {{ __('Wysłane') }}</a></li>
                         </ul>
                     </li>
-                    <li{{ str_contains(Route::currentRouteName(), 'users') ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ ((str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') || str_contains(Route::currentRouteName(), 'languages') || str_contains(Route::currentRouteName(), 'translations') || str_contains(Route::currentRouteName(), 'redirects')) ? ' active' : '' }}">
+                    <li{{ $is_active_nav == 'users' ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
+                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li{{ (str_contains(Route::currentRouteName(), 'options') AND Route::currentRouteName() != 'pages.options' AND Route::currentRouteName() != 'pages.options.value' AND Route::currentRouteName() != 'pages.options.edit') ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'languages') ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'translations') ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
-                            <li{{ str_contains(Route::currentRouteName(), 'redirects') ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/options' ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/modules' ? ' class=active' : '' }}><a href="{{ route('index-modules') }}"> {{ __('Moduły') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/languages' ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/translations' ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>
                     <li><hr></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'trash') ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
+                    <li{{ $is_active_nav == 'trash' ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
                     <li><hr></li>
-                    <li{{ str_contains(Route::currentRouteName(), 'documentation') ? ' class=active' : '' }}><a href="{{ route('documentation') }}"><i class="fa fa-folder-open"></i> <span>{{ __('Dokumentacja') }}</span></a></li>
+                    <li{{ $is_active_nav == 'documentation' ? ' class=active' : '' }}><a href="{{ route('documentation') }}"><i class="fa fa-folder-open"></i> <span>{{ __('Dokumentacja') }}</span></a></li>
                     @can('seechangelog', 'App\User')
                         <li><hr></li>
-                        <li{{ str_contains(Route::currentRouteName(), 'changelog') ? ' class=active' : '' }}><a href="{{ route('changelog') }}"><i class="fa fa-book"></i> <span>{{ __('Dziennik zmian') }}</span></a></li>
+                        <li{{ $is_active_nav == 'changelog' ? ' class=active' : '' }}><a href="{{ route('changelog') }}"><i class="fa fa-book"></i> <span>{{ __('Dziennik zmian') }}</span></a></li>
                     @endcan
                 </ul>
             </section>

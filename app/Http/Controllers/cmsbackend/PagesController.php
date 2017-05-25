@@ -31,7 +31,8 @@ class PagesController extends BackendController
         return view('cmsbackend.pages.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Strony'),
-            'pages' => $pages
+            'pages' => $pages,
+            'is_active_nav' => 'pages'
         ]);
     }
 
@@ -78,7 +79,8 @@ class PagesController extends BackendController
         return view('cmsbackend.pages.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj stronę'),
-            'page' => $page
+            'page' => $page,
+            'is_active_nav' => 'pages'
         ]);
     }
 
@@ -127,7 +129,8 @@ class PagesController extends BackendController
         return view('cmsbackend.pages.gallery')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Zdjęcia'),
-            'page' => $page
+            'page' => $page,
+            'is_active_nav' => 'pages'
         ]);
     }
 
@@ -145,7 +148,8 @@ class PagesController extends BackendController
         return view('cmsbackend.pages.sections')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Sekcje'),
-            'page' => $page
+            'page' => $page,
+            'is_active_nav' => 'pages'
         ]);
     }
 
@@ -163,7 +167,8 @@ class PagesController extends BackendController
         return view('cmsbackend.pages.advanced')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Zaawansowane'),
-            'page' => $page
+            'page' => $page,
+            'is_active_nav' => 'pages'
         ]);
     }
 

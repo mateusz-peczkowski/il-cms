@@ -19,7 +19,8 @@ class DocumentationController extends BackendController
         $this->breadcrumbs->addCrumb(__('Dokumentacja'), '/cmsbackend/documentation');
         return view('cmsbackend.documentation.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Dokumentacja')
+            'pageTitle' => __('Dokumentacja'),
+            'is_active_nav' => 'documentation'
         ]);
     }
 

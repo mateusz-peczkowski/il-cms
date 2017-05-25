@@ -122,4 +122,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('{model}/{model_id}/seo', 'SeoController@store');
     Route::put('{model}/{model_id}/seo', 'SeoController@update');
 
+    Route::get('settings/modules', 'ModulesController@index')->name('index-modules');
+    Route::post('settings/modules', 'ModulesController@store')->middleware('developers');
+    Route::get('settings/modules/{id}/edit', 'ModulesController@edit')->middleware('developers')->name('edit-modules');
+    Route::put('settings/modules/{id}/edit', 'ModulesController@update')->middleware('developers');
+    Route::get('settings/modules/{id}/activate', 'ModulesController@activate')->middleware('developers')->name('activate-modules');
+    Route::get('settings/modules/{id}/deactivate', 'ModulesController@deactivate')->middleware('developers')->name('deactivate-modules');
+    Route::get('settings/modules/{id}/delete', 'ModulesController@delete')->middleware('developers')->name('delete-modules');
+
 });

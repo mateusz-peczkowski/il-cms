@@ -36,7 +36,8 @@ class PageOptionsController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Opcje'),
             'page' => $page,
-            'options' => $options
+            'options' => $options,
+            'is_active_nav' => 'pages'
         ]);
     }
 

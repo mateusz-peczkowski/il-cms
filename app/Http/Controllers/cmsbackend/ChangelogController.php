@@ -20,7 +20,8 @@ class ChangelogController extends BackendController
         $this->breadcrumbs->addCrumb(__('Dziennik zmian'), '/cmsbackend/changelog');
         return view('cmsbackend.changelog.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
-            'pageTitle' => __('Dziennik zmian')
+            'pageTitle' => __('Dziennik zmian'),
+            'is_active_nav' => 'changelog'
         ]);
     }
 

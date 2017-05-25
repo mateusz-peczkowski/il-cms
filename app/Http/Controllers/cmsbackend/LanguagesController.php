@@ -30,7 +30,8 @@ class LanguagesController extends BackendController
         return view('cmsbackend.languages.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Języki'),
-            'languages' => $languages
+            'languages' => $languages,
+            'is_active_nav' => 'settings/languages'
         ]);
     }
 
@@ -97,7 +98,8 @@ class LanguagesController extends BackendController
         return view('cmsbackend.languages.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj język'),
-            'language' => $language
+            'language' => $language,
+            'is_active_nav' => 'settings/languages'
         ]);
     }
 

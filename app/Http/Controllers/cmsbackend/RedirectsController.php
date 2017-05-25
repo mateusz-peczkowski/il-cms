@@ -28,7 +28,8 @@ class RedirectsController extends BackendController
         return view('cmsbackend.redirects.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Przekierowania'),
-            'redirects' => $redirects
+            'redirects' => $redirects,
+            'is_active_nav' => 'settings/redirects'
         ]);
     }
 
@@ -85,7 +86,8 @@ class RedirectsController extends BackendController
         return view('cmsbackend.redirects.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj przekierowanie'),
-            'redirect' => $redirect
+            'redirect' => $redirect,
+            'is_active_nav' => 'settings/redirects'
         ]);
     }
 

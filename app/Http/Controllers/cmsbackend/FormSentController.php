@@ -31,7 +31,8 @@ class FormSentController extends BackendController
         return view('cmsbackend.form_sent.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Wysłane'),
-            'forms' => $forms
+            'forms' => $forms,
+            'is_active_nav' => 'forms/sent'
         ]);
     }
 
@@ -54,7 +55,8 @@ class FormSentController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => $form->title.' - '.__('Wysłane'),
             'form_id' => $id,
-            'submits' => $submits
+            'submits' => $submits,
+            'is_active_nav' => 'forms/sent'
         ]);
     }
 

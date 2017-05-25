@@ -37,7 +37,8 @@ class ControlsController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => $form->title.' - '.__('Kontrolki'),
             'form' => $form,
-            'controls' => $controls
+            'controls' => $controls,
+            'is_active_nav' => 'forms/definition'
         ]);
     }
 
@@ -92,7 +93,8 @@ class ControlsController extends BackendController
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj kontrolkę'),
             'form' => $form,
-            'control' => $control
+            'control' => $control,
+            'is_active_nav' => 'forms/definition'
         ]);
     }
 

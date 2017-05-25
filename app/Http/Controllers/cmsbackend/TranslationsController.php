@@ -31,7 +31,8 @@ class TranslationsController extends BackendController
         return view('cmsbackend.translations.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Tłumaczenia'),
-            'translations' => $translations
+            'translations' => $translations,
+            'is_active_nav' => 'settings/translations'
         ]);
     }
 
@@ -83,7 +84,8 @@ class TranslationsController extends BackendController
         return view('cmsbackend.translations.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj tłumaczenie'),
-            'translation' => $translation
+            'translation' => $translation,
+            'is_active_nav' => 'settings/translations'
         ]);
     }
 

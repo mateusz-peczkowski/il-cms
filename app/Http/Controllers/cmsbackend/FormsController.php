@@ -32,7 +32,8 @@ class FormsController extends BackendController
         return view('cmsbackend.forms.index')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Definicje'),
-            'forms' => $forms
+            'forms' => $forms,
+            'is_active_nav' => 'forms/definition'
         ]);
     }
 
@@ -88,7 +89,8 @@ class FormsController extends BackendController
         return view('cmsbackend.forms.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj formularz'),
-            'form' => $form
+            'form' => $form,
+            'is_active_nav' => 'forms/definition'
         ]);
     }
 

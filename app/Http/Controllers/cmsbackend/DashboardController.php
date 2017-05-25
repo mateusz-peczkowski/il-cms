@@ -31,7 +31,8 @@ class DashboardController extends BackendController
             'pageTitle' => $this->pageTitle,
             'visitors' => $this->range,
             'visitorsYear' => $this->rangeYear,
-            'userscount' => $this->userscount
+            'userscount' => $this->userscount,
+            'is_active_nav' => 'dashboard'
         ]);
     }
 
