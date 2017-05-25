@@ -72,18 +72,21 @@
                 <ul class="sidebar-menu">
                     <?php $is_active_nav = isset($is_active_nav) ? $is_active_nav : null; ?>
                     <li{{ $is_active_nav == 'dashboard' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
-                    <li{{ $is_active_nav == 'pages' ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
+                    <li{{ ($is_active_nav == 'pages' || $is_active_nav == 'seo-pages') ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
                     <li{{ $is_active_nav == 'navigations' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
-                    <li class="treeview{{ $is_active_nav == 'modules' ? ' active' : '' }}">
-                        <a href="#">
-                            <i class="fa fa-database"></i> <span>{{ __('Moduły') }}</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul class="treeview-menu">
-                            {{-- TODO: DOROBIC LISTING MODULOW --}}
-                            <li{{ $is_active_nav == 'modules' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"> {{ __('moduł') }}</a></li>
-                        </ul>
-                    </li>
+                    @if(isset($cms_modules) AND count($cms_modules))
+                        <li class="treeview{{ (str_contains($is_active_nav, 'modules-') || str_contains($is_active_nav, 'seo-')) ? ' active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-database"></i> <span>{{ __('Moduły') }}</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @foreach($cms_modules as $module)
+                                    <li{{ ($is_active_nav == 'modules-'.$module->slug || $is_active_nav == 'seo-module_records-'.$module->id) ? ' class=active' : '' }}><a href="{{ route('records', $module->id) }}"> {{ __($module->title) }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
                     <li{{ $is_active_nav == 'filemanager' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-upload"></i> <span>{{ __('Menedżer plików') }}</span></a></li>
                     <li class="treeview{{ ($is_active_nav == 'forms/definition' || $is_active_nav == 'forms/sent') ? ' active' : '' }}">
                         <a href="#">

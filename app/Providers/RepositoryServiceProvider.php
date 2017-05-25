@@ -12,6 +12,7 @@ use App\Option;
 use App\Redirect;
 use App\Seo;
 use App\Module;
+use App\ModuleRecord;
 use App\Observers\PageObserver;
 use App\Observers\ControlObserver;
 use App\Observers\FormObserver;
@@ -20,6 +21,7 @@ use App\Observers\RedirectObserver;
 use App\Observers\TranslationObserver;
 use App\Observers\SeoObserver;
 use App\Observers\ModuleObserver;
+use App\Observers\ModuleRecordObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\UserObserver;
 use App\Repositories\Page\PageCacheDecorator;
@@ -28,6 +30,7 @@ use App\Repositories\Form\FormCacheDecorator;
 use App\Repositories\Redirect\RedirectCacheDecorator;
 use App\Repositories\Seo\SeoCacheDecorator;
 use App\Repositories\Module\ModuleCacheDecorator;
+use App\Repositories\ModuleRecord\ModuleRecordCacheDecorator;
 use App\Repositories\Language\LanguageCacheDecorator;
 use App\Repositories\Option\OptionCacheDecorator;
 use App\Repositories\Role\RoleCacheDecorator;
@@ -54,6 +57,7 @@ class RepositoryServiceProvider extends ServiceProvider
         Page::observe(PageObserver::class);
         Seo::observe(SeoObserver::class);
         Module::observe(ModuleObserver::class);
+        ModuleRecord::observe(ModuleRecordObserver::class);
     }
 
     /**
@@ -77,6 +81,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerPageOptionRepository();
         $this->registerSeoRepository();
         $this->registerModuleRepository();
+        $this->registerModuleRecordRepository();
     }
 
     /*
@@ -238,6 +243,18 @@ class RepositoryServiceProvider extends ServiceProvider
             $module = new \App\Repositories\Module\EloquentModuleRepository($app);
 
             return new ModuleCacheDecorator($module, ['module', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
+        });
+    }
+
+    /*
+     * Register ModuleRecord repository
+     */
+    protected function registerModuleRecordRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\ModuleRecordRepositoryInterface', function($app) {
+            $module_record = new \App\Repositories\ModuleRecord\EloquentModuleRecordRepository($app);
+
+            return new ModuleRecordCacheDecorator($module_record, ['module_record', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

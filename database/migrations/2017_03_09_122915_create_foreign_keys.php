@@ -88,6 +88,16 @@ class CreateForeignKeys extends Migration {
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
+        Schema::table('module_records', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+        });
+        Schema::table('module_records', function(Blueprint $table) {
+            $table->foreign('module_id')->references('id')->on('modules')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+        });
 	}
 
 	public function down()
@@ -139,6 +149,12 @@ class CreateForeignKeys extends Migration {
         });
         Schema::table('modules', function(Blueprint $table) {
             $table->dropForeign('modules_who_updated_foreign');
+        });
+        Schema::table('module_records', function(Blueprint $table) {
+            $table->dropForeign('module_records_who_updated_foreign');
+        });
+        Schema::table('module_records', function(Blueprint $table) {
+            $table->dropForeign('module_records_module_id_foreign');
         });
 	}
 }

@@ -18,6 +18,15 @@ class EloquentModuleRepository extends AbstractRepository implements ModuleRepos
         return 'App\Module';
     }
 
+    public function getActive()
+    {
+        return $this->model
+            ->with('updater')
+            ->where('status', '=', 1)
+            ->orderBy('order', 'asc')
+            ->get();
+    }
+
     public function paginatedModules($paggLimit = 15)
     {
         return $this->model

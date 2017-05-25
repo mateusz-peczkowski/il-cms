@@ -22,6 +22,19 @@ class ModuleCacheDecorator extends AbstractCacheDecorator implements ModuleRepos
         $this->cache->setTags($tags);
     }
 
+    public function getActive()
+    {
+        $cacheName = 'modules_get';
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $module = $this->module->getActive();
+        $this->cache->put($cacheName, $module, 60);
+
+        return $module;
+    }
+
     public function paginatedModules($paggLimit = 15)
     {
         $cacheName = 'modules_paginated_'.$paggLimit;

@@ -130,4 +130,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('settings/modules/{id}/deactivate', 'ModulesController@deactivate')->middleware('developers')->name('deactivate-modules');
     Route::get('settings/modules/{id}/delete', 'ModulesController@delete')->middleware('developers')->name('delete-modules');
 
+    Route::get('modules/{module_id}', 'ModuleRecordsController@index')->name('records');
+    Route::post('modules/{module_id}', 'ModuleRecordsController@store');
+    Route::get('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@edit')->name('records.edit');
+    Route::put('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@update');
+    Route::get('modules/{module_id}/{record_id}/activate', 'ModuleRecordsController@activate')->name('records.activate');
+    Route::get('modules/{module_id}/{record_id}/deactivate', 'ModuleRecordsController@deactivate')->name('records.deactivate');
+    Route::get('modules/{module_id}/{record_id}/destroy', 'ModuleRecordsController@destroy')->name('records.destroy');
+
 });

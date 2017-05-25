@@ -5,17 +5,19 @@ namespace App\Http\Controllers\cmsbackend;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\SeoRepositoryInterface;
 use App\Repositories\Contracts\PageRepositoryInterface;
+use App\Repositories\Contracts\ModuleRecordRepositoryInterface;
 use Auth;
 use Session;
 use CMS;
 
 class SeoController extends BackendController
 {
-    public function __construct(SeoRepositoryInterface $seo, PageRepositoryInterface $pages)
+    public function __construct(SeoRepositoryInterface $seo, PageRepositoryInterface $pages, ModuleRecordRepositoryInterface $module_records)
     {
         parent::__construct();
         $this->seo = $seo;
         $this->pages = $pages;
+        $this->module_records = $module_records;
     }
 
     /**
@@ -36,7 +38,7 @@ class SeoController extends BackendController
             'seo' => $seo,
             'model' => $model_obj,
             'model_name' => $model,
-            'is_active_nav' => $model
+            'is_active_nav' => $model == 'pages' ? 'seo-'.$model : 'seo-'.$model.'-'.$model_id
         ]);
     }
 
