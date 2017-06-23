@@ -37,7 +37,7 @@
                                 return '<a href="#" data-id="'.$node_id.'" data-title="'.$title.'" class="text-red" data-toggle="modal" data-target="#change-name" title="'. __('Zmień nazwę') .'"><i class="fa fa-cog"></i></a>';
                             }
                             function buildTreeUl($array, $navigation_id) {
-                                $ret = '<ul>'."\n";
+                                $ret = '<ol>'."\n";
                                 foreach($array as $elem) {
                                     $ret .= '<li>'.$elem->title.' - '.buildEditTitle($elem->title, $elem->id).' '.buildLinkEdit($elem->page_id).' '.buildLinkDestroy($navigation_id, $elem->id);
                                     if($elem->who_updated) {
@@ -48,7 +48,7 @@
                                     }
                                     $ret .= '</li>'."\n";
                                 }
-                                $ret .= '</ul>'."\n";
+                                $ret .= '</ol>'."\n";
                                 return $ret;
                             }
                         ?>
