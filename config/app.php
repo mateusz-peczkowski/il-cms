@@ -169,6 +169,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Appstract\Opcache\OpcacheServiceProvider::class,
+        Cornford\Googlmapper\MapperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,6 +242,7 @@ return [
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
 
         //App facades
         'CMS' => App\Libraries\CMS::class,

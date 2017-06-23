@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>{{ __('Treść sekcji') }}</label>
-                    {{-- TODO: wpiąć edytor WYSIWYG --}}
+                    {{-- TODO: prztestować czy wpięty edytor WYSIWYG się nadaje --}}
                     <textarea rows="12" name="content" id="content" class="form-control" required>{{ old('content') ? : $section->content }}</textarea>
                 </div>
             </div>

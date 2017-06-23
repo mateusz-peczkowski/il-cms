@@ -1,7 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tomasz.urban
- * Date: 23.06.2017
- * Time: 10:34
- */
+namespace App\Services\SectionFields\Fields;
+
+use Mapper;
+
+class GoogleMap extends AbstractField
+{
+    public $field;
+
+    public function __construct($field)
+    {
+        $this->field = $field;
+        $this->field->map = $this->getMap();
+    }
+
+    protected function getMap()
+    {
+        return Mapper::location($this->field->options['location'])->map();
+    }
+
+}
