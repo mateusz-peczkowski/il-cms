@@ -26,6 +26,10 @@
 		var infowindows = [];
 		var shapes = [];
 
+        var input = document.getElementById('location');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map_{!! $id !!});
+
 		@foreach ($options['markers'] as $key => $marker)
 			{!! $marker->render($key, $view) !!}
 		@endforeach
