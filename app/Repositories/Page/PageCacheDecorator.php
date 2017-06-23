@@ -74,4 +74,17 @@ class PageCacheDecorator extends AbstractCacheDecorator implements PageRepositor
         return $exist;
     }
 
+    public function getPageSections($id)
+    {
+        $cacheName = 'page_sections_' . $id;
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $exist = $this->page->getPageSections($id);
+        $this->cache->put($cacheName, $exist, 60);
+
+        return $exist;
+    }
+
 }

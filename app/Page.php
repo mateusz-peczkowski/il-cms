@@ -17,4 +17,8 @@ class Page extends Model
         return $this->hasOne('App\User', 'id', 'who_updated');
     }
 
+    public function sections() {
+        return $this->hasManyThrough('App\Section', 'App\PageSection', 'page_id', 'id', 'id');
+    }
+
 }

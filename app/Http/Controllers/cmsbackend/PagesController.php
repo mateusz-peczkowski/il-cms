@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StorePage;
 use App\Http\Requests\UpdatePage;
+use App\Services\SectionFields\SectionFields;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\PageRepositoryInterface;
 use Auth;
@@ -142,13 +143,15 @@ class PagesController extends BackendController
      */
     public function sections($id)
     {
-        $page = $this->pages->find($id);
+        $page = $this->pages->getPageSections($id);
+        $sections = SectionFields::parseSections($page->sections);
         $this->breadcrumbs->addCrumb(__('Strony'), '/cmsbackend/pages');
         $this->breadcrumbs->addCrumb(__('Sekcje'), '/cmsbackend/pages/'.$id.'/sections');
         return view('cmsbackend.pages.sections')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Sekcje'),
             'page' => $page,
+            'sections' => $sections,
             'is_active_nav' => 'pages'
         ]);
     }

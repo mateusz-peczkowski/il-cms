@@ -50,4 +50,11 @@ class EloquentPageRepository extends AbstractRepository implements PageRepositor
             ->count();
     }
 
+    function getPageSections($id)
+    {
+        return $this->model
+            ->with('sections')
+            ->find($id);
+    }
+
 }

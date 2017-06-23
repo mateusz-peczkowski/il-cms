@@ -17,4 +17,8 @@ class Module extends Model
         return $this->hasOne('App\User', 'id', 'who_updated');
     }
 
+    public function sections() {
+        return $this->hasMany('App\Section', 'section_id', 'id');
+    }
+
 }
