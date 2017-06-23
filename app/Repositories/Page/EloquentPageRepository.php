@@ -18,6 +18,15 @@ class EloquentPageRepository extends AbstractRepository implements PageRepositor
         return 'App\Page';
     }
 
+    function allActivePages($locale = '')
+    {
+    	return $this->model
+            ->with('updater')
+            ->where('locale', $locale)
+            ->where('status', '=', 1)
+            ->get();
+    }
+
     function paginatedPages($locale = '', $paggLimit = 15)
     {
     	return $this->model

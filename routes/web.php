@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
     Route::get('trash', 'TrashController@index')->name('trash');
     Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke')->middleware('developers');
-    Route::get('trash/{module}/{id}/destroy', 'TrashController@destroy')->name('trash.destroy')->middleware('developers');
+    Route::get('trash/{module}/{id}/{type}/destroy', 'TrashController@destroy')->name('trash.destroy')->middleware('developers');
 
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
     Route::get('documentation', 'DocumentationController@index')->name('documentation');
@@ -94,17 +94,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
 
 
     Route::resource('pages', 'PagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'pages']]);
-
     Route::get('pages/{id}/deactivate', 'PagesController@deactivate')->name('pages.deactivate');
-
     Route::get('pages/{id}/activate', 'PagesController@activate')->name('pages.activate');
-
     Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete')->middleware('developers');
-
     Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
-
     Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
-
     Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
 
     Route::get('pages/{id}/options', 'PageOptionsController@index')->name('pages.options');
@@ -139,5 +133,19 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('modules/{module_id}/{record_id}/destroy', 'ModuleRecordsController@destroy')->name('records.destroy');
     Route::post('modules/{module_id}/duplicate', 'ModuleRecordsController@duplicate')->name('records.duplicate');
     Route::get('modules/{module_id}/{locale}', 'ModulesController@changelocale')->name('records.changelocale');
+
+    Route::get('settings/navigations', 'NavigationsController@index')->name('index-navigations');
+    Route::post('settings/navigations', 'NavigationsController@store')->middleware('developers');
+    Route::get('settings/navigations/{id}/edit', 'NavigationsController@edit')->middleware('developers')->name('edit-navigations');
+    Route::put('settings/navigations/{id}/edit', 'NavigationsController@update')->middleware('developers');
+    Route::get('settings/navigations/{id}/activate', 'NavigationsController@activate')->middleware('developers')->name('activate-navigations');
+    Route::get('settings/navigations/{id}/deactivate', 'NavigationsController@deactivate')->middleware('developers')->name('deactivate-navigations');
+    Route::get('settings/navigations/{id}/delete', 'NavigationsController@delete')->middleware('developers')->name('delete-navigations');
+
+    Route::get('navigations/{navigation_id}', 'NavigationNodesController@index')->name('nodes');
+    Route::post('navigations/{navigation_id}', 'NavigationNodesController@store');
+    Route::get('navigations/{navigation_id}/{node_id}/destroy', 'NavigationNodesController@destroy')->name('nodes.destroy');
+    Route::post('navigations/{navigation_id}/edit', 'NavigationNodesController@update')->name('nodes.edit');
+    Route::get('navigations/{navigation_id}/{locale}', 'NavigationsController@changelocale')->name('nodes.changelocale');
 
 });

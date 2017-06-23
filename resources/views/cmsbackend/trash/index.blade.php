@@ -48,7 +48,7 @@
                                     @can('revokeDestroy', 'App\User')
                                         <td class="text-right">
                                             <a href="#" data-href="{{ route('trash.revoke', ['user', $user->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke"><i class="fa fa-reply" title="{{ __('Przywróć') }}"></i></a>
-                                            <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                            <a href="#" data-href="{{ route('trash.destroy', ['user', $user->id, 'update']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     @endcan
                                 </tr>
@@ -118,7 +118,7 @@
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
                                                 <a href="#" data-href="{{ route('trash.revoke', ['redirect', $redirect->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['redirect', $redirect->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['redirect', $redirect->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endcan
                                     </tr>
@@ -187,7 +187,7 @@
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
                                                 <a href="#" data-href="{{ route('trash.revoke', ['language', $language->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['language', $language->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['language', $language->id, 'update']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endcan
                                     </tr>
@@ -262,7 +262,7 @@
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
                                                 <a href="#" data-href="{{ route('trash.revoke', ['translation', $translation->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['translation', $translation->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['translation', $translation->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endcan
                                     </tr>
@@ -340,7 +340,7 @@
                                         @can('revokeDestroy', 'App\User')
                                             <td class="text-right">
                                                 <a href="#" data-href="{{ route('trash.revoke', ['form', $form->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                <a href="#" data-href="{{ route('trash.destroy', ['form', $form->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                <a href="#" data-href="{{ route('trash.destroy', ['form', $form->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endcan
                                     </tr>
@@ -416,7 +416,7 @@
                                             @can('revokeDestroy', 'App\User')
                                                 <td class="text-right">
                                                     <a href="#" data-href="{{ route('trash.revoke', ['page', $page->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                    <a href="#" data-href="{{ route('trash.destroy', ['page', $page->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.destroy', ['page', $page->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             @endcan
                                         </tr>
@@ -488,7 +488,7 @@
                                             @can('revokeDestroy', 'App\User')
                                                 <td class="text-right">
                                                     <a href="#" data-href="{{ route('trash.revoke', ['module', $module->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
-                                                    <a href="#" data-href="{{ route('trash.destroy', ['module', $module->id]) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.destroy', ['module', $module->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             @endcan
                                         </tr>
@@ -507,6 +507,76 @@
                                 </table>
                                 <div class="pull-right">
                                     {{ $modules->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+
+                @if(isset($navigations) && $navigations->isEmpty())
+                        @if(Session::has('status-form'))
+                            <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                            </div>
+                        @endif
+                    @endif
+                    @if(isset($navigations) && !$navigations->isEmpty())
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <i class="fa fa-database"></i>
+                                <h3 class="box-title">{{ __('Nawigacje') }}</h3>
+                            </div>
+                            <div class="box-body">
+                                @if(Session::has('status-navigation'))
+                                    <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-navigation') }}!</h4>
+                                    </div>
+                                @endif
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                        <th>{{ __('Tytuł') }}</th>
+                                        <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                        @can('revokeDestroy', 'App\User')
+                                            <th style="width: 50px;">&nbsp;</th>
+                                        @endcan
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($navigations as $num => $navigation)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $num+1 }}</td>
+                                            <td>{{ $navigation->title }}</td>
+                                            @if($navigation->who_updated)
+                                                <td><img src="{{ $navigation->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $navigation->updater->name }} <small class="text-muted">({{ $navigation->updated_at }})</small></td>
+                                            @else
+                                                <td>&nbsp;</td>
+                                            @endif
+                                            @can('revokeDestroy', 'App\User')
+                                                <td class="text-right">
+                                                    <a href="#" data-href="{{ route('trash.revoke', ['navigation', $navigation->id]) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.destroy', ['navigation', $navigation->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            @endcan
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                        <th>{{ __('Tytuł') }}</th>
+                                        <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                        @can('revokeDestroy', 'App\User')
+                                            <th style="width: 50px;">&nbsp;</th>
+                                        @endcan
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="pull-right">
+                                    {{ $navigations->links() }}
                                 </div>
                             </div>
                         </div>

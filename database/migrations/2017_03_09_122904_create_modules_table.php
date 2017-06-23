@@ -17,7 +17,7 @@ class CreateModulesTable extends Migration {
             $table->boolean('has_details')->default(0);
             $table->string('order_records')->default('created_at');
             $table->enum('order_records_type', array('asc', 'desc'))->default('desc');
-            $table->enum('status', array('1', '2', '3'));
+            $table->enum('status', array('1', '2', '3', '4'));
 			$table->timestamps();
 		});
 	}

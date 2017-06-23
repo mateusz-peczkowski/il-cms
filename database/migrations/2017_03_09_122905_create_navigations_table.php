@@ -10,9 +10,11 @@ class CreateNavigationsTable extends Migration {
 		Schema::create('navigations', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 255);
+            $table->string('slug', 64)->unique();
 			$table->string('tag', 64)->unique();
 			$table->integer('order')->unsigned();
-			$table->enum('status', array('1', '2', '3'));
+            $table->integer('who_updated')->unsigned()->nullable();
+			$table->enum('status', array('1', '2', '3', '4'));
 			$table->timestamps();
 		});
 	}

@@ -8,106 +8,115 @@ class CreateForeignKeys extends Migration {
 
 	public function up()
 	{
-		Schema::table('navigation_nodes', function(Blueprint $table) {
-			$table->foreign('navigation_id')->references('id')->on('navigations')
-						->onDelete('restrict')
-						->onUpdate('cascade');
-		});
-		Schema::table('navigation_nodes', function(Blueprint $table) {
-			$table->foreign('page_id')->references('id')->on('pages')
-						->onDelete('restrict')
-						->onUpdate('cascade');
-		});
         Schema::table('users', function(Blueprint $table) {
             $table->foreign('role')->references('id')->on('user_roles')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('users', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('redirects', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('language_translations', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('languages', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('options', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('forms', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('form_controls', function(Blueprint $table) {
             $table->foreign('form_id')->references('id')->on('forms')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('form_controls', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('form_submits', function(Blueprint $table) {
             $table->foreign('form_id')->references('id')->on('forms')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('page_options', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('page_options', function(Blueprint $table) {
             $table->foreign('page_id')->references('id')->on('pages')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('seos', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('modules', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('module_records', function(Blueprint $table) {
             $table->foreign('who_updated')->references('id')->on('users')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('module_records', function(Blueprint $table) {
             $table->foreign('module_id')->references('id')->on('modules')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        Schema::table('navigations', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->foreign('navigation_id')->references('id')->on('navigations')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->foreign('page_id')->references('id')->on('pages')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('navigation_nodes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->foreign('who_updated')->references('id')->on('users')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
 	}
 
 	public function down()
 	{
-		Schema::table('navigation_nodes', function(Blueprint $table) {
-			$table->dropForeign('navigation_nodes_navigation_id_foreign');
-		});
-		Schema::table('navigation_nodes', function(Blueprint $table) {
-			$table->dropForeign('navigation_nodes_page_id_foreign');
-		});
         Schema::table('users', function(Blueprint $table) {
             $table->dropForeign('users_role_foreign');
         });
@@ -155,6 +164,21 @@ class CreateForeignKeys extends Migration {
         });
         Schema::table('module_records', function(Blueprint $table) {
             $table->dropForeign('module_records_module_id_foreign');
+        });
+        Schema::table('navigations', function(Blueprint $table) {
+            $table->dropForeign('navigations_who_updated_foreign');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->dropForeign('navigation_nodes_navigation_id_foreign');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->dropForeign('navigation_nodes_page_id_foreign');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->dropForeign('navigation_nodes_parent_id_foreign');
+        });
+        Schema::table('navigation_nodes', function(Blueprint $table) {
+            $table->dropForeign('navigation_nodes_who_updated_foreign');
         });
 	}
 }

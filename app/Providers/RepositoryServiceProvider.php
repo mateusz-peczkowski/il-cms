@@ -13,6 +13,8 @@ use App\Redirect;
 use App\Seo;
 use App\Module;
 use App\ModuleRecord;
+use App\Navigation;
+use App\NavigationNode;
 use App\Observers\PageObserver;
 use App\Observers\ControlObserver;
 use App\Observers\FormObserver;
@@ -24,6 +26,8 @@ use App\Observers\ModuleObserver;
 use App\Observers\ModuleRecordObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\UserObserver;
+use App\Observers\NavigationObserver;
+use App\Observers\NavigationNodeObserver;
 use App\Repositories\Page\PageCacheDecorator;
 use App\Repositories\Control\ControlCacheDecorator;
 use App\Repositories\Form\FormCacheDecorator;
@@ -36,6 +40,8 @@ use App\Repositories\Option\OptionCacheDecorator;
 use App\Repositories\Role\RoleCacheDecorator;
 use App\Repositories\User\UserCacheDecorator;
 use App\Repositories\Translation\TranslationCacheDecorator;
+use App\Repositories\Navigation\NavigationCacheDecorator;
+use App\Repositories\NavigationNode\NavigationNodeCacheDecorator;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -58,6 +64,8 @@ class RepositoryServiceProvider extends ServiceProvider
         Seo::observe(SeoObserver::class);
         Module::observe(ModuleObserver::class);
         ModuleRecord::observe(ModuleRecordObserver::class);
+        Navigation::observe(NavigationObserver::class);
+        NavigationNode::observe(NavigationNodeObserver::class);
     }
 
     /**
@@ -82,6 +90,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerSeoRepository();
         $this->registerModuleRepository();
         $this->registerModuleRecordRepository();
+        $this->registerNavigationRepository();
+        $this->registerNavigationNodeRepository();
     }
 
     /*
@@ -255,6 +265,30 @@ class RepositoryServiceProvider extends ServiceProvider
             $module_record = new \App\Repositories\ModuleRecord\EloquentModuleRecordRepository($app);
 
             return new ModuleRecordCacheDecorator($module_record, ['module_record', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
+        });
+    }
+
+    /*
+     * Register Navigation repository
+     */
+    protected function registerNavigationRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\NavigationRepositoryInterface', function($app) {
+            $navigation = new \App\Repositories\Navigation\EloquentNavigationRepository($app);
+
+            return new NavigationCacheDecorator($navigation, ['navigation', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
+        });
+    }
+
+    /*
+     * Register NavigationNode repository
+     */
+    protected function registerNavigationNodeRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\NavigationNodeRepositoryInterface', function($app) {
+            $navigation_node = new \App\Repositories\NavigationNode\EloquentNavigationNodeRepository($app);
+
+            return new NavigationNodeCacheDecorator($navigation_node, ['navigation_node', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

@@ -19,7 +19,7 @@ class CreatePagesTable extends Migration {
             $table->string('locale', 64);
             $table->integer('who_updated')->unsigned()->nullable();
             $table->integer('order')->unsigned();
-            $table->enum('status', array('1', '2', '3'));
+            $table->enum('status', array('1', '2', '3', '4'));
             $table->timestamps();
 		});
 	}

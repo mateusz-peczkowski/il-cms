@@ -22,6 +22,19 @@ class PageCacheDecorator extends AbstractCacheDecorator implements PageRepositor
         $this->cache->setTags($tags);
     }
 
+    public function allActivePages($locale = '')
+    {
+        $cacheName = 'pages_all_active_locale_'.$locale;
+        if ($this->cache->has($cacheName)) {
+            return $this->cache->get($cacheName);
+        }
+
+        $pages = $this->page->allActivePages($locale);
+        $this->cache->put($cacheName, $pages, 60);
+
+        return $pages;
+    }
+
     public function paginatedPages($locale = '', $paggLimit = 15)
     {
         $cacheName = 'pages_paginated_locale_'.$locale;

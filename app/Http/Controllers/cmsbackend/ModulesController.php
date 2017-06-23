@@ -98,21 +98,21 @@ class ModulesController extends BackendController
             'status_type' => 'success'
         ]);
 
-    }
+        }
 
 
-    private function constructSlug($num, $name) {
-        if($num) {
-            $slug = str_slug($name).'-'.$num;
-        } else {
-            $slug = str_slug($name);
+        private function constructSlug($num, $name) {
+            if($num) {
+                $slug = str_slug($name).'-'.$num;
+            } else {
+                $slug = str_slug($name);
+            }
+            if($this->modules->findBy('slug', $slug)) {
+                $num++;
+                return $this->constructSlug($num, $name);
+            }
+            return $slug;
         }
-        if($this->modules->findBy('slug', $slug)) {
-            $num++;
-            return $this->constructSlug($num, $name);
-        }
-        return $slug;
-    }
 
     /**
      * Activate the specified resource at storage.

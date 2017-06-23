@@ -10,6 +10,22 @@
                         </span>
                     </li>
                     <li>
+                        <i class="fa fa-compass bg-green"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="{{ route('index-navigations') }}">{{ __('Nawigacje') }}</a></h3>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>{{ __('Lista nawigacji') }}</li>
+                                    <li>{{ __('Możliwość dodawania, edytowania i usuwania nawigacji przez rangę developer i wyżej') }}</li>
+                                    <li>{{ __('Lista nawigacji w nawigacji systemu.') }}</li>
+                                    <li>{{ __('Lista elementów w nawigacji.') }}</li>
+                                    <li>{{ __('Możliwość dodawania, edytowania elementów nawigacji.') }}</li>
+                                    <li>{{ __('Możliwość tworzenia różnych elementów dla różnych języków') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
                         <i class="fa fa-database bg-black"></i>
                         <div class="timeline-item">
                             <h3 class="timeline-header"><a href="{{ route('index-modules') }}">{{ __('Moduły') }}</a></h3>

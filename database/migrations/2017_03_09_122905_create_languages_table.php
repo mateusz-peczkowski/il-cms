@@ -12,7 +12,7 @@ class CreateLanguagesTable extends Migration {
 			$table->string('title', 64);
 			$table->string('slug', 10)->unique();
             $table->enum('is_default', array('0', '1'));
-			$table->enum('status', array('1', '2', '3'));
+			$table->enum('status', array('1', '2', '3', '4'));
 			$table->integer('order')->unsigned();
             $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();

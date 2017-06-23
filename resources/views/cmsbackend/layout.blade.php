@@ -73,7 +73,19 @@
                     <?php $is_active_nav = isset($is_active_nav) ? $is_active_nav : null; ?>
                     <li{{ $is_active_nav == 'dashboard' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ __('Pulpit nawigacyjny') }}</span></a></li>
                     <li{{ ($is_active_nav == 'pages' || $is_active_nav == 'seo-pages') ? ' class=active' : '' }}><a href="{{ route('pages') }}"><i class="fa fa-files-o"></i> <span>{{ __('Strony') }}</span></a></li>
-                    <li{{ $is_active_nav == 'navigations' ? ' class=active' : '' }}><a href="{{ route('dashboard') }}"><i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span></a></li>
+                    @if(isset($cms_navigations) AND count($cms_navigations))
+                        <li class="treeview{{ (str_contains($is_active_nav, 'navigations-')) ? ' active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-compass"></i> <span>{{ __('Nawigacje') }}</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @foreach($cms_navigations as $navigation)
+                                    <li{{ ($is_active_nav == 'navigations-'.$navigation->tag || $is_active_nav == 'seo-navigation_records-'.$navigation->id) ? ' class=active' : '' }}><a href="{{ route('nodes', $navigation->id) }}"> {{ __($navigation->title) }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
                     @if(isset($cms_modules) AND count($cms_modules))
                         <li class="treeview{{ (str_contains($is_active_nav, 'modules-') || str_contains($is_active_nav, 'seo-')) ? ' active' : '' }}">
                             <a href="#">
@@ -99,7 +111,7 @@
                         </ul>
                     </li>
                     <li{{ $is_active_nav == 'users' ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules') ? ' active' : '' }}">
+                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules' || $is_active_nav == 'settings/navigations') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -107,6 +119,7 @@
                         <ul class="treeview-menu">
                             <li{{ $is_active_nav == 'settings/options' ? ' class=active' : '' }}><a href="{{ route('options') }}"> {{ __('Główne ustawienia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/modules' ? ' class=active' : '' }}><a href="{{ route('index-modules') }}"> {{ __('Moduły') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/navigations' ? ' class=active' : '' }}><a href="{{ route('index-navigations') }}"> {{ __('Nawigacje') }}</a></li>
                             <li{{ $is_active_nav == 'settings/languages' ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ $is_active_nav == 'settings/translations' ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>

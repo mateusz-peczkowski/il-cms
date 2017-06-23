@@ -138,7 +138,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>
-                    <button type="submit" class="btn btn-success margin">{{ __('Dodaj') }}</button>
+                    <button type="submit" class="btn btn-success pull-right">{{ __('Dodaj') }}</button>
                 </div>
             </form>
         </div>

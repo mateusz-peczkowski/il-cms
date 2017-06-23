@@ -18,6 +18,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'cmsbackend/*', 'App\Http\ViewComposers\ModuleComposer'
         );
+        View::composer(
+            'cmsbackend/*', 'App\Http\ViewComposers\NavigationComposer'
+        );
 
     }
 

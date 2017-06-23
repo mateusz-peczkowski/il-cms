@@ -12,9 +12,10 @@ class CreateNodesTable extends Migration {
 			$table->string('title', 255)->nullable();
 			$table->integer('navigation_id')->unsigned();
 			$table->integer('page_id')->unsigned();
-			$table->integer('parent_id')->unsigned();
+			$table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('who_updated')->unsigned()->nullable();
+            $table->string('locale', 64);
 			$table->integer('order')->unsigned();
-			$table->enum('status', array('1', '2', '3'));
 			$table->timestamps();
 		});
 	}

@@ -12,7 +12,7 @@ class CreateTranslationsTable extends Migration {
 			$table->string('key', 255);
             $table->string('value', 255);
             $table->string('locale', 64);
-			$table->enum('status', array('1', '2', '3'));
+			$table->enum('status', array('1', '2', '3', '4'));
             $table->integer('who_updated')->unsigned()->nullable();
 			$table->timestamps();
 		});
