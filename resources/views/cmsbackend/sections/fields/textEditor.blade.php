@@ -8,23 +8,20 @@
                     <label>{{ __('Tytuł sekcji') }}{{ $errors->has('name') ? ' - '.(__($errors->first('title'))) : '' }}</label>
                     <input type="text" id="title" name="name" class="form-control" value="{{ old('title') ? : $section->title }}" required autofocus />
                 </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label>{{ __('Nagłówek sekcji') }}</label>
                     <input type="text" name="header" id="header" class="form-control" value="{{ old('header') ? : $section->header }}">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label>{{ __('Treść sekcji') }}</label>
                     {{-- TODO: wpiąć edytor WYSIWYG --}}
-                    <textarea name="content" id="content" class="form-control" required>{{ old('content') ? : $section->content }}</textarea>
+                    <textarea rows="12" name="content" id="content" class="form-control" required>{{ old('content') ? : $section->content }}</textarea>
                 </div>
             </div>
-            <div class="col-xs-12">
-                <div class="text-center mb-0">
-                    <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>
-                    <button type="submit" class="btn btn-success margin">{{ __('Zapisz') }}</button>
-                </div>
-            </div>
+            <hr>
         </div>
     </form>

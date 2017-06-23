@@ -177,6 +177,7 @@
     <script src="/backend/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="/backend/plugins/select2/select2.full.min.js"></script>
+    <script src="/backend/plugins/bootstrap/bootstrap3-wysihtml5.all.min.js"></script>
     <script src="/backend/js/app.min.js"></script>
     <script src="/backend/js/custom.js"></script>
 

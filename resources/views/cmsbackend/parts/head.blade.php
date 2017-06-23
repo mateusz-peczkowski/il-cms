@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="/backend/css/bootstrap.min.css">
 <link rel="stylesheet" href="/backend/css/AdminLTE.min.css">
 <link rel="stylesheet" href="/backend/css/skin-blue-light.min.css">
+<link rel="stylesheet" href="/backend/css/bootstrap3-wysihtml5.min.css">
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

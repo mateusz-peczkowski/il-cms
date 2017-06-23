@@ -30,6 +30,9 @@ var removeAutoHide = function() {
 
 
 $(function () {
+    $('#content').wysihtml5({
+        "html": true
+    });
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
