@@ -57,4 +57,12 @@ class EloquentPageRepository extends AbstractRepository implements PageRepositor
             ->find($id);
     }
 
+    function getPageSectionsPaginated($id)
+    {
+        return $this->model
+            ->find($id)
+            ->sections()
+            ->paginate();
+    }
+
 }

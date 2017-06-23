@@ -15,4 +15,6 @@ interface PageRepositoryInterface
 
     public function getPageSections($id);
 
+    public function getPageSectionsPaginated($id);
+
 }

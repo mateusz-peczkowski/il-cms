@@ -104,9 +104,14 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
 
     Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
+    /*
+     * page sections
+     */
+    Route::get('pages/{id}/sections', 'PageSectionsController@index')->name('pages.sections');
 
-    Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
-
+    /*
+     * page options
+     */
     Route::get('pages/{id}/options', 'PageOptionsController@index')->name('pages.options');
     Route::post('pages/{id}/options', 'PageOptionsController@store')->middleware('developers');
     Route::get('pages/options/{id}', 'PageOptionsController@value')->name('pages.options.value');
