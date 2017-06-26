@@ -11,7 +11,7 @@ class Section extends Model
     ];
 
     protected $fillable = [
-        'title', 'header', 'content', 'options', 'type', 'who_updated'
+        'title', 'header', 'content', 'options', 'type', 'who_updated', 'status'
     ];
 
     public function page() {

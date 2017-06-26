@@ -54,7 +54,7 @@
                                         <a href="{{ route('pages.sections.value', $option->id) }}" class="text-green" title="{{ __('Dodaj wartość') }}"><i class="fa fa-plus"></i></a>
                                         @can('edit_dev', 'App\User')
                                         <a href="{{ route('pages.sections.edit', $option->id) }}" class="text-light-blue" title="{{ __('Edytuj') }}"><i class="fa fa-edit"></i></a>
-                                        <a href="#" data-href="{{ route('pages.options.delete', $option->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
+                                        <a href="#" data-href="{{ route('pages.sections.delete', $option->id) }}" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="{{ __('Usuń') }}"><i class="fa fa-trash"></i></a>
                                         @endcan
                                     </td>
                                 </tr>

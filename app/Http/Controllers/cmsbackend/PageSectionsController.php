@@ -62,6 +62,7 @@ class PageSectionsController extends BackendController
         $obj = $request->only('title', 'type');
         $obj['who_updated'] = Auth::id();
         $obj['options'] = [];
+        $obj['status'] = 1;
 
         $section = $this->sections->create($obj);
         $pageSection = new PageSection(['page_id' => $id, 'section_id' => $section->id]);
@@ -159,13 +160,20 @@ class PageSectionsController extends BackendController
      */
     public function destroy($id)
     {
+        $statusmsg = __('Sekcja usunięta');
+        return $this->change_status($id, 3, $statusmsg, 'success');
+    }
+
+    private function change_status($id, $status, $statusmsg, $statusmsgtype)
+    {
         $page = $this->sections->find($id)->page->pop();
-        $this->sections->destroy($id);
-
+        $this->sections->update([
+            'status' => $status,
+            'who_updated' => Auth::id()
+        ], $id);
         return redirect()->route('pages.sections', $page->id)->with([
-            'status' => __('Sekcja usunięta'),
-            'status_type' => 'danger'
+            'status' => $statusmsg,
+            'status_type' => $statusmsgtype
         ]);
-
     }
 }
