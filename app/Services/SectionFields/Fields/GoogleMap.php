@@ -15,7 +15,7 @@ class GoogleMap extends AbstractField
 
     protected function getMap()
     {
-        return Mapper::location($this->field->options['location'])->map();
+        return Mapper::location(isset($this->field->options['location']) ? $this->field->options['location'] : 'default')->map();
     }
 
 }

@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\cmsbackend;
 
-use App\Http\Requests\UpdatePageOption;
+use App\Http\Requests\StorePageSection;
+use App\Http\Requests\UpdatePageSection;
+use App\PageSection;
 use App\Repositories\Contracts\SectionRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\PageRepositoryInterface;
+use App\Services\SectionFields\SectionFields;
+use Auth;
 
+/**
+ * Page Sections Resource Controller
+ *
+ * Class PageSectionsController
+ * @package App\Http\Controllers\cmsbackend
+ */
 class PageSectionsController extends BackendController
 {
     public function __construct(PageRepositoryInterface $pages, SectionRepositoryInterface $sections)
@@ -47,16 +57,18 @@ class PageSectionsController extends BackendController
      * @param  \App\Http\Requests\StorePageOption  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, StorePageSections $request)
+    public function store($id, StorePageSection $request)
     {
-        $obj = $request->only('title', 'header', 'content', 'options');
+        $obj = $request->only('title', 'type');
         $obj['who_updated'] = Auth::id();
-        $obj['page_id'] = $id;
+        $obj['options'] = [];
 
-        $this->sections->create($obj);
+        $section = $this->sections->create($obj);
+        $pageSection = new PageSection(['page_id' => $id, 'section_id' => $section->id]);
+        $section->page()->save($pageSection);
 
-        return redirect()->route('pages.options', $id)->with([
-            'status' => __('Opcja dodana'),
+        return redirect()->route('pages.sections', $id)->with([
+            'status' => __('Sekcja dodana'),
             'status_type' => 'success'
         ]);
     }
@@ -72,7 +84,7 @@ class PageSectionsController extends BackendController
         $option = $this->sections->find($id);
         $this->breadcrumbs->addCrumb(__('Strony'), '/cmsbackend/pages');
         $this->breadcrumbs->addCrumb(__('Edytuj sekcję'), '/cmsbackend/pages/options/'.$id.'/edit');
-        return view('cmsbackend.page_options.edit')->with([
+        return view('cmsbackend.sections.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj sekcje'),
             'option' => $option
@@ -86,15 +98,15 @@ class PageSectionsController extends BackendController
      * @param  \App\Http\Requests\UpdatePage  $request
      * @return \Illuminate\Http\Response
      */
-    public function update($id, UpdatePageOption $request)
+    public function update($id, UpdatePageSection $request)
     {
-        $obj = $request->only('key', 'type', 'values');
+        $obj = $request->only('title', 'type');
         $obj['who_updated'] = Auth::id();
-        $this->page_options->update($obj, $id);
-        $page_id = $this->page_options->find($id)->page_id;
+        $this->sections->update($obj, $id);
+        $page = $this->sections->find($id)->page->pop();
 
-        return redirect()->route('pages.options', $page_id)->with([
-            'status' => __('Opcja zaaktualizowana'),
+        return redirect()->route('pages.sections', $page->id)->with([
+            'status' => __('Sekcja zaktualizowana'),
             'status_type' => 'success'
         ]);
     }
@@ -107,14 +119,17 @@ class PageSectionsController extends BackendController
      */
     public function value($id)
     {
-        $option = $this->page_options->find($id);
+        $option = $this->sections->find($id);
+        $sections = SectionFields::parseSections(collect([$option]));
+
         $this->breadcrumbs->addCrumb(__('Strony'), '/cmsbackend/pages');
-        $this->breadcrumbs->addCrumb(__('Edytuj opcje'), '/cmsbackend/pages/options/'.$id.'/edit');
-        $this->breadcrumbs->addCrumb(__('Edytuj wartość'), '/cmsbackend/pages/options/'.$id);
-        return view('cmsbackend.page_options.value')->with([
+        $this->breadcrumbs->addCrumb(__('Edytuj sekcje'), '/cmsbackend/pages/sections/'.$id.'/edit');
+        $this->breadcrumbs->addCrumb(__('Edytuj wartość'), '/cmsbackend/pages/sections/'.$id);
+        return view('cmsbackend.sections.value')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edytuj wartość'),
-            'option' => $option
+            'option' => $option,
+            'section' => $sections
         ]);
     }
 
@@ -126,21 +141,16 @@ class PageSectionsController extends BackendController
      */
     public function update_value($id, Request $request)
     {
-        $obj = $request->only('value');
-        if(is_array($obj['value'])) {
-            $obj['value'] = implode(',', $obj['value']);
-        }
+        $obj = $request->only('title', 'header', 'content', 'option');
         $obj['who_updated'] = Auth::id();
-        $this->page_options->update($obj, $id);
-        $page_id = $this->page_options->find($id)->page_id;
+        $this->sections->update($obj, $id);
+        $page = $this->sections->find($id)->page->pop();
 
-        return redirect()->route('pages.options', $page_id)->with([
-            'status' => __('Wartość opcji zaaktualizowana'),
+        return redirect()->route('pages.sections', $page->id)->with([
+            'status' => __('Wartość sekcji zaaktualizowana'),
             'status_type' => 'success'
         ]);
     }
-
-
 
     /**
      * @param  string  $module
@@ -149,28 +159,13 @@ class PageSectionsController extends BackendController
      */
     public function destroy($id)
     {
-        $page_id = $this->page_options->find($id)->page_id;
-        $this->page_options->destroy($id);
+        $page = $this->sections->find($id)->page->pop();
+        $this->sections->destroy($id);
 
-        return redirect()->route('pages.options', $page_id)->with([
-            'status' => __('Opcja usunięta'),
+        return redirect()->route('pages.sections', $page->id)->with([
+            'status' => __('Sekcja usunięta'),
             'status_type' => 'danger'
         ]);
 
     }
-
-
-    private function constructSlug($num, $name) {
-        if($num) {
-            $slug = str_slug($name).'-'.$num;
-        } else {
-            $slug = str_slug($name);
-        }
-        if($this->page_options->findBy('slug', $slug)) {
-            $num++;
-            return $this->constructSlug($num, $name);
-        }
-        return $slug;
-    }
-
 }

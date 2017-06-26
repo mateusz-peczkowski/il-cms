@@ -13,12 +13,10 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            <label>{{ __('Lokalizacja') }}</label>
-            <input type="text" name="option['location']" id="location" class="form-control" value="{{ old('option[\'location\']') ? : '' }}" required>
+            <label>{{ __('Treść sekcji') }}</label>
+            {{-- TODO: prztestować czy wpięty edytor WYSIWYG się nadaje --}}
+            <textarea rows="12" name="content" id="content" class="form-control" required>{{ old('content') ? : $section->content }}</textarea>
         </div>
-    </div>
-    <div class="col-md-12" style="height: 400px;">
-        {!! Mapper::render() !!}
     </div>
     <hr>
 </div>

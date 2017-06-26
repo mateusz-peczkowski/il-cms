@@ -34,7 +34,7 @@ class EloquentSectionRepository extends AbstractRepository implements SectionRep
             ->paginate($paggLimit);
     }
 
-    function checksEctionExist($tag = '', $locale = '')
+    function checkSectionExist($tag = '', $locale = '')
     {
         return $this->model
             ->where('tag', $tag)

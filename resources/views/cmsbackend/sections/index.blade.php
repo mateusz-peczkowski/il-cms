@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    @include('cmsbackend.parts.top_nav.pages', ['active' => 'options', 'model' => $page])
+                    @include('cmsbackend.parts.top_nav.pages', ['active' => 'sections', 'model' => $page])
                     <hr>
                     @can('add_dev', 'App\User')
                         <span class="btn btn-success" data-toggle="modal" data-target="#add-new" id="create-new">{{ __('Dodaj sekcję') }}</span>
@@ -85,29 +85,26 @@
     @can('add_dev', 'App\User')
         <div class="modal fade" id="add-new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
-                <form role="form" method="POST" action="{{ route('pages.options', $page->id) }}" class="modal-content">
+                <form role="form" method="POST" action="{{ route('pages.sections', $page->id) }}" class="modal-content">
                     {{ csrf_field() }}
                     <div class="modal-header">
-                        {{ __('Dodaj opcje') }}
+                        {{ __('Dodaj sekcje') }}
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>{{ __('Tytuł') }}</label>
-                            <input type="text" id="key" name="key" class="form-control" value="{{ old('key') }}" required autofocus />
+                            <label>{{ __('Nazwa sekcji') }}</label>
+                            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}" required autofocus />
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Typ') }}</label>
+                            <label>{{ __('Typ sekcji') }}</label>
                             <?php $type = old('type') ?>
                             <select name="type" id="type" class="form-control" required>
-                                <option value="text"{{ $type == 'text' ? ' selected' : '' }}>{{ __('Text') }}</option>
-                                <option value="textarea"{{ $type == 'textarea' ? ' selected' : '' }}>{{ __('Textarea') }}</option>
-                                <option value="select"{{ $type == 'select' ? ' selected' : '' }}>{{ __('Select') }}</option>
-                                <option value="checkbox"{{ $type == 'checkbox' ? ' selected' : '' }}>{{ __('Checkbox') }}</option>
+                                <option value="TextEditor"{{ $type == 'textEditor' ? ' selected' : '' }}>{{ __('Edytor tekstowy') }}</option>
+                                <option value="EmbedHtml"{{ $type == 'EmbedHtml' ? ' selected' : '' }}>{{ __('Osadanie kodu HTML') }}</option>
+                                <option value="GoogleMap"{{ $type == 'GoogleMap' ? ' selected' : '' }}>{{ __('Mapa google') }}</option>
+                                <option value="ImageGallery"{{ $type == 'ImageGallery' ? ' selected' : '' }}>{{ __('Galeria') }}</option>
+                                <option value="ImageCarousel"{{ $type == 'ImageCarousel' ? ' selected' : '' }}>{{ __('Karuzela obrazów') }}</option>
                             </select>
-                        </div>
-                        <div class="form-group" id="show-type">
-                            <label>{{ __('Wartości typu - rozdzielone znakiem ";". Np. "Test;Test2"') }}</label>
-                            <input type="text" id="values" name="values" class="form-control" value="{{ old('values') }}" autofocus />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -125,7 +122,7 @@
                     {{ __('Czy jesteś tego pewien?') }}
                 </div>
                 <div class="modal-body">
-                    {!! __('Po usunięciu opcja zostanie wymazana z systemu.') !!}
+                    {!! __('Po usunięciu sekcja zostanie wymazana z systemu.') !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success pull-left" data-dismiss="modal">{{ __('Anuluj') }}</button>

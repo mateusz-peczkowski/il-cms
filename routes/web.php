@@ -108,6 +108,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
      * page sections
      */
     Route::get('pages/{id}/sections', 'PageSectionsController@index')->name('pages.sections');
+    Route::post('pages/{id}/sections', 'PageSectionsController@store')->middleware('developers');
+    Route::get('pages/sections/{id}', 'PageSectionsController@value')->name('pages.sections.value');
+    Route::put('pages/sections/{id}', 'PageSectionsController@update_value');
+    Route::get('pages/sections/{id}/edit', 'PageSectionsController@edit')->name('pages.sections.edit')->middleware('developers');
+    Route::put('pages/sections/{id}/edit', 'PageSectionsController@update')->middleware('developers');
+    Route::get('pages/sections/{id}/destroy', 'PageSectionsController@destroy')->name('pages.sections.delete')->middleware('developers');
 
     /*
      * page options

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\SectionObserver;
 use App\Section;
 use App\Page;
 use App\Control;
@@ -60,6 +61,7 @@ class RepositoryServiceProvider extends ServiceProvider
         Seo::observe(SeoObserver::class);
         Module::observe(ModuleObserver::class);
         ModuleRecord::observe(ModuleRecordObserver::class);
+        Section::observe(SectionObserver::class);
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifySectionsTable extends Migration
+class AddNullablesToSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class ModifySectionsTable extends Migration
     public function up()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->string('type');
-            $table->text('options');
+            $table->text('content')->nullable()->change();
+            $table->string('header')->nullable()->change();
+            $table->string('view')->nullable()->change();
         });
     }
 
@@ -27,8 +28,9 @@ class ModifySectionsTable extends Migration
     public function down()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->dropColumn('type');
-            $table->dropColumn('options');
+            $table->text('content')->nullable(false)->change();
+            $table->string('header')->nullable(false)->change();
+            $table->string('view')->nullable(false)->change();
         });
     }
 }

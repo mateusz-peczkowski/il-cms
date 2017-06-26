@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifySectionsTable extends Migration
+class AddWhoUpdatedToSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class ModifySectionsTable extends Migration
     public function up()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->string('type');
-            $table->text('options');
+            $table->integer('who_updated')->unsigned()->nullable();
         });
     }
 
@@ -27,8 +26,7 @@ class ModifySectionsTable extends Migration
     public function down()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->dropColumn('type');
-            $table->dropColumn('options');
+            $table->dropColumn('who_updated');
         });
     }
 }
