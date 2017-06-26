@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cmsbackend;
 
+use App\Repositories\Contracts\SectionRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\RedirectRepositoryInterface;
 use App\Repositories\Contracts\TranslationRepositoryInterface;
@@ -13,7 +14,7 @@ use Auth;
 
 class TrashController extends BackendController
 {
-    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module)
+    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module, SectionRepositoryInterface $section)
     {
         parent::__construct();
         $this->user = $user;
@@ -23,6 +24,7 @@ class TrashController extends BackendController
         $this->form = $form;
         $this->page = $page;
         $this->module = $module;
+        $this->section = $section;
     }
 
     /**
@@ -39,6 +41,7 @@ class TrashController extends BackendController
         $forms = $this->form->paginatedFormsTrash();
         $pages = $this->page->paginatedPagesTrash();
         $modules = $this->module->paginatedModulesTrash();
+        $sections = $this->section->paginatedSectionsTrash();
         $this->breadcrumbs->addCrumb(__('Usunięte elementy'), '/cmsbackend/trash');
         return view('cmsbackend.trash.index')->with([
             'users' => $users,
@@ -48,6 +51,7 @@ class TrashController extends BackendController
             'forms' => $forms,
             'pages' => $pages,
             'modules' => $modules,
+            'sections' => $sections,
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Usunięte elementy'),
             'is_active_nav' => 'trash'
