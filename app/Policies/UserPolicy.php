@@ -39,4 +39,8 @@ class UserPolicy
         return $user->role >= 2;
     }
 
+    public function seeactivity(User $user) {
+        return $user->role >= 3;
+    }
+
 }

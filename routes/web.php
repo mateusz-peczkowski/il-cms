@@ -148,4 +148,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('navigations/{navigation_id}/edit', 'NavigationNodesController@update')->name('nodes.edit');
     Route::post('navigations/{navigation_id}/refreshtree', 'NavigationNodesController@refreshtree')->name('nodes.refreshtree');
 
+    /**
+     * Activity log routes
+     */
+    Route::get('activity', 'ActivityLogController@index')->name('activity.log');
+
 });

@@ -3,15 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Form extends Model
 {
     protected $table = 'forms';
     public $timestamps = true;
+    use LogsActivity;
 
     protected $fillable = [
         'title', 'tag', 'type', 'description', 'sender_name', 'sender_email', 'confirmation', 'status', 'who_updated', 'locale'
     ];
+
+    protected static $logAttributes = ['title', 'tag', 'type', 'description', 'sender_name', 'sender_email', 'confirmation', 'status', 'who_updated'];
 
     public function updater() {
         return $this->hasOne('App\User', 'id', 'who_updated');

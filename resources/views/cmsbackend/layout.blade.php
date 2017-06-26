@@ -125,6 +125,11 @@
                             <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>
+                    @can('seeactivity', 'App\User')
+                        <li {{ $is_active_nav == 'activity' ? ' class=active' : '' }}>
+                            <a href="{{ route('activity.log') }}"><i class="fa fa-history"></i>{{ __('Dziennik aktywności') }}</a>
+                        </li>
+                    @endcan
                     <li><hr></li>
                     <li{{ $is_active_nav == 'trash' ? ' class=active' : '' }}><a href="{{ route('trash') }}"><i class="fa fa-trash"></i> <span>{{ __('Usunięte elementy') }}</span></a></li>
                     <li><hr></li>
