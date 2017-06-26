@@ -18,7 +18,7 @@ class Module extends Model
     }
 
     public function sections() {
-        return $this->hasMany('App\Section', 'section_id', 'id');
+        return $this->hasManyThrough('App\Section', 'App\ModuleSection', 'module_id', 'id', 'id');
     }
 
 }
