@@ -1,6 +1,5 @@
 {
   "validation.required" : "Pole jest wymagane",
   "validation.unique" : "Pole musi być unikalne",
-  "pole musi być unikalne" : "kurwa",
   "auth.failed" : "Autoryzacja konta niepoprawna"
 }
