@@ -15,44 +15,61 @@
                                 @endforeach
                             </div>
                         @endif
+                        <br />
+                        <br />
                         @if(Session::has('status'))
-                            <br />
-                            <br />
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                             </div>
                         @endif
                         @if(isset($tree) AND $tree)
-                            <br />
-                            <br />
-                        <?php
-                            function buildLinkEdit($page_id) {
-                                return '<a href="'.route('pages.edit', $page_id).'" class="text-light-blue" title="'.__('Edytuj').'"><i class="fa fa-edit"></i></a>';
-                            }
-                            function buildLinkDestroy($nav_id, $node_id) {
-                                return '<a href="#" data-href="'.route('nodes.destroy', [$nav_id, $node_id]).'" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="'. __('Usuń') .'"><i class="fa fa-trash"></i></a>';
-                            }
-                            function buildEditTitle($title, $node_id) {
-                                return '<a href="#" data-id="'.$node_id.'" data-title="'.$title.'" class="text-red" data-toggle="modal" data-target="#change-name" title="'. __('Zmień nazwę') .'"><i class="fa fa-cog"></i></a>';
-                            }
-                            function buildTreeUl($array, $navigation_id) {
-                                $ret = '<ol>'."\n";
-                                foreach($array as $elem) {
-                                    $ret .= '<li>'.$elem->title.' - '.buildEditTitle($elem->title, $elem->id).' '.buildLinkEdit($elem->page_id).' '.buildLinkDestroy($navigation_id, $elem->id);
-                                    if($elem->who_updated) {
-                                        $ret .= ' - <img src="'.($elem->updater->image ? : '/backend/img/blank.jpg').'" class="user-circle-image" width="25" height="25" alt=""> '.$elem->updater->name.' <small class="text-muted">('.$elem->updated_at.')</small>';
+                            <div id="form-messages"></div>
+                            <?php
+                                function render_subnodes($node, $navigation)
+                                {
+                                    $ret = '';
+                                    if (count($node->subnodes))
+                                    {
+                                        $ret .= '<ol class="dd-list">';
+                                        foreach ($node->subnodes as $subnode)
+                                        {
+                                            $ret .= '<li class="dd-item" data-id="' . $subnode->id . '">';
+                                            $ret .= item($subnode, $navigation);
+                                            $ret .= render_subnodes($subnode, $navigation);
+                                            $ret .= '</li>';
+                                        }
+                                        $ret .= '</ol>';
                                     }
-                                    if($elem->children) {
-                                        $ret .= "\n".buildTreeUl($elem->children, $navigation_id);
-                                    }
-                                    $ret .= '</li>'."\n";
+                                    return $ret;
                                 }
-                                $ret .= '</ol>'."\n";
-                                return $ret;
+
+                            function item($node, $navigation)
+                            {
+                                $item = '<div class="dd-handle dd3-handle">Drag</div>
+                                            <div class="dd3-content">' .
+                                                $node->title;
+                                $item .= '<span class="button-group">';
+                                $item .= '<a href="#" data-id="'.$node->id.'" data-title="'.$node->title.'" class="text-red" data-toggle="modal" data-target="#change-name" title="'. __('Zmień nazwę') .'"><i class="fa fa-cog"></i></a>';
+                                $item .= '<a href="'.route('pages.edit', $node->page_id).'" class="text-light-blue" title="'.__('Edytuj').'"><i class="fa fa-edit"></i></a>';
+                                $item .= '<a href="#" data-href="'.route('nodes.destroy', [$navigation->id, $node->id]).'" class="text-red" data-toggle="modal" data-target="#confirm-delete" title="'. __('Usuń') .'"><i class="fa fa-trash"></i></a>';
+                                $item .= '</span></div>';
+                                return $item;
                             }
-                        ?>
-                            {!! buildTreeUl($tree, $navigation->id) !!}
+                            ?>
+                            @if ($navigation)
+                                <div id="nestable1" class="dd">
+                                    <ol class="dd-list">
+                                        @foreach ($navigation->nodes as $node)
+                                            <li class="dd-item" data-id="{{ $node->id }}">
+                                                {!! item($node, $navigation) !!}
+                                                {!! render_subnodes($node, $navigation) !!}
+                                            </li>
+                                        @endforeach
+                                    </ol>
+                                </div>
+                            @endif
+                            <div class="hide" id="nestable1-output"></div>
                         @endif
                     </div>
                 </div>
@@ -156,4 +173,35 @@
             modal.find('#change_title').val(title);
         })
     </script>
+
+    <script>
+        var CompNestable = function() {
+            var updateOutput = function(e, init) {
+                var list   = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.html(window.JSON.stringify(list.nestable('serialize')));
+                    if (!init)
+                    {
+                        var $_token = "{{ csrf_token() }}";
+                        SendAjax('{{ route('nodes.refreshtree', array($navigation->id)) }}', 'POST', { tree_structure: window.JSON.stringify(list.nestable('serialize')), _token: $_token })
+                    }
+                } else {
+                    output.html('JSON browser support required!');
+                }
+            };
+            return {
+                init: function() {
+                    var nestList1 = $('#nestable1');
+                    nestList1
+                        .nestable({
+                            group: 1
+                        })
+                        .on('change', updateOutput);
+                    updateOutput(nestList1.data('output', $('#nestable1-output')), 1);
+                }
+            };
+        }();
+    </script>
+    <script>$(function(){ CompNestable.init(); });</script>
 @endsection

@@ -16,5 +16,10 @@ class NavigationNode extends Model
     public function updater() {
         return $this->hasOne('App\User', 'id', 'who_updated');
     }
+    public function subnodes()
+    {
+        return $this->hasMany('App\NavigationNode', 'parent_id')->orderBy('order', 'asc');
+    }
+
 
 }

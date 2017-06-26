@@ -146,6 +146,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('navigations/{navigation_id}', 'NavigationNodesController@store');
     Route::get('navigations/{navigation_id}/{node_id}/destroy', 'NavigationNodesController@destroy')->name('nodes.destroy');
     Route::post('navigations/{navigation_id}/edit', 'NavigationNodesController@update')->name('nodes.edit');
-    Route::get('navigations/{navigation_id}/{locale}', 'NavigationsController@changelocale')->name('nodes.changelocale');
+    Route::post('navigations/{navigation_id}/refreshtree', 'NavigationNodesController@refreshtree')->name('nodes.refreshtree');
 
 });

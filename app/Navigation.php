@@ -17,4 +17,9 @@ class Navigation extends Model
         return $this->hasOne('App\User', 'id', 'who_updated');
     }
 
+    public function nodes()
+    {
+        return $this->hasMany('App\NavigationNode')->where('parent_id', null)->orderBy('order', 'asc');
+    }
+
 }

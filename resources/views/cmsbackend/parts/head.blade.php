@@ -27,8 +27,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
 <link rel="stylesheet" href="/backend/plugins/iCheck/blue.css">
-<link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="/backend/plugins/datatables/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/backend/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="/backend/plugins/nestable/nestable.css">
 
 <link rel="stylesheet" href="/backend/css/bootstrap.min.css">
 <link rel="stylesheet" href="/backend/css/AdminLTE.min.css">

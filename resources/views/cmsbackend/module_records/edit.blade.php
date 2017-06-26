@@ -15,7 +15,7 @@
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <form role="form" method="POST" action="{{ route('records.edit', [$module->id, $record->id]) }}">
+                    {{Form::open(['route' => ['records.edit', $module->id, $record->id], 'files' => true, 'method' => 'POST'])}}
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="row">
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div>
         </div>

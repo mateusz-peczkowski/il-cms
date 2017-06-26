@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StoreNodeNavigation;
 use App\Http\Requests\UpdateNodeTitle;
+use App\Http\Requests\ChangeRequest;
 use App\Repositories\Contracts\NavigationRepositoryInterface;
 use App\Repositories\Contracts\NavigationNodeRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
@@ -189,6 +190,35 @@ class NavigationNodesController extends BackendController
         }
 
         return $tree;
+    }
+
+    public function refreshtree($id, ChangeRequest $request) {
+        $tree_structure = json_decode($request->get('tree_structure'), true);
+        if ($this->refreshTreeHelper($tree_structure))
+        {
+            return $this->responseOK(false);
+        }
+        else
+        {
+            return $this->responseError();
+        }
+    }
+
+    protected function refreshTreeHelper($tree_structure, $parent_id = null)
+    {
+        foreach ($tree_structure as $key => $new_node)
+        {
+            $node = $this->navigation_nodes->find($new_node['id']);
+            $node->order = $key;
+            $node->parent_id = $parent_id;
+            $node->save();
+
+            if (isset($new_node['children']))
+            {
+                $this->refreshTreeHelper($new_node['children'], $node->id);
+            }
+        }
+        return true;
     }
 
 

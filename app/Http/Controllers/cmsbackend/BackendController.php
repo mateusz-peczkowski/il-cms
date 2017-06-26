@@ -23,4 +23,26 @@ class BackendController extends BaseController
         $this->breadcrumbs->addCrumb('<i class="fa fa-home"></i>', '/cmsbackend');
         $this->breadcrumbs->addCrumb(__('Pulpit nawigacyjny'), '/cmsbackend');
     }
+
+    protected function responseOK($message = null)
+    {
+        $message = $message ?: __('Zapisane');
+        return $this->response('OK', $message);
+    }
+
+    protected function responseError()
+    {
+        return $this->response('Error', __('Error message'));
+    }
+
+    protected function response($status, $message)
+    {
+        $ret = array();
+        $ret['status'] = $status;
+        if (!is_null($message))
+        {
+            $ret['message'] = $message;
+        }
+        return \Response::json($ret);
+    }
 }
