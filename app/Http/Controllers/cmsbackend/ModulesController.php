@@ -4,16 +4,19 @@ namespace App\Http\Controllers\cmsbackend;
 
 use App\Http\Requests\StoreModule;
 use App\Http\Requests\UpdateModule;
+use App\ModuleSection;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
+use App\Repositories\Contracts\SectionRepositoryInterface;
 use Auth;
 use Session;
 
 class ModulesController extends BackendController
 {
-    public function __construct(ModuleRepositoryInterface $modules)
+    public function __construct(ModuleRepositoryInterface $modules, SectionRepositoryInterface $section)
     {
         parent::__construct();
         $this->modules = $modules;
+        $this->sections = $section;
     }
 
     /**
@@ -67,6 +70,11 @@ class ModulesController extends BackendController
     public function edit($id)
     {
         $module = $this->modules->find($id);
+        $module->sections_structure = [];
+        foreach ($module->sections() as $section) {
+            $module->sections_structure = array_merge($module->sections_structure, [$section->title => ['title' => $section->title, 'type' => $section->type]]);
+        }
+        $module->sections_structure = json_encode($module->sections_structure);
         $this->breadcrumbs->addCrumb(__('Moduły'), '/cmsbackend/settings/modules');
         $this->breadcrumbs->addCrumb(__('Edytuj moduł'), '/cmsbackend/settings/modules/'.$id.'/edit');
         return view('cmsbackend.modules.edit')->with([
@@ -86,13 +94,26 @@ class ModulesController extends BackendController
      */
     public function update($id, UpdateModule  $request)
     {
-        $obj = $request->only('title', 'structure', 'has_details', 'order_records', 'order_records_type');
+        $obj = $request->only('title', 'structure', 'sections_structure', 'has_details', 'order_records', 'order_records_type');
         if($obj['title'] != $this->modules->find($id)->title) {
             $obj['slug'] = $this->constructSlug(0, $obj['title']);
         }
+        if ($obj['sections_structure']) {
+            $sectionAttrs = json_decode($obj['sections_structure'], true);
+            foreach ($sectionAttrs as $sectionAttr) {
+                $section['title'] = $sectionAttr['title'];
+                $section['type'] = $sectionAttr['type'];
+                $section['who_updated'] = Auth::id();
+                $section['options'] = [];
+                $section['status'] = 1;
+                $section = $this->sections->create($section);
+                $moduleSection = new ModuleSection(['module_id' => $id, 'section_id' => $section->id]);
+                $section->module()->save($moduleSection);
+            }
+        }
         $obj['who_updated'] = Auth::id();
         $obj['has_details'] = $obj['has_details'] ? 1 : 0;
-        $this->modules->update($obj, $id);
+        //$this->modules->update($obj, $id);
         return redirect()->route('index-modules')->with([
             'status' => __('Moduł został zaaktualizowany'),
             'status_type' => 'success'

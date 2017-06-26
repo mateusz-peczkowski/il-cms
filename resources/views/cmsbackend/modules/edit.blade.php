@@ -214,6 +214,7 @@
 @section('scripts')
     <script>
         var moduleData = {};
+        var sectionData = {};
 
         $('#module_add_structure .alert').slideUp();
         $('#module_add_section .alert').slideUp();
@@ -254,10 +255,10 @@
         };
 
         var setSectionTable = function() {
-            $('#sections_structure').val(JSON.stringify(moduleData));
+            $('#sections_structure').val(JSON.stringify(sectionData));
 
             var string = '';
-            $.each(moduleData, function(index, elem) {
+            $.each(sectionData, function(index, elem) {
                 string += '<tr>';
                 string += '<td>'+elem.title+'</td>';
                 string += '<td>'+elem.type+'</td>';
@@ -267,7 +268,7 @@
 
             $('#table-body-sections').empty().html(string);
 
-            btnActions();
+            btnSectionsActions();
         };
 
         var btnActions = function() {
@@ -275,6 +276,14 @@
                 e.preventDefault();
                 delete moduleData[$(this).data('slug')];
                 setTable();
+            });
+        };
+
+        var btnSectionsActions = function() {
+            $('.remove-btn').unbind('click').click(function(e) {
+                e.preventDefault();
+                delete sectionData[$(this).data('slug')];
+                setSectionTable();
             });
         };
 
@@ -320,7 +329,7 @@
 
             var slug = create_slug(title);
 
-            if(moduleData[slug]) {
+            if(sectionData[slug]) {
                 $('#module_add_section .alert').slideDown(function() {
                     setTimeout(function() {
                         $('#module_add_section .alert').slideUp();
@@ -329,9 +338,9 @@
                 return false;
             }
 
-            moduleData[slug] = {};
-            moduleData[slug]['title'] = title;
-            moduleData[slug]['type'] = type;
+            sectionData[slug] = {};
+            sectionData[slug]['title'] = title;
+            sectionData[slug]['type'] = type;
 
             setSectionTable();
 
@@ -345,6 +354,10 @@
         if($('#structure').val()) {
             moduleData = JSON.parse($('#structure').val());
             setTable();
+        }
+        if($('#sections_structure').val()) {
+            sectionData = JSON.parse($('#sections_structure').val());
+            setSectionTable();
         }
     </script>
 @endsection

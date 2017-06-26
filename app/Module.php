@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Module extends Model
 {
@@ -18,7 +19,6 @@ class Module extends Model
     }
 
     public function sections() {
-        return $this->hasManyThrough('App\Section', 'App\ModuleSection', 'module_id', 'id', 'id');
+        return DB::table('sections')->join('module_sections', 'sections.id', '=', 'module_sections.section_id')->select('sections.*')->where('module_sections.module_id', '=', $this->id)->get();
     }
-
 }
