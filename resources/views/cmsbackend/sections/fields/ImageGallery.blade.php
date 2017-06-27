@@ -15,7 +15,7 @@
         <div class="form-group">
             <label>{{ __('Galeria') }}</label>
             {{-- TODO: dodać zarządanie galerią gdy skończone będzie zarządzanie mediami --}}
-            {!! $section->options['gallery'] !!}
+            {!! isset($section->options['gallery']) ? $section->options['gallery'] : '' !!}
         </div>
     </div>
     <hr>

@@ -13,9 +13,9 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            <label>{{ __('Galeria') }}</label>
+            <label>{{ __('Slider') }}</label>
             {{-- TODO: dodać zarządanie galerią gdy skończone będzie zarządzanie mediami --}}
-            {!! $section->options['carousel'] !!}
+            {!! isset($section->options['carousel']) ? $section->options['carousel'] : '' !!}
         </div>
     </div>
     <hr>
