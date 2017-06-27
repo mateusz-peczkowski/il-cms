@@ -214,7 +214,7 @@
 @section('scripts')
     <script>
         var moduleData = {};
-        var sectionData = {};
+        var sectionData = [];
 
         $('#module_add_structure .alert').slideUp();
         $('#module_add_section .alert').slideUp();
@@ -256,6 +256,7 @@
 
         var setSectionTable = function() {
             $('#sections_structure').val(JSON.stringify(sectionData));
+            console.log(JSON.stringify(sectionData));
 
             var string = '';
             $.each(sectionData, function(index, elem) {
@@ -338,14 +339,16 @@
                 return false;
             }
 
-            sectionData[slug] = {};
-            sectionData[slug]['title'] = title;
-            sectionData[slug]['type'] = type;
+            sectionData.push({
+                title: title,
+                type: type,
+                slug: slug
+            });
 
             setSectionTable();
 
             $('#module_add_section input').val('');
-            $('#module_add_section select').val($('#module_add_structure select option').eq(0).val());
+            $('#module_add_section select').val($('#module_add_section select option').eq(0).val());
 
             $('#add-new-section').modal('hide');
 

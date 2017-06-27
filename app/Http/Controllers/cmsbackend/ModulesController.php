@@ -98,6 +98,7 @@ class ModulesController extends BackendController
         if($obj['title'] != $this->modules->find($id)->title) {
             $obj['slug'] = $this->constructSlug(0, $obj['title']);
         }
+
         if ($obj['sections_structure']) {
             $sectionAttrs = json_decode($obj['sections_structure'], true);
             foreach ($sectionAttrs as $sectionAttr) {
@@ -107,13 +108,12 @@ class ModulesController extends BackendController
                 $section['options'] = [];
                 $section['status'] = 1;
                 $section = $this->sections->create($section);
-                $moduleSection = new ModuleSection(['module_id' => $id, 'section_id' => $section->id]);
-                $section->module()->save($moduleSection);
+                $section->module()->attach($id);
             }
         }
         $obj['who_updated'] = Auth::id();
         $obj['has_details'] = $obj['has_details'] ? 1 : 0;
-        //$this->modules->update($obj, $id);
+        $this->modules->update($obj, $id);
         return redirect()->route('index-modules')->with([
             'status' => __('Moduł został zaaktualizowany'),
             'status_type' => 'success'

@@ -14,6 +14,11 @@ class Module extends Model
         'title', 'slug', 'structure', 'order', 'who_updated', 'status', 'has_details', 'order_records', 'order_records_type'
     ];
 
+    protected $casts = [
+        'structure' => 'json',
+        'sections_structure' => 'json'
+    ];
+
     public function updater() {
         return $this->hasOne('App\User', 'id', 'who_updated');
     }
