@@ -2,7 +2,7 @@
     <div class="col-md-6">
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label>{{ __('Tytuł sekcji') }}{{ $errors->has('name') ? ' - '.(__($errors->first('title'))) : '' }}</label>
-            <input type="text" id="title" name="name" class="form-control" value="{{ old('title') ? : $section->title }}" required autofocus />
+            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? : $section->title }}" required autofocus />
         </div>
     </div>
     <div class="col-md-6">

@@ -21,7 +21,7 @@
                             <div class="col-xs-12">
                                 <div class="text-center mb-0">
                                     @can('add_dev', 'App\User')
-                                        <a href="{{ route('pages.options.edit', $option->id) }}" class="btn btn-info margin" title="{{ __('Edytuj strukturę') }}">{{ __('Edytuj strukturę') }}</a>
+                                        <a href="{{ route('pages.sections.edit', $option->id) }}" class="btn btn-info margin" title="{{ __('Edytuj strukturę') }}">{{ __('Edytuj strukturę') }}</a>
                                     @endcan
                                     <button type="reset" class="btn btn-danger margin">{{ __('Wyczyść formularz') }}</button>
                                     <button type="submit" class="btn btn-success margin">{{ __('Zapisz') }}</button>

@@ -18,7 +18,6 @@ class Page extends Model
     }
 
     public function sections() {
-        return $this->hasManyThrough('App\Section', 'App\PageSection', 'page_id', 'id', 'id');
+        return $this->belongsToMany('App\Section', 'page_sections', 'page_id', 'section_id');
     }
-
 }

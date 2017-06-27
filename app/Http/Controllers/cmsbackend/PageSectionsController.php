@@ -34,11 +34,9 @@ class PageSectionsController extends BackendController
      */
     public function index($id)
     {
-        $page = $this->pages->getPageSections($id);
-        $sections = $page->sections;
-
+        $page = $this->pages->find($id);
+        $sections = $page->sections();
         $options = count($sections) ? $this->pages->getPageSectionsPaginated($id) : collect([]);
-
         $this->breadcrumbs->addCrumb(__('Strony'), '/cmsbackend/pages');
         $this->breadcrumbs->addCrumb(__('Sekcje'), '/cmsbackend/pages/'.$id.'/sections');
         return view('cmsbackend.sections.index')->with([
@@ -65,8 +63,7 @@ class PageSectionsController extends BackendController
         $obj['status'] = 1;
 
         $section = $this->sections->create($obj);
-        $pageSection = new PageSection(['page_id' => $id, 'section_id' => $section->id]);
-        $section->page()->save($pageSection);
+        $this->sections->find($section->id)->page()->sync($id);
 
         return redirect()->route('pages.sections', $id)->with([
             'status' => __('Sekcja dodana'),
@@ -142,7 +139,7 @@ class PageSectionsController extends BackendController
      */
     public function update_value($id, Request $request)
     {
-        $obj = $request->only('title', 'header', 'content', 'option');
+        $obj = $request->only('title', 'header', 'content', 'options');
         $obj['who_updated'] = Auth::id();
         $this->sections->update($obj, $id);
         $page = $this->sections->find($id)->page->pop();

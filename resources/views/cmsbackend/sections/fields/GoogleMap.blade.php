@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>{{ __('Lokalizacja') }}</label>
-            <input type="text" name="option['location']" id="location" class="form-control" value="{{ old('option[\'location\']') ? : '' }}" required>
+            <input type="text" name="options[location]" id="location" class="form-control" value="{{ old('options[location]') ? : isset($section->options['location']) ? $section->options['location'] : '' }}" required>
         </div>
     </div>
     <div class="col-md-12" style="height: 400px;">

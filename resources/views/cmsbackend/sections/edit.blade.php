@@ -11,14 +11,14 @@
                             <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status') }}!</h4>
                         </div>
                     @endif
-                    <form role="form" method="POST" action="{{ route('pages.options.edit', $option->id) }}">
+                    <form role="form" method="POST" action="{{ route('pages.sections.edit', $option->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Tytuł') }}</label>
-                                    <input type="text" id="key" name="key" class="form-control" value="{{ old('key') ? : $option->key }}" required autofocus />
+                                    <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? : $option->title }}" required autofocus />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -26,10 +26,11 @@
                                     <label>{{ __('Typ') }}</label>
                                     <?php $type = old('type') ? : $option->type ?>
                                     <select name="type" id="type" class="form-control" required>
-                                        <option value="text"{{ $type == 'text' ? ' selected' : '' }}>{{ __('Text') }}</option>
-                                        <option value="textarea"{{ $type == 'textarea' ? ' selected' : '' }}>{{ __('Textarea') }}</option>
-                                        <option value="select"{{ $type == 'select' ? ' selected' : '' }}>{{ __('Select') }}</option>
-                                        <option value="checkbox"{{ $type == 'checkbox' ? ' selected' : '' }}>{{ __('Checkbox') }}</option>
+                                        <option value="TextEditor"{{ $type == 'textEditor' ? ' selected' : '' }}>{{ __('Edytor tekstowy') }}</option>
+                                        <option value="EmbedHtml"{{ $type == 'EmbedHtml' ? ' selected' : '' }}>{{ __('Osadanie kodu HTML') }}</option>
+                                        <option value="GoogleMap"{{ $type == 'GoogleMap' ? ' selected' : '' }}>{{ __('Mapa google') }}</option>
+                                        <option value="ImageGallery"{{ $type == 'ImageGallery' ? ' selected' : '' }}>{{ __('Galeria') }}</option>
+                                        <option value="ImageCarousel"{{ $type == 'ImageCarousel' ? ' selected' : '' }}>{{ __('Karuzela obrazów') }}</option>
                                     </select>
                                 </div>
                             </div>
