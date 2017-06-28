@@ -25,6 +25,7 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",
+        "riverskies/laravel-mobile-detect": "^1.2",
         "spatie/laravel-activitylog": "^1.15",
         "thomaswelton/laravel-gravatar": "~1.0",
         "weboap/visitor": "dev-master",
