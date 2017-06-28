@@ -170,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        Riverskies\Laravel\MobileDetect\MobileDetectServiceProvider::class,
         ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
         Webwizo\Shortcodes\ShortcodesServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
@@ -246,6 +247,7 @@ return [
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'MobileDetect' => Riverskies\Laravel\MobileDetect\Facades\MobileDetect::class,
         'OpenGraph' => ChrisKonnertz\OpenGraph\OpenGraphFacade::class,
         'Shortcode' => Webwizo\Shortcodes\Facades\Shortcode::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
