@@ -81,6 +81,7 @@ class CMS
                 echo $defaultTerm->value;
                 return;
             } else {
+                echo __($key);
                 return;
             }
         } else {
