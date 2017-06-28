@@ -5,10 +5,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    @if($module->has_details)
-                        @include('cmsbackend.parts.top_nav.module_records', ['active' => 'edit', 'model' => $record])
-                        <hr>
-                    @endif
+                    @include('cmsbackend.parts.top_nav.module_records', ['active' => 'edit', 'record' => $record, 'model' => $module])
                     @if(Session::has('status'))
                         <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

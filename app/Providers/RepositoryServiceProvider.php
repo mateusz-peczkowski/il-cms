@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\SectionObserver;
+use App\Section;
 use App\Page;
 use App\Control;
 use App\Form;
@@ -29,6 +31,7 @@ use App\Observers\UserObserver;
 use App\Observers\NavigationObserver;
 use App\Observers\NavigationNodeObserver;
 use App\Repositories\Page\PageCacheDecorator;
+use App\Repositories\Section\SectionCacheDecorator;
 use App\Repositories\Control\ControlCacheDecorator;
 use App\Repositories\Form\FormCacheDecorator;
 use App\Repositories\Redirect\RedirectCacheDecorator;
@@ -66,6 +69,7 @@ class RepositoryServiceProvider extends ServiceProvider
         ModuleRecord::observe(ModuleRecordObserver::class);
         Navigation::observe(NavigationObserver::class);
         NavigationNode::observe(NavigationNodeObserver::class);
+        Section::observe(SectionObserver::class);
     }
 
     /**
@@ -92,6 +96,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerModuleRecordRepository();
         $this->registerNavigationRepository();
         $this->registerNavigationNodeRepository();
+        $this->registerSectionRepository();
     }
 
     /*
@@ -229,6 +234,18 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Repositories\Contracts\PageOptionRepositoryInterface', function($app) {
             return new \App\Repositories\PageOption\EloquentPageOptionRepository($app);
+        });
+    }
+
+    /**
+     * Register Section repository
+     */
+    protected function registerSectionRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\SectionRepositoryInterface', function($app) {
+            $page = new \App\Repositories\Section\EloquentSectionRepository($app);
+
+            return new SectionCacheDecorator($page, ['section', 'updater'], $this->app->make('App\Services\Contracts\CacheInterface'));
         });
     }
 

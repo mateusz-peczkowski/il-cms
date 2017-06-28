@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cmsbackend;
 use App\Http\Requests\StoreRecordModule;
 use App\Http\Requests\UpdateRecordModule;
 use App\Http\Requests\StoreModuleRecordDuplicate;
+use App\Http\Requests\UpdateRecordSectionModule;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
 use App\Repositories\Contracts\ModuleRecordRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
@@ -104,7 +105,7 @@ class ModuleRecordsController extends BackendController
         $module = $this->modules->find($module_id);
         $record = $this->module_records->find($id);
         $this->breadcrumbs->addCrumb(__('Moduł').' - '.__($module->title), '/cmsbackend/modules/'.$module_id);
-        $this->breadcrumbs->addCrumb(__('Edycja rekordu'), '/cmsbackend/modules/'.$module_id.'/'.$id);
+        $this->breadcrumbs->addCrumb(__('Edycja rekordu'), '/cmsbackend/modules/'.$module_id.'/'.$id.'/edit');
         return view('cmsbackend.module_records.edit')->with([
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Edycja rekordu'),
@@ -156,6 +157,57 @@ class ModuleRecordsController extends BackendController
         $this->module_records->update($obj_send, $id);
         return redirect()->route('records', $module_id)->with([
             'status' => __('Rekord został zaaktualizowany'),
+            'status_type' => 'success'
+        ]);
+
+    }
+
+    /**
+     * Sections for created resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function section($module_id, $id)
+    {
+        $module = $this->modules->find($module_id);
+        $record = $this->module_records->find($id);
+        $this->breadcrumbs->addCrumb(__('Moduł').' - '.__($module->title), '/cmsbackend/modules/'.$module_id);
+        $this->breadcrumbs->addCrumb(__('Edycja sekcji rekordu'), '/cmsbackend/modules/'.$module_id.'/'.$id.'/section');
+        return view('cmsbackend.module_records.section')->with([
+            'breadcrumbs' => $this->breadcrumbs,
+            'pageTitle' => __('Edycja sekcji rekordu'),
+            'module' => $module,
+            'record' => $record,
+            'is_active_nav' => 'modules-'.$module->slug
+        ]);
+    }
+
+    /**
+     * update sections of created resource in storage.
+     *
+     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateRecordSectionModule  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_section($module_id, $id, UpdateRecordSectionModule  $request)
+    {
+        $obj = $request->get('data');
+        $data_send = [];
+        if($obj) {
+            foreach ($obj as $key => $value) {
+                if ($value != null) {
+                    $data_send[$key] = $value;
+                }
+            }
+        }
+        $obj_send = [
+            'section_data' => json_encode($data_send),
+            'who_updated' => Auth::id()
+        ];
+        $this->module_records->update($obj_send, $id);
+        return redirect()->route('records', $module_id)->with([
+            'status' => __('Sekcje zostały zostały zaaktualizowane'),
             'status_type' => 'success'
         ]);
 

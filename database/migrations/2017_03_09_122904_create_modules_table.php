@@ -12,6 +12,7 @@ class CreateModulesTable extends Migration {
 			$table->string('title', 255);
             $table->string('slug');
             $table->text('structure')->nullable();
+            $table->text('sections_structure')->nullable();
             $table->integer('order')->unsigned();
             $table->integer('who_updated')->unsigned()->nullable();
             $table->boolean('has_details')->default(0);

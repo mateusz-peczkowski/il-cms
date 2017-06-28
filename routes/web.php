@@ -99,8 +99,20 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('pages/{id}/delete', 'PagesController@delete')->name('pages.delete')->middleware('developers');
     Route::get('pages/locale/{locale}', 'PagesController@changelocale')->name('pages.changelocale');
     Route::get('pages/{id}/gallery', 'PagesController@gallery')->name('pages.gallery');
-    Route::get('pages/{id}/sections', 'PagesController@sections')->name('pages.sections');
+    /*
+     * page sections
+     */
+    Route::get('pages/{id}/sections', 'PageSectionsController@index')->name('pages.sections');
+    Route::post('pages/{id}/sections', 'PageSectionsController@store')->middleware('developers');
+    Route::get('pages/sections/{id}', 'PageSectionsController@value')->name('pages.sections.value');
+    Route::put('pages/sections/{id}', 'PageSectionsController@update_value');
+    Route::get('pages/sections/{id}/edit', 'PageSectionsController@edit')->name('pages.sections.edit')->middleware('developers');
+    Route::put('pages/sections/{id}/edit', 'PageSectionsController@update')->middleware('developers');
+    Route::get('pages/sections/{id}/destroy', 'PageSectionsController@destroy')->name('pages.sections.delete')->middleware('developers');
 
+    /*
+     * page options
+     */
     Route::get('pages/{id}/options', 'PageOptionsController@index')->name('pages.options');
     Route::post('pages/{id}/options', 'PageOptionsController@store')->middleware('developers');
     Route::get('pages/options/{id}', 'PageOptionsController@value')->name('pages.options.value');
@@ -128,6 +140,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('modules/{module_id}', 'ModuleRecordsController@store');
     Route::get('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@edit')->name('records.edit');
     Route::put('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@update');
+    Route::get('modules/{module_id}/{record_id}/section', 'ModuleRecordsController@section')->name('records.section');
+    Route::put('modules/{module_id}/{record_id}/section', 'ModuleRecordsController@update_section');
     Route::get('modules/{module_id}/{record_id}/activate', 'ModuleRecordsController@activate')->name('records.activate');
     Route::get('modules/{module_id}/{record_id}/deactivate', 'ModuleRecordsController@deactivate')->name('records.deactivate');
     Route::get('modules/{module_id}/{record_id}/destroy', 'ModuleRecordsController@destroy')->name('records.destroy');

@@ -15,4 +15,8 @@ interface PageRepositoryInterface
 
     public function checkPageExistByURL($url = '', $locale = '');
 
+    public function getPageSections($id);
+
+    public function getPageSectionsPaginated($id);
+
 }

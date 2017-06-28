@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cmsbackend;
 
+use App\Repositories\Contracts\SectionRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\RedirectRepositoryInterface;
 use App\Repositories\Contracts\TranslationRepositoryInterface;
@@ -14,7 +15,7 @@ use Auth;
 
 class TrashController extends BackendController
 {
-    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module, NavigationRepositoryInterface $navigation)
+    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module, NavigationRepositoryInterface $navigation, SectionRepositoryInterface $section)
     {
         parent::__construct();
         $this->user = $user;
@@ -25,6 +26,7 @@ class TrashController extends BackendController
         $this->page = $page;
         $this->module = $module;
         $this->navigation = $navigation;
+        $this->section = $section;
     }
 
     /**
@@ -42,6 +44,7 @@ class TrashController extends BackendController
         $pages = $this->page->paginatedPagesTrash();
         $modules = $this->module->paginatedModulesTrash();
         $navigations = $this->navigation->paginatedNavigationsTrash();
+        $sections = $this->section->paginatedSectionsTrash();
         $this->breadcrumbs->addCrumb(__('Usunięte elementy'), '/cmsbackend/trash');
         return view('cmsbackend.trash.index')->with([
             'users' => $users,
@@ -52,6 +55,7 @@ class TrashController extends BackendController
             'pages' => $pages,
             'modules' => $modules,
             'navigations' => $navigations,
+            'sections' => $sections,
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Usunięte elementy'),
             'is_active_nav' => 'trash'
