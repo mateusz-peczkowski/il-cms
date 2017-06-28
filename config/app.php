@@ -170,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        Webwizo\Shortcodes\ShortcodesServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
         Cornford\Googlmapper\MapperServiceProvider::class,
 
@@ -182,6 +183,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\ShortcodesServiceProvider::class,
 
         App\Providers\ComposerServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
@@ -243,6 +245,7 @@ return [
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Shortcode' => Webwizo\Shortcodes\Facades\Shortcode::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
 
         //App facades
