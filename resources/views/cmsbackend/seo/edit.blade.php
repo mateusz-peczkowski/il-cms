@@ -25,6 +25,7 @@
                             $meta_keys = old('meta_keys') ? : ($seo ? $seo->meta_keys : '');
                             $page_head = old('page_head') ? : ($seo ? $seo->page_head : '');
                             $page_footer = old('page_footer') ? : ($seo ? $seo->page_footer : '');
+                            $include_opengraph = old('include_opengraph') ? : ($seo ? $seo->include_opengraph : false);
                         ?>
                         <div class="row">
                             <div class="col-md-6">
@@ -50,6 +51,9 @@
                                 <div class="form-group">
                                     <label>{{ __('Page footer') }}</label>
                                     <textarea name="page_footer" id="page_footer" class="form-control">{{ $page_footer }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label><input type="checkbox" name="include_opengraph" id="include_opengraph" class="form-control" value="1"  @if($include_opengraph) checked @endif  >&nbsp;{{ __('Include open graph tags?') }}</label>
                                 </div>
                             </div>
                             <div class="col-xs-12">

@@ -170,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -241,6 +242,7 @@ return [
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'OpenGraph' => ChrisKonnertz\OpenGraph\OpenGraphFacade::class,
 
         //App facades
         'CMS' => App\Libraries\CMS::class,
