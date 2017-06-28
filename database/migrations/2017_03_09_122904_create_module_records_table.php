@@ -12,6 +12,7 @@ class CreateModuleRecordsTable extends Migration {
 			$table->string('title', 255);
             $table->string('slug')->nullable();
             $table->text('data')->nullable();
+            $table->text('section_data')->nullable();
             $table->integer('module_id')->unsigned();
             $table->integer('order')->unsigned();
             $table->enum('status', array('1', '2'));

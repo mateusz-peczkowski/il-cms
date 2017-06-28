@@ -186,12 +186,12 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('Nazwa sekcji') }}</label>
-                            <input type="text" id="str_title" name="str_title" class="form-control" value="{{ old('title') }}" required autofocus />
+                            <input type="text" id="str_sec_title" name="str_sec_title" class="form-control" value="{{ old('title') }}" required autofocus />
                         </div>
                         <div class="form-group">
                             <label>{{ __('Typ sekcji') }}</label>
                             <?php $type = old('type') ?>
-                            <select name="str_type" id="str_type" class="form-control" required>
+                            <select name="str_sec_type" id="str_sec_type" class="form-control" required>
                                 <option value="TextEditor"{{ $type == 'textEditor' ? ' selected' : '' }}>{{ __('Edytor tekstowy') }}</option>
                                 <option value="EmbedHtml"{{ $type == 'EmbedHtml' ? ' selected' : '' }}>{{ __('Osadanie kodu HTML') }}</option>
                                 <option value="GoogleMap"{{ $type == 'GoogleMap' ? ' selected' : '' }}>{{ __('Mapa google') }}</option>
@@ -213,12 +213,6 @@
 
 @section('scripts')
     <script>
-        var moduleData = {};
-        var sectionData = [];
-
-        $('#module_add_structure .alert').slideUp();
-        $('#module_add_section .alert').slideUp();
-
         var create_slug = function(str) {
             str = str.replace(/^\s+|\s+$/g, '');
             str = str.toLowerCase();
@@ -232,6 +226,11 @@
                 .replace(/-+/g, '-');
             return str;
         };
+    </script>
+    <script>
+        var moduleData = {};
+
+        $('#module_add_structure .alert').slideUp();
 
         var setTable = function() {
 
@@ -254,37 +253,11 @@
             btnActions();
         };
 
-        var setSectionTable = function() {
-            $('#sections_structure').val(JSON.stringify(sectionData));
-            console.log(JSON.stringify(sectionData));
-
-            var string = '';
-            $.each(sectionData, function(index, elem) {
-                string += '<tr>';
-                string += '<td>'+elem.title+'</td>';
-                string += '<td>'+elem.type+'</td>';
-                string += '<td class="text-center"><button class="text-red remove-btn" style="padding: 0; background: transparent; border: 0; margin: 0 5px;" data-slug="'+ elem.slug +'"><i class="fa fa-trash"></i></button></td>';
-                string += '</tr>';
-            });
-
-            $('#table-body-sections').empty().html(string);
-
-            btnSectionsActions();
-        };
-
         var btnActions = function() {
             $('.remove-btn').unbind('click').click(function(e) {
                 e.preventDefault();
                 delete moduleData[$(this).data('slug')];
                 setTable();
-            });
-        };
-
-        var btnSectionsActions = function() {
-            $('.remove-btn').unbind('click').click(function(e) {
-                e.preventDefault();
-                delete sectionData[$(this).data('slug')];
-                setSectionTable();
             });
         };
 
@@ -322,15 +295,50 @@
 
         });
 
+        if($('#structure').val()) {
+            moduleData = JSON.parse($('#structure').val());
+            setTable();
+        }
+    </script>
+    <script>
+        var sectionData = {};
+
+        $('#module_add_section .alert').slideUp();
+
+        var setSectionTable = function() {
+            $('#sections_structure').val(JSON.stringify(sectionData));
+
+            var string = '';
+            $.each(sectionData, function(index, elem) {
+                string += '<tr>';
+                string += '<td>'+elem.title+'</td>';
+                string += '<td>'+elem.type+'</td>';
+                string += '<td class="text-center"><button class="text-red remove-btn-section" style="padding: 0; background: transparent; border: 0; margin: 0 5px;" data-slug="'+ elem.slug +'"><i class="fa fa-trash"></i></button></td>';
+                string += '</tr>';
+            });
+
+            $('#table-body-sections').empty().html(string);
+
+            btnSectionsActions();
+        };
+
+        var btnSectionsActions = function() {
+            $('.remove-btn-section').unbind('click').click(function(e) {
+                e.preventDefault();
+                delete sectionData[$(this).data('slug')];
+                setSectionTable();
+            });
+        };
+
         $('#module_add_section').on('submit', function(e) {
             e.preventDefault();
 
-            var title = $('#module_add_section #str_title').val();
-            var type = $('#module_add_section #str_type').val();
+            var sec_title = $('#module_add_section #str_sec_title').val();
+            var sec_type = $('#module_add_section #str_sec_type').val();
 
-            var slug = create_slug(title);
+            var sec_slug = create_slug(sec_title);
 
-            if(sectionData[slug]) {
+            if(sectionData[sec_slug]) {
                 $('#module_add_section .alert').slideDown(function() {
                     setTimeout(function() {
                         $('#module_add_section .alert').slideUp();
@@ -339,12 +347,12 @@
                 return false;
             }
 
-            sectionData.push({
-                title: title,
-                type: type,
-                slug: slug
-            });
+            sectionData[sec_slug] = {};
+            sectionData[sec_slug]['title'] = sec_title;
+            sectionData[sec_slug]['slug'] = sec_slug;
+            sectionData[sec_slug]['type'] = sec_type;
 
+            console.log(sectionData, sectionData[sec_slug], sectionData.length);
             setSectionTable();
 
             $('#module_add_section input').val('');
@@ -354,10 +362,6 @@
 
         });
 
-        if($('#structure').val()) {
-            moduleData = JSON.parse($('#structure').val());
-            setTable();
-        }
         if($('#sections_structure').val()) {
             sectionData = JSON.parse($('#sections_structure').val());
             setSectionTable();

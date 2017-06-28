@@ -145,6 +145,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('modules/{module_id}', 'ModuleRecordsController@store');
     Route::get('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@edit')->name('records.edit');
     Route::put('modules/{module_id}/{record_id}/edit', 'ModuleRecordsController@update');
+    Route::get('modules/{module_id}/{record_id}/section', 'ModuleRecordsController@section')->name('records.section');
+    Route::put('modules/{module_id}/{record_id}/section', 'ModuleRecordsController@update_section');
     Route::get('modules/{module_id}/{record_id}/activate', 'ModuleRecordsController@activate')->name('records.activate');
     Route::get('modules/{module_id}/{record_id}/deactivate', 'ModuleRecordsController@deactivate')->name('records.deactivate');
     Route::get('modules/{module_id}/{record_id}/destroy', 'ModuleRecordsController@destroy')->name('records.destroy');
