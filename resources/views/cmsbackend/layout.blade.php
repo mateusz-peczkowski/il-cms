@@ -122,6 +122,7 @@
                             <li{{ $is_active_nav == 'settings/navigations' ? ' class=active' : '' }}><a href="{{ route('index-navigations') }}"> {{ __('Nawigacje') }}</a></li>
                             <li{{ $is_active_nav == 'settings/languages' ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ $is_active_nav == 'settings/translations' ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/missing/translations' ? ' class=active' : '' }}><a href="{{ route('missing.translations') }}"> {{ __('Brakujące tłumaczenia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>

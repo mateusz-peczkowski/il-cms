@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::get('settings/translations/locale/{locale}', 'TranslationsController@changelocale')->name('translations.changelocale');
     Route::post('settings/translation/duplicate', 'TranslationsController@duplicate')->name('translations.duplicate')->middleware('developers');
 
+    Route::resource('settings/missing/translations', 'MissingTranslationsController', ['except' => ['show', 'update', 'destroy'], 'names' => ['index' => 'missing.translations', 'store' => 'missing.translations.create']]);
+    //Route::post('settings/missing/translations/create', 'MissingTranslationsController@create')->name('missing.translations.create');
+
     Route::resource('settings/languages', 'LanguagesController', ['except' => ['show', 'create', 'destroy'], 'names' => ['index' => 'languages']]);
     Route::get('settings/languages/{id}/deactivate', 'LanguagesController@deactivate')->name('languages.deactivate')->middleware('developers');
     Route::get('settings/languages/{id}/activate', 'LanguagesController@activate')->name('languages.activate')->middleware('developers');
