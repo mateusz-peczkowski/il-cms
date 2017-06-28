@@ -86,7 +86,7 @@ class ModulesController extends BackendController
      */
     public function update($id, UpdateModule  $request)
     {
-        $obj = $request->only('title', 'structure', 'has_details', 'order_records', 'order_records_type');
+        $obj = $request->only('title', 'structure', 'sections_structure', 'has_details', 'order_records', 'order_records_type');
         if($obj['title'] != $this->modules->find($id)->title) {
             $obj['slug'] = $this->constructSlug(0, $obj['title']);
         }

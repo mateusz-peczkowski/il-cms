@@ -18,7 +18,10 @@
     "require": {
         "php": ">=5.6.4",
         "chriskonnertz/open-graph": "^1.0",
+        "appstract/laravel-opcache": "^1.1",
+        "cornford/googlmapper": "^2.25",
         "creitive/laravel5-breadcrumbs": "^2.0",
+        "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",

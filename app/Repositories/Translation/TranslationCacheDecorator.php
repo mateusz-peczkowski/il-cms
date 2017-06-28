@@ -70,4 +70,17 @@ class TranslationCacheDecorator extends AbstractCacheDecorator implements Transl
 
         return $translations;
     }
+
+    public function findByKey($key = false, $locale = '')
+    {
+        $cacheName = 'translation_by_key_' . $key . '_locale_' . $locale;
+        if ($this->cache->has($cacheName)) {
+            return$this->cache->get($cacheName);
+        }
+
+        $translation = $this->translation->findByKey($key, $locale);
+        $this->cache->put($cacheName, $translation, 60);
+
+        return $translation;
+    }
 }

@@ -70,4 +70,23 @@ class CMS
         return $language->isMoreLocales();
     }
 
+    public static function trans($key)
+    {
+        $translation = resolve('App\Repositories\Contracts\TranslationRepositoryInterface');
+        $term = $translation->findByKey($key, CMS::getLocale());
+
+        if (!$term) {
+            $defaultTerm = $translation->findByKey($key, CMS::getDefaultLocale());
+            if ($defaultTerm) {
+                echo $defaultTerm->value;
+                return;
+            } else {
+                echo __($key);
+                return;
+            }
+        } else {
+            echo $term->value;
+            return;
+        }
+    }
 }

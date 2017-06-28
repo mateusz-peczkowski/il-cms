@@ -171,6 +171,8 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
+        Appstract\Opcache\OpcacheServiceProvider::class,
+        Cornford\Googlmapper\MapperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -243,6 +245,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'OpenGraph' => ChrisKonnertz\OpenGraph\OpenGraphFacade::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
 
         //App facades
         'CMS' => App\Libraries\CMS::class,

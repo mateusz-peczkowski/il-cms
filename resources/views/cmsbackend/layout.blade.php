@@ -122,6 +122,7 @@
                             <li{{ $is_active_nav == 'settings/navigations' ? ' class=active' : '' }}><a href="{{ route('index-navigations') }}"> {{ __('Nawigacje') }}</a></li>
                             <li{{ $is_active_nav == 'settings/languages' ? ' class=active' : '' }}><a href="{{ route('languages') }}"> {{ __('Języki') }}</a></li>
                             <li{{ $is_active_nav == 'settings/translations' ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/missing/translations' ? ' class=active' : '' }}><a href="{{ route('missing.translations') }}"> {{ __('Brakujące tłumaczenia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
                         </ul>
                     </li>
@@ -196,6 +197,7 @@
     <script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="/backend/plugins/select2/select2.full.min.js"></script>
     <script src="/backend/plugins/nestable/jquery.nestable.js"></script>
+    <script src="/backend/plugins/bootstrap/bootstrap3-wysihtml5.all.min.js"></script>
     <script src="/backend/js/app.min.js"></script>
     <script src="/backend/js/custom.js"></script>
 
