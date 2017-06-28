@@ -11,4 +11,6 @@ interface TranslationRepositoryInterface
 
     public function checkTranslationExist($key = false, $locale = '');
 
+    public function findByKey($key = false, $locale = '');
+
 }

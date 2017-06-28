@@ -45,4 +45,12 @@ class EloquentTranslationRepository extends AbstractRepository implements Transl
             ->count();
     }
 
+    public function findByKey($key = false, $locale = '')
+    {
+        return $this->model
+            ->where('key', $key)
+            ->where('locale', $locale)
+            ->first();
+
+    }
 }
