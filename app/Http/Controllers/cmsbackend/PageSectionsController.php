@@ -157,20 +157,12 @@ class PageSectionsController extends BackendController
      */
     public function destroy($id)
     {
-        $statusmsg = __('Sekcja usunięta');
-        return $this->change_status($id, 3, $statusmsg, 'success');
-    }
-
-    private function change_status($id, $status, $statusmsg, $statusmsgtype)
-    {
         $page = $this->sections->find($id)->page->pop();
-        $this->sections->update([
-            'status' => $status,
-            'who_updated' => Auth::id()
-        ], $id);
+        $this->sections->destroy($id);
+
         return redirect()->route('pages.sections', $page->id)->with([
-            'status' => $statusmsg,
-            'status_type' => $statusmsgtype
+            'status' => __('Sekcja usunięta'),
+            'status_type' => 'danger'
         ]);
     }
 }

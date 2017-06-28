@@ -18,10 +18,6 @@ class Section extends Model
         return $this->belongsToMany('App\Page', 'page_sections');
     }
 
-    public function module() {
-        return $this->belongsToMany('App\Module', 'module_sections');
-    }
-
     public function updater() {
         return $this->hasOne('App\User', 'id', 'who_updated');
     }

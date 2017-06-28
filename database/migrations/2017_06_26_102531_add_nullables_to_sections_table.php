@@ -17,6 +17,7 @@ class AddNullablesToSectionsTable extends Migration
             $table->text('content')->nullable()->change();
             $table->string('header')->nullable()->change();
             $table->string('view')->nullable()->change();
+            $table->string('options')->nullable()->change();
         });
     }
 
@@ -31,6 +32,7 @@ class AddNullablesToSectionsTable extends Migration
             $table->text('content')->nullable(false)->change();
             $table->string('header')->nullable(false)->change();
             $table->string('view')->nullable(false)->change();
+            $table->string('options')->nullable(false)->change();
         });
     }
 }
