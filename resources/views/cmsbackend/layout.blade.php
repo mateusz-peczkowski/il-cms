@@ -111,7 +111,7 @@
                         </ul>
                     </li>
                     <li{{ $is_active_nav == 'users' ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules' || $is_active_nav == 'settings/navigations' || $is_active_nav == 'settings/sitemap' || $is_active_nav = 'settings/missing/translations') ? ' active' : '' }}">
+                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules' || $is_active_nav == 'settings/navigations' || $is_active_nav == 'settings/sitemap' || $is_active_nav == 'settings/missing/translations') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
