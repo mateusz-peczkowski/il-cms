@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
     Route::post('settings/options/duplicate', 'OptionsController@duplicate')->name('options.duplicate')->middleware('developers');
 
     Route::get('trash', 'TrashController@index')->name('trash');
-    Route::get('trash/{module}/{id}/revoke', 'TrashController@revoke')->name('trash.revoke')->middleware('developers');
+    Route::get('trash/{module}/{id}/revoke/{status?}', 'TrashController@revoke')->name('trash.revoke')->middleware('developers');
     Route::get('trash/{module}/{id}/{type}/destroy', 'TrashController@destroy')->name('trash.destroy')->middleware('developers');
 
     Route::get('changelog', 'ChangelogController@index')->name('changelog');
@@ -169,5 +169,15 @@ Route::group(['middleware' => 'auth', 'namespace' => 'cmsbackend', 'prefix' => '
      * Activity log routes
      */
     Route::get('activity', 'ActivityLogController@index')->name('activity.log');
+
+    /**
+     * Sitemap routes
+     */
+    Route::get('settings/sitemap', 'SiteMapController@index')->name('sitemap.index');
+    Route::post('settings/sitemap', 'SiteMapController@store')->name('sitemap.store');
+    Route::get('settings/sitemap/{id}/edit', 'SiteMapController@edit')->name('sitemap.edit');
+    Route::put('settings/sitemap/{id}/edit', 'SiteMapController@update')->name('sitemap.update');
+    Route::get('settings/sitemap/{id}/delete', 'SiteMapController@delete')->name('sitemap.delete');
+    Route::get('settitngs/sitemap/scan', 'SiteMapController@scan')->name('sitemap.scan');
 
 });

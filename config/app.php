@@ -170,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        Roumen\Sitemap\SitemapServiceProvider::class,
         Riverskies\Laravel\MobileDetect\MobileDetectServiceProvider::class,
         ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
         Webwizo\Shortcodes\ShortcodesServiceProvider::class,

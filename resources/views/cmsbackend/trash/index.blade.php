@@ -580,6 +580,75 @@
                                 </div>
                             </div>
                         </div>
+                @endif
+
+                    @if(isset($sitemaps) && $sitemaps->isEmpty())
+                        @if(Session::has('status-sitemap'))
+                            <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-sitemap') }}!</h4>
+                            </div>
+                        @endif
+                    @endif
+                    @if(isset($sitemaps) && !$sitemaps->isEmpty())
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <i class="fa fa-globe"></i>
+                                <h3 class="box-title">{{ __('Mapa strony') }}</h3>
+                            </div>
+                            <div class="box-body">
+                                @if(Session::has('status-sitemap'))
+                                    <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-sitemap') }}!</h4>
+                                    </div>
+                                @endif
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                        <th>{{ __('URL') }}</th>
+                                        <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                        @can('revokeDestroy', 'App\User')
+                                            <th style="width: 50px;">&nbsp;</th>
+                                        @endcan
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($sitemaps as $num => $sitemap)
+                                        <tr>
+                                            <td style="text-align: center;">{{ $num+1 }}</td>
+                                            <td>{{ $sitemap->url }}</td>
+                                            @if($sitemap->who_updated)
+                                                <td><img src="{{ $sitemap->updater->image ? : '/backend/img/blank.jpg' }}" class="user-circle-image" width="25" height="25" alt=""> {{ $sitemap->updater->name }} <small class="text-muted">({{ $sitemap->updated_at }})</small></td>
+                                            @else
+                                                <td>&nbsp;</td>
+                                            @endif
+                                            @can('revokeDestroy', 'App\User')
+                                                <td class="text-right">
+                                                    <a href="#" data-href="{{ route('trash.revoke', ['sitemap', $sitemap->id, '1']) }}" class="text-blue" data-toggle="modal" data-target="#confirm-revoke" title="{{ __('Przywróć') }}"><i class="fa fa-reply"></i></a>
+                                                    <a href="#" data-href="{{ route('trash.destroy', ['sitemap', $sitemap->id, 'destroy']) }}" class="text-red" data-toggle="modal" data-target="#confirm-destroy" title="{{ __('Usuń na stałe') }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            @endcan
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th style="width: 35px;">{{ __('Lp.') }}</th>
+                                        <th>{{ __('URL') }}</th>
+                                        <th><strong>{{ __('Usunięte przez') }}</strong> <small class="text-muted">({{ __('strefa czasowa: :timezone', ['timezone' => config('app.timezone')]) }})</small></th>
+                                        @can('revokeDestroy', 'App\User')
+                                            <th style="width: 50px;">&nbsp;</th>
+                                        @endcan
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="pull-right">
+                                    {{ $sitemaps->links() }}
+                                </div>
+                            </div>
+                        </div>
                     @endif
             </div>
         </div>

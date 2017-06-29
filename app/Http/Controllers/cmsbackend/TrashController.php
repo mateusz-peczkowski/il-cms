@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\cmsbackend;
 
+use App\Repositories\Contracts\SiteMapRepositoryInterface;
 use App\Repositories\Contracts\SectionRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\RedirectRepositoryInterface;
@@ -15,7 +16,7 @@ use Auth;
 
 class TrashController extends BackendController
 {
-    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module, NavigationRepositoryInterface $navigation, SectionRepositoryInterface $section)
+    public function __construct(UserRepositoryInterface $user, RedirectRepositoryInterface $redirect, TranslationRepositoryInterface $translation, LanguageRepositoryInterface $language, FormRepositoryInterface $form, PageRepositoryInterface $page, ModuleRepositoryInterface $module, NavigationRepositoryInterface $navigation, SiteMapRepositoryInterface $sitemap, SectionRepositoryInterface $section)
     {
         parent::__construct();
         $this->user = $user;
@@ -26,6 +27,7 @@ class TrashController extends BackendController
         $this->page = $page;
         $this->module = $module;
         $this->navigation = $navigation;
+        $this->sitemap = $sitemap;
         $this->section = $section;
     }
 
@@ -44,6 +46,7 @@ class TrashController extends BackendController
         $pages = $this->page->paginatedPagesTrash();
         $modules = $this->module->paginatedModulesTrash();
         $navigations = $this->navigation->paginatedNavigationsTrash();
+        $sitemaps = $this->sitemap->paginatedRecordsTrash();
         $sections = $this->section->paginatedSectionsTrash();
         $this->breadcrumbs->addCrumb(__('Usunięte elementy'), '/cmsbackend/trash');
         return view('cmsbackend.trash.index')->with([
@@ -55,6 +58,7 @@ class TrashController extends BackendController
             'pages' => $pages,
             'modules' => $modules,
             'navigations' => $navigations,
+            'sitemaps' => $sitemaps,
             'sections' => $sections,
             'breadcrumbs' => $this->breadcrumbs,
             'pageTitle' => __('Usunięte elementy'),
@@ -67,12 +71,12 @@ class TrashController extends BackendController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function revoke($module, $id)
+    public function revoke($module, $id, $status = '2')
     {
         $statusmsg = __('Element przywrócony');
 
         $this->$module->update([
-            'status' => 2,
+            'status' => $status,
             'who_updated' => Auth::id()
         ], $id);
         return redirect()->route('trash')->with([

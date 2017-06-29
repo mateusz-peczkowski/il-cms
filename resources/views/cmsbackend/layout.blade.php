@@ -111,7 +111,7 @@
                         </ul>
                     </li>
                     <li{{ $is_active_nav == 'users' ? ' class=active' : '' }}><a href="{{ route('users') }}"><i class="fa fa-users"></i> <span>{{ __('Użytkownicy') }}</span></a></li>
-                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules' || $is_active_nav == 'settings/navigations' || $is_active_nav = 'settings/missing/translations') ? ' active' : '' }}">
+                    <li class="treeview{{ ($is_active_nav == 'settings/options' || $is_active_nav == 'settings/languages' || $is_active_nav == 'settings/translations' || $is_active_nav == 'settings/redirects' || $is_active_nav == 'settings/modules' || $is_active_nav == 'settings/navigations' || $is_active_nav == 'settings/sitemap') || $is_active_nav = 'settings/missing/translations') ? ' active' : '' }}">
                         <a href="#">
                             <i class="fa fa-wrench"></i> <span>{{ __('Ustawienia') }}</span>
                             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -124,6 +124,7 @@
                             <li{{ $is_active_nav == 'settings/translations' ? ' class=active' : '' }}><a href="{{ route('translations') }}"> {{ __('Tłumaczenia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/missing/translations' ? ' class=active' : '' }}><a href="{{ route('missing.translations') }}"> {{ __('Brakujące tłumaczenia') }}</a></li>
                             <li{{ $is_active_nav == 'settings/redirects' ? ' class=active' : '' }}><a href="{{ route('redirects') }}"> {{ __('Przekierowania') }}</a></li>
+                            <li{{ $is_active_nav == 'settings/sitemap' ? ' class=active' : '' }}><a href="{{ route('sitemap.index') }}"> {{ __('Mapa strony') }}</a></li>
                         </ul>
                     </li>
                     @can('seeactivity', 'App\User')

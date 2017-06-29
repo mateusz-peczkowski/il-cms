@@ -153,7 +153,7 @@ $(function () {
     $('.select2').each(function() {
         $(this).select2();
     });
-    $('#confirm-delete, #confirm-deactivate, #confirm-revoke, #confirm-destroy').on('show.bs.modal', function(e) {
+    $('#confirm-delete, #confirm-deactivate, #confirm-revoke, #confirm-destroy, #confirm-scan').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
     removeAutoHide();

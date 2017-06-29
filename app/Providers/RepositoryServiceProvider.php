@@ -96,6 +96,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerModuleRecordRepository();
         $this->registerNavigationRepository();
         $this->registerNavigationNodeRepository();
+        $this->registerSiteMapRepository();
         $this->registerSectionRepository();
     }
 
@@ -309,5 +310,13 @@ class RepositoryServiceProvider extends ServiceProvider
         });
     }
 
-
+    /*
+     * Register SiteMap repository
+     */
+    protected function registerSiteMapRepository()
+    {
+        $this->app->bind('App\Repositories\Contracts\SiteMapRepositoryInterface', function($app) {
+            return new \App\Repositories\SiteMap\EloquentSiteMapRepository($app);
+        });
+    }
 }
