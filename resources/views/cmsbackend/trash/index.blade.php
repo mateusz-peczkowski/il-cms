@@ -368,10 +368,10 @@
 
 
                 @if(isset($pages) && $pages->isEmpty())
-                        @if(Session::has('status-form'))
+                        @if(Session::has('status-page'))
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-page') }}!</h4>
                             </div>
                         @endif
                     @endif
@@ -444,10 +444,10 @@
 
 
                 @if(isset($modules) && $modules->isEmpty())
-                        @if(Session::has('status-form'))
+                        @if(Session::has('status-module'))
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-module') }}!</h4>
                             </div>
                         @endif
                     @endif
@@ -514,10 +514,10 @@
 
 
                 @if(isset($navigations) && $navigations->isEmpty())
-                        @if(Session::has('status-form'))
+                        @if(Session::has('status-navigation'))
                             <div class="alert alert-{{ Session::get('status_type') }} alert-dismissible" data-autohide="true">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-form') }}!</h4>
+                                <h4 class="mb-0"><i class="icon fa fa-check"></i> {{ Session::get('status-navigation') }}!</h4>
                             </div>
                         @endif
                     @endif
