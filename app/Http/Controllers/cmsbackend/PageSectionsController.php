@@ -158,6 +158,7 @@ class PageSectionsController extends BackendController
     public function destroy($id)
     {
         $page = $this->sections->find($id)->page->pop();
+        $this->sections->find($id)->page()->detach();
         $this->sections->destroy($id);
 
         return redirect()->route('pages.sections', $page->id)->with([
