@@ -29,7 +29,8 @@
         "spatie/laravel-activitylog": "^1.15",
         "thomaswelton/laravel-gravatar": "~1.0",
         "weboap/visitor": "dev-master",
-        "webwizo/laravel-shortcodes": "1.0.*"
+        "webwizo/laravel-shortcodes": "1.0.*",
+        "msurguy/honeypot": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.3",

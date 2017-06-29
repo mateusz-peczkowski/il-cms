@@ -85,6 +85,8 @@
                 <div class="title m-b-md">
                     Laravel
                     {{ CMS::trans('hello') }}
+
+                    {!! Honeypot::generate('my_name', 'my_time') !!}
                 </div>
 
                 <div class="links">

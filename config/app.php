@@ -192,6 +192,7 @@ return [
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Weboap\Visitor\VisitorServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Msurguy\Honeypot\HoneypotServiceProvider::class,
 
     ],
 
@@ -251,6 +252,7 @@ return [
         'OpenGraph' => ChrisKonnertz\OpenGraph\OpenGraphFacade::class,
         'Shortcode' => Webwizo\Shortcodes\Facades\Shortcode::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class,
 
         //App facades
         'CMS' => App\Libraries\CMS::class,
