@@ -81,26 +81,26 @@
                         <div class="row browser-list">
                             <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
                                 <div class="row">
-                                    <div v-for="(folder, path) in folders" style="margin-left: -4px; float: none; display: inline-block; vertical-align: middle;" class="col-md-3 col-xs-6" :class="[ (folder == currentFile) ? 'active' : '' ]">
+                                    <div v-for="(folder, path) in folders" style="margin-left: -4px; float: none; display: inline-block; vertical-align: top; min-height: 280px;" class="col-md-3 col-xs-6" :class="[ (folder == currentFile) ? 'active' : '' ]">
                                         <a href="javascript:void(0);"
                                            @click="previewFile(folder)"
                                            @dblclick="loadFolder(path)"
                                            @keyup.enter="loadFolder(path)"
                                            class="word-wrappable">
-                                            <i class="icon-folder" style="font-size: 174px; height: 240px; margin: 0 auto"></i>
+                                            <i class="icon-folder img-thumbnail" style="font-size: 161px; margin: 0 auto; width: 100%; text-align: center;"></i>
                                             <div>
                                                 {{ folder }}
                                             </div>
                                         </a>
                                     </div>
 
-                                    <div v-for="file in files" style="margin-left: -4px; float: none; display: inline-block; vertical-align: middle;" class="col-md-3 col-xs-6" :class="[ (file == currentFile) ? 'active' : '' ]">
+                                    <div v-for="file in files" style="margin-left: -4px; float: none; display: inline-block; vertical-align: top; min-height: 280px;" class="col-md-3 col-xs-6" :class="[ (file == currentFile) ? 'active' : '' ]">
                                         <a href="javascript:void(0);"
                                            @click="previewFile(file)"
                                            @keyup.enter="selectFile(file)"
                                            @dblclick="selectFile(file)">
                                             <img style="height: 240px; width: 100%; object-fit: contain" v-if="isImage(file)" :src="file.webPath" class="icon-image img-responsive img-thumbnail">
-                                            <i v-else class="icon-file-text2" style="font-size: 174px; height: 240px; margin: 0 auto;"></i>
+                                            <i v-else class="icon-file-text2 img-thumbnail" style="font-size: 161px; width: 100%; margin: 0 auto; text-align: center;"></i>
                                             <div class="word-wrappable">
                                                 {{ file.name }}
                                             </div>
@@ -424,6 +424,7 @@
     #easelFileBrowser {
         .browser-list {
             a {
+                text-decoration: none !important;
                 &:hover {
                     text-decoration: none !important;
                     div {

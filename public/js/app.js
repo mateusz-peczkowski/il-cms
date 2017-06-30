@@ -41317,7 +41317,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)();
-exports.push([module.i, "\n#easelFileBrowser .browser-list a:hover {\n  text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover div {\n    text-decoration: underline;\n}\n#easelFileBrowser .browser-list > div > div.row > div {\n  margin-bottom: 20px;\n}\n", ""]);
+exports.push([module.i, "\n#easelFileBrowser .browser-list a {\n  text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover {\n    text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover div {\n      text-decoration: underline;\n}\n#easelFileBrowser .browser-list > div > div.row > div {\n  margin-bottom: 20px;\n}\n", ""]);
 
 /***/ }),
 /* 166 */
@@ -59193,7 +59193,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "margin-left": "-4px",
         "float": "none",
         "display": "inline-block",
-        "vertical-align": "middle"
+        "vertical-align": "top",
+        "min-height": "280px"
       }
     }, [_c('a', {
       staticClass: "word-wrappable",
@@ -59213,11 +59214,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('i', {
-      staticClass: "icon-folder",
+      staticClass: "icon-folder img-thumbnail",
       staticStyle: {
-        "font-size": "174px",
-        "height": "240px",
-        "margin": "0 auto"
+        "font-size": "161px",
+        "margin": "0 auto",
+        "width": "100%",
+        "text-align": "center"
       }
     }), _vm._v(" "), _c('div', [_vm._v("\n                                            " + _vm._s(folder) + "\n                                        ")])])])
   }), _vm._v(" "), _vm._l((_vm.files), function(file) {
@@ -59228,7 +59230,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "margin-left": "-4px",
         "float": "none",
         "display": "inline-block",
-        "vertical-align": "middle"
+        "vertical-align": "top",
+        "min-height": "280px"
       }
     }, [_c('a', {
       attrs: {
@@ -59257,11 +59260,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": file.webPath
       }
     }) : _c('i', {
-      staticClass: "icon-file-text2",
+      staticClass: "icon-file-text2 img-thumbnail",
       staticStyle: {
-        "font-size": "174px",
-        "height": "240px",
-        "margin": "0 auto"
+        "font-size": "161px",
+        "width": "100%",
+        "margin": "0 auto",
+        "text-align": "center"
       }
     }), _vm._v(" "), _c('div', {
       staticClass: "word-wrappable"
