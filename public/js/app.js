@@ -38255,6 +38255,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59041,7 +59053,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "btn-group offset-right"
-  }, [_c('button', {
+  }, [(_vm.isModal) ? _c('button', {
+    staticClass: "btn btn-primary btn-icon-text btn-file",
+    attrs: {
+      "type": "button",
+      "data-toggle": "modal",
+      "data-target": "#modalUploader",
+      "title": "Upload"
+    }
+  }, [_c('i', {
+    staticClass: "icon-upload"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "hidden-xs"
+  }, [_vm._v("Upload")])]) : _c('button', {
     staticClass: "btn btn-primary btn-icon-text btn-file",
     attrs: {
       "type": "button",
@@ -59137,7 +59161,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon-pencil"
   }), _vm._v(" "), _c('span', {
     staticClass: "hidden-xs"
-  }, [_vm._v("Rename")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Rename")])])])]), _vm._v(" "), (_vm.isModal) ? _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "id": "modalUploader"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('media-errors', {
+    attrs: {
+      "errors": _vm.errors
+    }
+  }), _vm._v(" "), _c('uploader')], 1)]) : _c('div', {
     staticClass: "collapse",
     attrs: {
       "id": "collapseUploader"

@@ -9,7 +9,11 @@
                     <div class="btn-group offset-right">
 
                         <!-- File input wont get triggered if this is a button so use a label instead -->
-                        <button type="button" class="btn btn-primary btn-icon-text btn-file" data-toggle="collapse" data-target="#collapseUploader" aria-expanded="false" aria-controls="collapseUploader" title="Upload">
+                        <button v-if="isModal" type="button" class="btn btn-primary btn-icon-text btn-file" data-toggle="modal" data-target="#modalUploader" title="Upload">
+                            <i class="icon-upload"></i>
+                            <span class="hidden-xs">Upload</span>
+                        </button>
+                        <button v-else="isModal" type="button" class="btn btn-primary btn-icon-text btn-file" data-toggle="collapse" data-target="#collapseUploader" aria-expanded="false" aria-controls="collapseUploader" title="Upload">
                             <i class="icon-upload"></i>
                             <span class="hidden-xs">Upload</span>
                         </button>
@@ -47,12 +51,20 @@
                     </div>
 
                 </div>
-                <div class="collapse" id="collapseUploader">
+                <div v-if="isModal" class="modal fade" tabindex="-1" role="dialog" id="modalUploader">
+                    <div class="modal-dialog">
+                        <media-errors :errors="errors"></media-errors>
+                        <uploader></uploader>
+                    </div>
+                </div>
+                <div v-else="isModal" class="collapse" id="collapseUploader">
                     <div class="well">
                         <media-errors :errors="errors"></media-errors>
                         <uploader></uploader>
                     </div>
                 </div>
+
+
 
             </div>
 
