@@ -4,6 +4,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="author" content="CENTcms">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="apple-touch-icon" sizes="57x57" href="/backend/favicons/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/backend/favicons/apple-icon-60x60.png">
@@ -27,7 +28,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
 <link rel="stylesheet" href="/backend/plugins/iCheck/blue.css">
-<link rel="stylesheet" href="/backend/plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="/backend/plugins/datatables/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/backend/plugins/select2/select2.min.css">
 
 <link rel="stylesheet" href="/backend/css/bootstrap.min.css">

@@ -7,6 +7,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+//import {http} from './services/http'
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,6 +19,8 @@ window.Vue = require('vue');
 
 //Vue.component('example', require('./components/Example.vue'));
 require('./../talvbansal/media-manager/js/media-manager');
+Vue.component('uploader', require('./components/Uploader.vue'));
+
 const app = new Vue({
     el: '#app'
 });
