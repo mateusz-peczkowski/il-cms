@@ -62,7 +62,7 @@
                 </div>
 
                 <div v-else>
-                    <div class="easel-file-browser">
+                    <div id="easelFileBrowser" class="easel-file-browser">
                         <div class="row">
                             <div class="col-xs-12">
                                 <ol class="breadcrumb">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row browser-list">
                             <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
                                 <div class="row">
                                     <div v-for="(folder, path) in folders" style="margin-left: -4px; float: none; display: inline-block; vertical-align: middle;" class="col-md-3 col-xs-6" :class="[ (folder == currentFile) ? 'active' : '' ]">
@@ -107,51 +107,6 @@
                                         </a>
                                     </div>
                                 </div>
-
-                                <!-- div class="table-responsive easel-file-picker-list">
-                                    <table class="table table-condensed table-vmiddle">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="(folder, path) in folders" :class="[ (folder == currentFile) ? 'active' : '' ]">
-                                            <td>
-                                                <i class="icon-folder"></i>
-                                                <a href="javascript:void(0);"
-                                                   @click="previewFile(folder)"
-                                                   @dblclick="loadFolder(path)"
-                                                   @keyup.enter="loadFolder(path)"
-                                                   class="word-wrappable">
-                                                    {{ folder }}
-                                                </a>
-                                            </td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                        </tr>
-
-                                        <tr v-for="file in files" :class="[ (file == currentFile) ? 'active' : '' ]">
-                                            <td>
-                                                <img v-if="isImage(file)" :src="file.webPath" class="icon-image" width="20" height="20">
-                                                <i v-else class="icon-file-text2"></i>
-                                                <a href="javascript:void(0);"
-                                                   @click="previewFile(file)"
-                                                   @keyup.enter="selectFile(file)"
-                                                   @dblclick="selectFile(file)"
-                                                   class="word-wrappable">
-                                                    {{ file.name }}
-                                                </a>
-
-                                            </td>
-                                            <td> {{ file.mimeType }}</td>
-                                            <td> {{ file.modified.date | moment('DD/MM/YYYY') }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div -->
                             </div>
                             <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3">
 
@@ -464,3 +419,21 @@
         }
     }
 </script>
+
+<style lang="scss">
+    #easelFileBrowser {
+        .browser-list {
+            a {
+                &:hover {
+                    text-decoration: none !important;
+                    div {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            > div > div.row > div {
+                margin-bottom: 20px;
+            }
+        }
+    }
+</style>
