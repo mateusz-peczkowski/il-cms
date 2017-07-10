@@ -20,7 +20,16 @@ window.Vue = require('vue');
 //Vue.component('example', require('./components/Example.vue'));
 require('./../talvbansal/media-manager/js/media-manager');
 Vue.component('uploader', require('./components/Uploader.vue'));
+Vue.component('modal-manager', require('./components/ModalManager.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        showMediaManager: false
+    },
+    methods: {
+        openMediaManager () {
+            this.$refs.modalManager.showMediaManager = true
+        }
+    }
 });

@@ -5,7 +5,7 @@
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 
-    <div class="wrapper">
+    <div id="app" class="wrapper">
         <header class="main-header">
             <a href="{{ route('dashboard') }}" class="logo">
                 <span class="logo-mini"><b>C</b>2</span>
@@ -140,7 +140,7 @@
             <div class="pull-right hidden-xs">
                 <b>{{ __('Wersja') }}:</b> {{ config('app.version') }}
             </div>
-            <strong>&copy; {{ __('Wszelkie prawa zastrzeżone') }}.
+            <strong>&copy; {{ __('Wszelkie prawa zastrzeżone') }}.</strong>
         </footer>
 
         <div class="control-sidebar-bg"></div>
@@ -162,16 +162,17 @@
             </div>
         </div>
         @yield('modals')
+        <modal-manager ref="modalManager"></modal-manager>
     </div>
 
     <script src="/backend/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="/backend/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="/backend/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="/backend/plugins/fastclick/fastclick.min.js"></script>
-    <script src="/backend/plugins/iCheck/icheck.min.js"></script>
     <script src="/backend/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="/backend/plugins/select2/select2.full.min.js"></script>
+    <script src="/backend/plugins/iCheck/icheck.min.js"></script>
     <script src="/js/app.js"></script>
     <!-- script src="/backend/js/app.min.js"></script -->
     <script src="/backend/js/custom.js"></script>
