@@ -37840,6 +37840,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -37847,9 +37848,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            showMediaManager: false
+            showMediaManager: false,
+            selectedMedia: null
         };
     },
+    mounted: function mounted() {
+        window.eventHub.$on('media-manager-selected-media', function (file) {
+            this.selectedMedia = file.webPath;
+
+            // Hide the Media Manager...
+            this.showMediaManager = false;
+        }.bind(this));
+    },
+
     components: {
         'media-modalx': __WEBPACK_IMPORTED_MODULE_0__talvbansal_media_manager_js_components_MediaModal_vue___default.a,
         'media-managerx': __WEBPACK_IMPORTED_MODULE_1__talvbansal_media_manager_js_components_MediaManager_vue___default.a
@@ -41453,7 +41464,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n#easelFileBrowser .browser-list a {\n  text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover {\n    text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover div {\n      text-decoration: underline;\n}\n#easelFileBrowser .browser-list > div > div.row > div {\n  margin-bottom: 20px;\n}\n", ""]);
+exports.push([module.i, "\n#easelFileBrowser {\n  max-height: 70vh;\n  overflow: auto;\n}\n#easelFileBrowser .browser-list a {\n    text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover {\n      text-decoration: none !important;\n}\n#easelFileBrowser .browser-list a:hover div {\n        text-decoration: underline;\n}\n#easelFileBrowser .browser-list > div > div.row > div {\n    margin-bottom: 20px;\n}\n", ""]);
 
 /***/ }),
 /* 169 */
@@ -41467,7 +41478,7 @@ exports.push([module.i, "\n#myVueDropzone.vue-dropzone {\n  font-family: inherit
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n.media-wrapper {\n  overflow: auto;\n  max-height: 500px;\n}\n", ""]);
+exports.push([module.i, "\n.media-wrapper {\n  overflow: auto;\n}\n", ""]);
 
 /***/ }),
 /* 171 */
@@ -59785,7 +59796,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('media-managerx', {
     attrs: {
-      "is-modal": true
+      "is-modal": true,
+      "selected-event-name": "media"
     },
     on: {
       "close": function($event) {

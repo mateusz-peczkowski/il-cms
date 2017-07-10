@@ -3,6 +3,7 @@
         <media-modalx v-if="showMediaManager" @close="showMediaManager = false">
             <media-managerx
                 :is-modal="true"
+                selected-event-name="media"
                 @close="showMediaManager = false"
             >
             </media-managerx>
@@ -17,8 +18,17 @@
     export default {
         data: function () {
             return {
-                showMediaManager: false
+                showMediaManager: false,
+                selectedMedia: null
             }
+        },
+        mounted () {
+            window.eventHub.$on('media-manager-selected-media', function (file) {
+                this.selectedMedia = file.webPath;
+
+                // Hide the Media Manager...
+                this.showMediaManager = false;
+            }.bind(this))
         },
         components: {
             'media-modalx': MediaModal,
@@ -35,6 +45,5 @@
 <style lang="scss">
     .media-wrapper {
         overflow: auto;
-        max-height: 500px;
     }
 </style>

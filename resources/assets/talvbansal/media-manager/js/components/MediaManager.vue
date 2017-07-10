@@ -434,6 +434,8 @@
 
 <style lang="scss">
     #easelFileBrowser {
+        max-height: 70vh;
+        overflow: auto;
         .browser-list {
             a {
                 text-decoration: none !important;

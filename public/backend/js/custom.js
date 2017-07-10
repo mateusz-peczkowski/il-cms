@@ -29,12 +29,14 @@ var removeAutoHide = function() {
 }
 
 
-$(function () {
+$(function() {
+    $.noConflict();
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
     });
+
     $('.js-data-table').each(function() {
         $(this).DataTable({
             "paging": true,
@@ -45,9 +47,11 @@ $(function () {
             "autoWidth": false
         });
     });
-    $('.select2').each(function() {
-        $(this).select2();
-    });
+    if($('.select2').length > 0) {
+        $('.select2').each(function() {
+            $(this).select2();
+        });
+    }
     $('#confirm-delete, #confirm-deactivate, #confirm-revoke, #confirm-destroy').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });

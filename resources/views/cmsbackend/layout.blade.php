@@ -173,9 +173,9 @@
     <script src="/backend/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="/backend/plugins/select2/select2.full.min.js"></script>
     <script src="/backend/plugins/iCheck/icheck.min.js"></script>
+    <script src="/backend/js/custom.js"></script>
     <script src="/js/app.js"></script>
     <!-- script src="/backend/js/app.min.js"></script -->
-    <script src="/backend/js/custom.js"></script>
     @yield('scripts')
 
 </body>
