@@ -9,7 +9,7 @@
 return [
 
     'routes' => [
-        'middleware' => [],
+        'middleware' => ['auth'],
         'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/cmsbackend/'),
     ],
 
