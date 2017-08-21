@@ -9,7 +9,7 @@
                     <div class="btn-group offset-right">
 
                         <!-- File input wont get triggered if this is a button so use a label instead -->
-                        <button v-if="isModal" type="button" class="btn btn-primary btn-icon-text btn-file" data-toggle="modal" data-target="#modalUploader" title="Upload">
+                        <button v-if="isModal" type="button" class="btn btn-primary btn-icon-text btn-file" data-toggle="collapse" data-target="#modalUploader" aria-expanded="false" aria-controls="modalUploader" title="Upload">
                             <i class="icon-upload"></i>
                             <span class="hidden-xs">Upload</span>
                         </button>
@@ -51,8 +51,8 @@
                     </div>
 
                 </div>
-                <div v-if="isModal" class="modal fade" tabindex="-1" role="dialog" id="modalUploader">
-                    <div class="modal-dialog">
+                <div v-if="isModal" class="collapse" id="modalUploader">
+                    <div class="well">
                         <media-errors :errors="errors"></media-errors>
                         <uploader></uploader>
                     </div>
@@ -96,12 +96,12 @@
                                     <div v-for="(folder, path) in folders" style="margin-left: -4px; float: none; display: inline-block; vertical-align: top; min-height: 280px;" class="col-md-3 col-xs-6" :class="[ (folder == currentFile) ? 'active' : '' ]">
                                         <a href="javascript:void(0);"
                                            @click="previewFile(folder)"
-                                           @dblclick="loadFolder(path)"
-                                           @keyup.enter="loadFolder(path)"
+                                           @dblclick="loadFolder(folder.fullPath)"
+                                           @keyup.enter="loadFolder(folder.fullPath)"
                                            class="word-wrappable">
                                             <i class="icon-folder img-thumbnail" style="font-size: 161px; margin: 0 auto; width: 100%; text-align: center;"></i>
                                             <div>
-                                                {{ folder }}
+                                                {{ folder.name }}
                                             </div>
                                         </a>
                                     </div>
